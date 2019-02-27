@@ -1,57 +1,127 @@
 import { LightningElement, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+/* Import Class Methods */
 import listMetadata from '@salesforce/apex/MetadataSelector.listMetadata';
 
+/* Import Custom Labels */
+import Metadata_Type_Selector from '@salesforce/label/c.Metadata_Type_Selector';
+import Metadata_Types from '@salesforce/label/c.Metadata_Types';
+import Metadata_Types_Placeholder from '@salesforce/label/c.Metadata_Types_Placeholder';
+import Package_Types_Placeholder from '@salesforce/label/c.Package_Types_Placeholder';
+import Metadata_Types_Missing from '@salesforce/label/c.Metadata_Types_Missing';
+import Package_Types_Missing from '@salesforce/label/c.Package_Types_Missing';
+import Search_Button from '@salesforce/label/c.Search_Button';
+import Results_Title from '@salesforce/label/c.Results_Title';
+import Package_Title from '@salesforce/label/c.Package_Title';
+import SFDX_Retrieve_Title from '@salesforce/label/c.SFDX_Retrieve_Title';
+import Name_Column from '@salesforce/label/c.Name_Column';
+import File_Name_Column from '@salesforce/label/c.File_Name_Column';
+import Manageable_State_Column from '@salesforce/label/c.Manageable_State_Column';
+import Namespace_Column from '@salesforce/label/c.Namespace_Column';
+import Package_Type_All from '@salesforce/label/c.Package_Type_All';
+import Package_Type_Unmanaged from '@salesforce/label/c.Package_Type_Unmanaged';
+import Package_Type_Managed from '@salesforce/label/c.Package_Type_Managed';
+import Metadata_Retrieve_Error_Title from '@salesforce/label/c.Metadata_Retrieve_Error_Title';
+import Metadata_Retrieve_Success_Message from '@salesforce/label/c.Metadata_Retrieve_Success_Message';
+
 const columns = [
-    { label: 'Name', fieldName: 'fullName', type: 'string' },
-    { label: 'File Name', fieldName: 'fileName', type: 'string' },
-    { label: 'Manageable State', fieldName: 'manageableState', type: 'string' },
-    { label: 'Namespace', fieldName: 'namespacePrefix', type: 'string' }
+    { label: Name_Column, fieldName: 'fullName', type: 'string' },
+    { label: File_Name_Column, fieldName: 'fileName', type: 'string' },
+    { label: Manageable_State_Column, fieldName: 'manageableState', type: 'string' },
+    { label: Namespace_Column, fieldName: 'namespacePrefix', type: 'string' }
 ];
 
 export default class MetadataSelector extends LightningElement {
-    info;
-    @track data = [];
+    _title = 'Error';
+    message = 'Message';
+    variant = 'error';
+    variantOptions = [
+        { label: 'Error', value: 'error' },
+        { label: 'Warning', value: 'warning' },
+        { label: 'Success', value: 'success' },
+        { label: 'Info', value: 'info' },
+    ];
+    
+    @track metdataTypes = [];
+    @track selectedMetdataTypes = [];
     @track columns = columns;
-    @track metadataType = '';
-    @track packageType = '';
+    @track sfdxOutput = '';
+    @track selectedMetadataType = '';
+    @track selectedPackageType = '';
     @track showMetadataList = false;
-    @track tableLoadingState = true;
+    @track showPackageList = false;
     @track includeAllSymbol = false;
-    @track errors;
+
+    labels = {
+        Metadata_Type_Selector,
+        Metadata_Types,
+        Metadata_Types_Placeholder,
+        Package_Types_Placeholder,
+        Metadata_Types_Missing,
+        Package_Types_Missing,
+        Search_Button,
+        Results_Title,
+        Package_Title,
+        SFDX_Retrieve_Title
+    }
+
+    handleMetadataTypeChange(event) {
+        this.selectedMetadataType = event.target.value;
+    }
+
+    handlePackageTypeChange(event) {
+        this.selectedPackageType = event.target.value;
+    }
 
     handleMetadataSearch() {
-        listMetadata({ metadataType: this.metadataType, packageType: this.packageType })
+        listMetadata({ metadataType: this.selectedMetadataType, packageType: this.selectedPackageType })
             .then(result => {
-                this.data = JSON.parse(result);
+                this.metdataTypes = JSON.parse(result);
                 this.error = undefined;
                 this.showMetadataList = true;
-                this.tableLoadingState = false;
-                if(this.metadataType === 'CustomLabels') {
+                if(this.selectedMetadataType === 'CustomLabels') {
                     this.includeAllSymbol = true;
                 } else {
                     this.includeAllSymbol = false;
                 }
-            })
-            .catch(error => {
+
+                this._title = Metadata_Retrieve_Error_Title
+                this.message = Metadata_Retrieve_Success_Message;
+                this.variant = this.variantOptions[2].value;
+                this.showNotification();
+            }).catch(error => {
                 this.data = undefined;
-                this.error = error;
                 this.includeAllSymbol = false;
+
+                this._title = Metadata_Retrieve_Error_Title
+                this.message = error;
+                this.variant = this.variantOptions[0].value;
+                this.showNotification();
             });
     }
 
-    handleMetadataTypeChange(event) {
-        this.metadataType = event.target.value;
-    }
+    getSelectedName(event) {
+        this.selectedMetdataTypes = event.detail.selectedRows;
 
-    handlePackageTypeChange(event) {
-        this.packageType = event.target.value;
+        this.selectedMetdataTypes.forEach(element => {
+            this.sfdxOutput += element.fullName + ',';
+        });
+
+        this.sfdxOutput = this.sfdxOutput.slice(0, -1);
+        
+        if(this.selectedMetdataTypes.length > 0) {
+            this.showPackageList = true;
+        } else {
+            this.showPackageList = false;
+        }
     }
 
     get packageTypeOptions() {
         return [
-            { label: 'All', value: 'all' },
-            { label: 'Unmanaged Only', value: 'unmanagedOnly' },
-            { label: 'Managed Only', value: 'managedOnly' }
+            { label: Package_Type_All, value: 'all' },
+            { label: Package_Type_Unmanaged, value: 'unmanagedOnly' },
+            { label: Package_Type_Managed, value: 'managedOnly' }
         ];
     }
 
@@ -255,5 +325,14 @@ export default class MetadataSelector extends LightningElement {
             { label: 'Web Link', value: 'WebLink' },
             { label: 'Workflow', value: 'Workflow' }
         ];
+    }
+
+    showNotification() {
+        const evt = new ShowToastEvent({
+            title: this._title,
+            message: this.message,
+            variant: this.variant,
+        });
+        this.dispatchEvent(evt);
     }
 }

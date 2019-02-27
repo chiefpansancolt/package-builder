@@ -8,4 +8,148 @@
         <shortDescription>Metadata Type Selector</shortDescription>
         <value>Metadata Type Selector</value>
     </labels>
+    <labels>
+        <fullName>Metadata_Types</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Types</shortDescription>
+        <value>Metadata Types</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Types_Placeholder</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Types Placeholder</shortDescription>
+        <value>Select a Metadata Type</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Types_Missing</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Types Missing</shortDescription>
+        <value>Please select a Metadata Type</value>
+    </labels>
+    <labels>
+        <fullName>Package_Types_Placeholder</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Types Placeholder</shortDescription>
+        <value>Select a Package Type</value>
+    </labels>
+    <labels>
+        <fullName>Package_Types_Missing</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Types Missing</shortDescription>
+        <value>Please select a Package Type</value>
+    </labels>
+    <labels>
+        <fullName>Search_Button</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search Button</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Results_Title</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Results Title</shortDescription>
+        <value>Results</value>
+    </labels>
+    <labels>
+        <fullName>Package_Title</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Title</shortDescription>
+        <value>Package XML</value>
+    </labels>
+    <labels>
+        <fullName>SFDX_Retrieve_Title</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SFDX Retrieve Title</shortDescription>
+        <value>SFDX Retrieve Command</value>
+    </labels>
+    <labels>
+        <fullName>Name_Column</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Name Column</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>File_Name_Column</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>File Name Column</shortDescription>
+        <value>File Name</value>
+    </labels>
+    <labels>
+        <fullName>Manageable_State_Column</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Manageable State Column</shortDescription>
+        <value>Manageable State</value>
+    </labels>
+    <labels>
+        <fullName>Namespace_Column</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Namespace Column</shortDescription>
+        <value>Namespace</value>
+    </labels>
+    <labels>
+        <fullName>Package_Type_All</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Type All</shortDescription>
+        <value>All</value>
+    </labels>
+    <labels>
+        <fullName>Package_Type_Unmanaged</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Type Unmanaged</shortDescription>
+        <value>Unmanaged Only</value>
+    </labels>
+    <labels>
+        <fullName>Package_Type_Managed</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Type Managed</shortDescription>
+        <value>Managed Only</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Retrieve_Error_Title</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Retrieve Error Title</shortDescription>
+        <value>Error Occured While Retrieving Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Retrieve_Success_Message</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Retrieve Success Message</shortDescription>
+        <value>Metadata Retrieved Successfully</value>
+    </labels>
 </CustomLabels>
