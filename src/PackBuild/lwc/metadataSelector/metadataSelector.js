@@ -24,12 +24,14 @@ import Package_Type_Unmanaged from '@salesforce/label/c.Package_Type_Unmanaged';
 import Package_Type_Managed from '@salesforce/label/c.Package_Type_Managed';
 import Metadata_Retrieve_Error_Title from '@salesforce/label/c.Metadata_Retrieve_Error_Title';
 import Metadata_Retrieve_Success_Message from '@salesforce/label/c.Metadata_Retrieve_Success_Message';
+import Package_Types from '@salesforce/label/c.Package_Types';
+import Metadata_Retrieve_Success_Title from '@salesforce/label/c.Metadata_Retrieve_Success_Title';
 
 const columns = [
-    { label: Name_Column, fieldName: 'fullName', type: 'string' },
-    { label: File_Name_Column, fieldName: 'fileName', type: 'string' },
-    { label: Manageable_State_Column, fieldName: 'manageableState', type: 'string' },
-    { label: Namespace_Column, fieldName: 'namespacePrefix', type: 'string' }
+    { label: Name_Column, fieldName: 'fullName', type: 'text' },
+    { label: File_Name_Column, fieldName: 'fileName', type: 'text' },
+    { label: Manageable_State_Column, fieldName: 'manageableState', type: 'text' },
+    { label: Namespace_Column, fieldName: 'namespacePrefix', type: 'text' }
 ];
 
 export default class MetadataSelector extends LightningElement {
@@ -56,6 +58,7 @@ export default class MetadataSelector extends LightningElement {
     labels = {
         Metadata_Type_Selector,
         Metadata_Types,
+        Package_Types,
         Metadata_Types_Placeholder,
         Package_Types_Placeholder,
         Metadata_Types_Missing,
@@ -63,7 +66,8 @@ export default class MetadataSelector extends LightningElement {
         Search_Button,
         Results_Title,
         Package_Title,
-        SFDX_Retrieve_Title
+        SFDX_Retrieve_Title,
+        Metadata_Retrieve_Success_Title
     }
 
     handleMetadataTypeChange(event) {
@@ -86,7 +90,7 @@ export default class MetadataSelector extends LightningElement {
                     this.includeAllSymbol = false;
                 }
 
-                this._title = Metadata_Retrieve_Error_Title
+                this._title = Metadata_Retrieve_Success_Title
                 this.message = Metadata_Retrieve_Success_Message;
                 this.variant = this.variantOptions[2].value;
                 this.showNotification();

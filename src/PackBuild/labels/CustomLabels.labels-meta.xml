@@ -33,6 +33,14 @@
         <value>Please select a Metadata Type</value>
     </labels>
     <labels>
+        <fullName>Package_Types</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Package Types</shortDescription>
+        <value>Package Types</value>
+    </labels>
+    <labels>
         <fullName>Package_Types_Placeholder</fullName>
         <categories>packageBuilder</categories>
         <language>en_US</language>
@@ -143,6 +151,14 @@
         <protected>true</protected>
         <shortDescription>Metadata Retrieve Error Title</shortDescription>
         <value>Error Occured While Retrieving Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Retrieve_Success_Title</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Retrieve Success Title</shortDescription>
+        <value>Success</value>
     </labels>
     <labels>
         <fullName>Metadata_Retrieve_Success_Message</fullName>
