@@ -1,14 +1,7 @@
-# SFDX  App
+# Package Builder for Salesforce
 
-## Dev, Build and Test
+Retrieve Metadata with ease to use in Package XML or SFDX commands.
+This tool allows you to pick which Metadata items you want to build your Package XML or Commands with view checkboxes.
 
-
-## Resources
-
-
-## Description of Files and Directories
-
-
-## Issues
 
 
