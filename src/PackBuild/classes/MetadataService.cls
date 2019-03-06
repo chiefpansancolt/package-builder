@@ -14475,7 +14475,7 @@ public with sharing class MetadataService {
             return response_x.result;
         }
         
-        public MetadataService.IReadResult readMetadata(String type_x,String[] fullNames) {
+        public MetadataService.IReadResult readMetadata(String type_x, String[] fullNames) {
             MetadataService.readMetadata_element request_x = new MetadataService.readMetadata_element();
             request_x.type_x = type_x;
             request_x.fullNames = fullNames;

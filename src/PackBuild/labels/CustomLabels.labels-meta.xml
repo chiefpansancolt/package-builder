@@ -168,4 +168,20 @@
         <shortDescription>Metadata Retrieve Success Message</shortDescription>
         <value>Metadata Retrieved Successfully</value>
     </labels>
+    <labels>
+        <fullName>Invalid_Metadata_Types</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Metadata Types</shortDescription>
+        <value>Invalid Metadata Type Selected</value>
+    </labels>
+    <labels>
+        <fullName>Invlid_Package_Types</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Package Types</shortDescription>
+        <value>Invalid Package Type Selected</value>
+    </labels>
 </CustomLabels>

@@ -26,6 +26,8 @@ import Metadata_Retrieve_Error_Title from '@salesforce/label/c.Metadata_Retrieve
 import Metadata_Retrieve_Success_Message from '@salesforce/label/c.Metadata_Retrieve_Success_Message';
 import Package_Types from '@salesforce/label/c.Package_Types';
 import Metadata_Retrieve_Success_Title from '@salesforce/label/c.Metadata_Retrieve_Success_Title';
+import Invalid_Metadata_Types from '@salesforce/label/c.Invalid_Metadata_Types';
+import Invalid_Package_Types from '@salesforce/label/c.Invlid_Package_Types';
 
 const columns = [
     { label: Name_Column, fieldName: 'fullName', type: 'text' },
@@ -79,10 +81,17 @@ export default class MetadataSelector extends LightningElement {
     }
 
     handleMetadataSearch() {
+        if(!this.search(this.selectedMetadataType, this.metadataOptions)) {
+            this.message = Invalid_Metadata_Types;
+        }
+
+        if(!this.search(this.selectedPackageType, this.packageTypeOptions)) {
+            this.message = Invalid_Package_Types;
+        }
+
         listMetadata({ metadataType: this.selectedMetadataType, packageType: this.selectedPackageType })
             .then(result => {
                 this.metdataTypes = JSON.parse(result);
-                this.error = undefined;
                 this.showMetadataList = true;
                 if(this.selectedMetadataType === 'CustomLabels') {
                     this.includeAllSymbol = true;
@@ -99,7 +108,9 @@ export default class MetadataSelector extends LightningElement {
                 this.includeAllSymbol = false;
 
                 this._title = Metadata_Retrieve_Error_Title
-                this.message = error;
+                if(this.message === 'Message') {
+                    this.message = error.message;
+                }
                 this.variant = this.variantOptions[0].value;
                 this.showNotification();
             });
@@ -338,5 +349,16 @@ export default class MetadataSelector extends LightningElement {
             variant: this.variant,
         });
         this.dispatchEvent(evt);
+    }
+
+    search(nameKey, anArray) {
+        var status = false
+        // eslint-disable-next-line vars-on-top
+        for (var i = 0; i < anArray.length; i++) {
+            if (anArray[i].value === nameKey) {
+                status = true;
+            }
+        }
+        return status;
     }
 }
