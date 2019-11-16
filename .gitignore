@@ -1,2 +1,4 @@
 .sfdx/
 .vscode/
+.salesforcecov.json
+/coverage
