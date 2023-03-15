@@ -1,5 +1,5 @@
 public with sharing class MetadataUtility {
-    public static final String API_VERSION = '45.0';
+    public static final String API_VERSION = '56.0';
 
     public static String getSessionIdFromVFPage(PageReference visualforcePage){
         String content = Test.IsRunningTest() ? 'Start_Of_Session_Id1234567890End_Of_Session_Id' : visualforcePage.getContent().toString();
