@@ -14,6 +14,22 @@
                 </lightning-combobox>
             </div>
         </div>
+        <template if:true={showFolderList}>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
+                    <lightning-combobox 
+                        name="folders"
+                        label={labels.Folders}
+                        value={selectedFolder}
+                        placeholder={labels.Folders_Placeholder}
+                        options={availableFolders}
+                        onchange={handleFolderListChange}
+                        message-when-value-missing={labels.Folders_Missing}
+                        required>
+                    </lightning-combobox>
+                </div>
+            </div>
+        </template>
         <div class="slds-grid">
             <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
                 <lightning-combobox 

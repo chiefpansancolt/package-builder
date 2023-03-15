@@ -38,7 +38,7 @@ private with sharing class TestMetadataSelector {
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
         Test.startTest();
-        String data = MetadataSelector.listMetadata('ApexClass', 'all');
+        String data = MetadataSelector.listMetadata('ApexClass', '', 'all');
         Test.stopTest();
 
         List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -47,12 +47,24 @@ private with sharing class TestMetadataSelector {
     }
 
     @isTest
+    static void testGetMetadataAllWithFolders() {
+         // Null Web Service mock implementation
+        System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+
+        Test.startTest();
+        String data = MetadataSelector.listMetadata('Report', 'unfiled$public', 'all');
+        Test.stopTest();
+
+        List<MetadataSelector.fileProperty> results = formatResults(data);
+    }
+
+    @isTest
     static void testGetMetadataUnmanaged() {
          // Null Web Service mock implementation
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
         Test.startTest();
-        String data = MetadataSelector.listMetadata('ApexClass', 'unmanagedOnly');
+        String data = MetadataSelector.listMetadata('ApexClass', '', 'unmanagedOnly');
         Test.stopTest();
 
         List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -67,7 +79,7 @@ private with sharing class TestMetadataSelector {
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
         Test.startTest();
-        String data = MetadataSelector.listMetadata('ApexClass', 'managedOnly');
+        String data = MetadataSelector.listMetadata('ApexClass', '', 'managedOnly');
         Test.stopTest();
 
         List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -84,7 +96,7 @@ private with sharing class TestMetadataSelector {
 
         Test.startTest();
         try {
-            data = MetadataSelector.listMetadata('Test', 'managedOnly');
+            data = MetadataSelector.listMetadata('Test', '', 'managedOnly');
         } catch(Exception ex) {
             error = ex.getMessage();
         }
@@ -102,7 +114,7 @@ private with sharing class TestMetadataSelector {
 
         Test.startTest();
         try {
-            data = MetadataSelector.listMetadata('ApexClass', 'test');
+            data = MetadataSelector.listMetadata('ApexClass', '', 'test');
         } catch(Exception ex) {
             error = ex.getMessage();
         }
@@ -110,6 +122,13 @@ private with sharing class TestMetadataSelector {
 
         System.assertEquals(null, data, 'Check that null is returned');
         System.assertEquals(System.Label.Invlid_Package_Types, error, 'Check Package Type Error Message');
+    }
+
+     @isTest
+    static void testListFolders() {
+        Test.startTest();
+        String results = MetadataSelector.listFolders('Report');
+        Test.stopTest();
     }
 
     private static List<MetadataSelector.fileProperty> formatResults(String data) {

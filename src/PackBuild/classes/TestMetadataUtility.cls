@@ -20,7 +20,7 @@ private with sharing class TestMetadataUtility {
 
         Test.stopTest();
 
-        System.assertEquals('45.0', apiVersion, 'Check api is 45.0');
+        System.assertEquals('56.0', apiVersion, 'Check api is 56.0');
     }
 
     @isTest
@@ -42,6 +42,6 @@ private with sharing class TestMetadataUtility {
 
         Test.stopTest();
 
-        System.assertEquals(197, metadataTypes.size(), 'Check api is 45.0');
+        System.assertEquals(197, metadataTypes.size(), 'Check Number of Metadata Type List');
     }
 }

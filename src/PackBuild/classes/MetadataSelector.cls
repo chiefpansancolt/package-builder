@@ -3,7 +3,7 @@ public with sharing class MetadataSelector {
     public class MetadataSelectorException extends Exception {}
 
     @AuraEnabled(cacheable=true)
-    public static String listMetadata(String metadataType, String packageType) {
+    public static String listMetadata(String metadataType, String folderName, String packageType) {
         if(!MetadataUtility.METADATA_TYPES.contains(metadataType)) {
             throw new MetadataSelectorException(System.Label.Invalid_Metadata_Types);
         }
@@ -16,6 +16,7 @@ public with sharing class MetadataSelector {
         List<fileProperty> files = new List<fileProperty>();
 		List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
         MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
+        query.folder = String.isBlank(folderName) ? null : folderName; 
         query.type_x = metadataType;
         queries.add(query);
 
@@ -38,7 +39,19 @@ public with sharing class MetadataSelector {
         return JSON.serialize(files);
 	}
 
-    public class fileProperty{
+    @AuraEnabled(cacheable=true)
+    public static string listFolders(String metadataType) {
+        List<aFolder> toReturn = new List<aFolder>();
+        List<Folder> folders = getFolders(metadataType);
+
+        for(Folder f: folders) {
+            toReturn.add(new aFolder(f.Name, f.DeveloperName));
+        }
+
+        return JSON.serialize(toReturn);
+    }
+
+    public class fileProperty {
         public String fileName;
         public String fullName;
         public String id;
@@ -54,12 +67,26 @@ public with sharing class MetadataSelector {
         }
     }
 
+    public class aFolder {
+        public String label;
+        public String value;
+
+        public aFolder(String label, String value) {
+            this.label = label;
+            this.value = value;
+        }
+    }
+
     private static MetadataService.MetadataPort createService() {
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
 		service.SessionHeader = new MetadataService.SessionHeader_element();
         service.SessionHeader.sessionId = MetadataUtility.getSessionIdFromVFPage(Page.SessionId);
 		return service;
 	}
+
+    private static List<Folder> getFolders(String metadataType) {
+        return [SELECT Id, Name, DeveloperName FROM Folder WHERE Type = :metadataType AND DeveloperName != ''];
+    }
 
     private static final Integer API_VERSION = Integer.ValueOf(MetadataUtility.API_VERSION);
     private static final String PACKAGETYPE_ALL = 'all';

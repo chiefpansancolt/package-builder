@@ -184,4 +184,28 @@
         <shortDescription>Invalid Package Types</shortDescription>
         <value>Invalid Package Type Selected</value>
     </labels>
+    <labels>
+        <fullName>Folders</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Folders</shortDescription>
+        <value>Folders</value>
+    </labels>
+    <labels>
+        <fullName>Folders_Placeholder</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Folders Placeholder</shortDescription>
+        <value>Select a Folder</value>
+    </labels>
+    <labels>
+        <fullName>Folders_Missing</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Folders Missing</shortDescription>
+        <value>Please select a Folder</value>
+    </labels>
 </CustomLabels>
