@@ -1,6 +1,6 @@
 # Package Builder for Salesforce
 
-(![GitHub release (latest by date)](https://img.shields.io/github/v/release/chiefpansancolt/package-builder?logo=github&style=flat-square))
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/chiefpansancolt/package-builder?logo=github&style=flat-square)
 [![Discord](https://img.shields.io/discord/450095227185659905?label=Discord&logo=discord&style=flat-square)](https://discord.gg/FPfA3w6)
 
 Retrieve Metadata with ease to use in Package XML or SFDX commands.
