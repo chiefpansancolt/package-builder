@@ -1,6 +1,10 @@
 import { LightningElement, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
+/* Import Custom Utilities */
+import { MS_COLUMNS } from "c/metadataSelectorTableColumns";
+import { CONSTANTS } from "c/metadataSelectorUtilities";
+
 /* Import Class Methods */
 import listMetadata from "@salesforce/apex/MetadataSelector.listMetadata";
 import listFolders from "@salesforce/apex/MetadataSelector.listFolders";
@@ -19,10 +23,6 @@ import Search_Button from "@salesforce/label/c.Search_Button";
 import Results_Title from "@salesforce/label/c.Results_Title";
 import Package_Title from "@salesforce/label/c.Package_Title";
 import SFDX_Retrieve_Title from "@salesforce/label/c.SFDX_Retrieve_Title";
-import Name_Column from "@salesforce/label/c.Name_Column";
-import File_Name_Column from "@salesforce/label/c.File_Name_Column";
-import Manageable_State_Column from "@salesforce/label/c.Manageable_State_Column";
-import Namespace_Column from "@salesforce/label/c.Namespace_Column";
 import Package_Type_All from "@salesforce/label/c.Package_Type_All";
 import Package_Type_Unmanaged from "@salesforce/label/c.Package_Type_Unmanaged";
 import Package_Type_Managed from "@salesforce/label/c.Package_Type_Managed";
@@ -33,39 +33,25 @@ import Metadata_Retrieve_Success_Title from "@salesforce/label/c.Metadata_Retrie
 import Invalid_Metadata_Types from "@salesforce/label/c.Invalid_Metadata_Types";
 import Invalid_Package_Types from "@salesforce/label/c.Invlid_Package_Types";
 
-const columns = [
-  { label: Name_Column, fieldName: "fullName", type: "text", hideDefaultActions: true },
-  { label: File_Name_Column, fieldName: "fileName", type: "text", hideDefaultActions: true },
-  { label: Manageable_State_Column, fieldName: "manageableState", type: "text", hideDefaultActions: true },
-  { label: Namespace_Column, fieldName: "namespacePrefix", type: "text", hideDefaultActions: true }
-];
-
 export default class MetadataSelector extends LightningElement {
-  _title = "Error";
-  message = "Message";
-  variant = "error";
-  variantOptions = [
-    { label: "Error", value: "error" },
-    { label: "Warning", value: "warning" },
-    { label: "Success", value: "success" },
-    { label: "Info", value: "info" }
-  ];
+  _title = CONSTANTS.VARIANTOPTIONS[0].label;
+  message = CONSTANTS.DEFAULT_MESSAGE;
+  variant = CONSTANTS.VARIANTOPTIONS[0].value;
 
   @track metdataTypes = [];
   @track availableFolders = [];
-  @track selectedMetdataTypes = [];
-  @track columns = columns;
-  @track sfdxOutput = "";
-  @track selectedMetadataType = "";
-  @track selectedPackageType = "";
-  @track selectedFolder = "";
+  @track selectedMetadataTypes = [];
+  @track columns = MS_COLUMNS;
+  @track sfdxOutput = CONSTANTS.BLANK;
+  @track selectedMetadataType = CONSTANTS.BLANK;
+  @track selectedPackageType = CONSTANTS.BLANK;
+  @track selectedFolder = CONSTANTS.BLANK;
   @track showMetadataList = false;
   @track showFolderList = false;
   @track showPackageList = false;
   @track includeAllSymbol = false;
 
   labels = {
-    Metadata_Type_Selector,
     Metadata_Types,
     Folders,
     Package_Types,
@@ -76,10 +62,46 @@ export default class MetadataSelector extends LightningElement {
     Folders_Missing,
     Package_Types_Missing,
     Search_Button,
-    Results_Title,
-    Package_Title,
-    SFDX_Retrieve_Title,
     Metadata_Retrieve_Success_Title
+  };
+
+  @track metadataTypeSetting = {
+    title: Metadata_Type_Selector,
+    iconName: CONSTANTS.ICONS.METADATATYPE,
+    isLoading: false,
+    isEmpty: false,
+    hideFooter: false,
+    emptyText: CONSTANTS.BLANK
+  };
+
+  @track metadataListSetting = {
+    title: Results_Title,
+    iconName: CONSTANTS.ICONS.METADATALIST,
+    isLoading: false,
+    isEmpty: false,
+    hideFooter: true,
+    emptyText: CONSTANTS.BLANK,
+    show: false
+  };
+
+  @track packageOutputSetting = {
+    title: Package_Title,
+    iconName: CONSTANTS.ICONS.PACKAGE,
+    isLoading: false,
+    isEmpty: false,
+    hideFooter: true,
+    emptyText: CONSTANTS.BLANK,
+    show: false
+  };
+
+  @track sfdxOutputSetting = {
+    title: SFDX_Retrieve_Title,
+    iconName: CONSTANTS.ICONS.SFDX,
+    isLoading: false,
+    isEmpty: false,
+    hideFooter: true,
+    emptyText: CONSTANTS.BLANK,
+    show: false
   };
 
   handleMetadataTypeChange(event) {
@@ -106,7 +128,7 @@ export default class MetadataSelector extends LightningElement {
 
           this._title = Metadata_Retrieve_Error_Title;
           this.message = error.message;
-          this.variant = this.variantOptions[0].value;
+          this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
           this.showNotification();
         });
     } else {
@@ -125,6 +147,7 @@ export default class MetadataSelector extends LightningElement {
   }
 
   handleMetadataSearch() {
+    this.metadataTypeSetting.isLoading = true;
     if (!this.search(this.selectedMetadataType, this.metadataOptions)) {
       this.message = Invalid_Metadata_Types;
     }
@@ -140,7 +163,7 @@ export default class MetadataSelector extends LightningElement {
     })
       .then((result) => {
         this.metdataTypes = JSON.parse(result);
-        this.showMetadataList = true;
+        this.metadataListSetting.show = true;
         if (this.selectedMetadataType === "CustomLabels") {
           this.includeAllSymbol = true;
         } else {
@@ -149,8 +172,9 @@ export default class MetadataSelector extends LightningElement {
 
         this._title = Metadata_Retrieve_Success_Title;
         this.message = Metadata_Retrieve_Success_Message;
-        this.variant = this.variantOptions[2].value;
+        this.variant = CONSTANTS.VARIANTOPTIONS[2].value;
         this.showNotification();
+        this.metadataTypeSetting.isLoading = false;
       })
       .catch((error) => {
         this.data = undefined;
@@ -158,24 +182,27 @@ export default class MetadataSelector extends LightningElement {
 
         this._title = Metadata_Retrieve_Error_Title;
         this.message = error.message;
-        this.variant = this.variantOptions[0].value;
+        this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
         this.showNotification();
+        this.metadataTypeSetting.isLoading = false;
       });
   }
 
   getSelectedName(event) {
-    this.selectedMetdataTypes = event.detail.selectedRows;
+    this.selectedMetadataTypes = event.detail.selectedRows;
 
-    this.selectedMetdataTypes.forEach((element) => {
+    this.selectedMetadataTypes.forEach((element) => {
       this.sfdxOutput += element.fullName + ",";
     });
 
     this.sfdxOutput = this.sfdxOutput.slice(0, -1);
 
-    if (this.selectedMetdataTypes.length > 0) {
-      this.showPackageList = true;
+    if (this.selectedMetadataTypes.length > 0) {
+      this.packageOutputSetting.show = true;
+      this.sfdxOutputSetting.show = true;
     } else {
-      this.showPackageList = false;
+      this.packageOutputSetting.show = false;
+      this.sfdxOutputSetting.show = false;
     }
   }
 

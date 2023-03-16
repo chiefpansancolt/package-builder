@@ -1,0 +1,207 @@
+<template>
+  <div class="site-code_content slds-scrollable_x">
+    <pre class="language-markup">
+      <code class="language-markup">
+        <span class="token tag">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;?
+            </span>
+            xml
+          </span>
+          <span class="token attr-name">
+            &nbsp;version
+          </span>
+          <span class="token attr-value">
+            <span class="token punctuation">
+              =
+            </span>
+            <span class="token punctuation">
+              "
+            </span>
+            1.0
+            <span class="token punctuation">
+              "
+            </span>
+          </span>
+          <span class="token attr-name">
+            &nbsp;encoding
+          </span>
+          <span class="token attr-value">
+            <span class="token punctuation">
+              =
+            </span>
+            <span class="token punctuation">
+              "
+            </span>
+            UTF-8
+            <span class="token punctuation">
+              "
+            </span>
+          </span>
+          <span class="token punctuation">
+            ?&gt;
+          </span>
+        </span><br/>
+        <span class="token tag">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;
+            </span>
+            {labels.package}
+          </span>
+          <span class="token attr-name">
+            &nbsp;xmlns
+          </span>
+          <span class="token attr-value">
+            <span class="token punctuation">
+              =
+            </span>
+            <span class="token punctuation">
+              "
+            </span>
+            http://soap.sforce.com/2006/04/metadata
+            <span class="token punctuation">
+              "
+            </span>
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+        <span class="token tag padding-left-1">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;
+            </span>
+            {labels.types}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+
+        <template if:true={includeAllSymbol}>
+          <span class="token tag padding-left-2">
+            <span class="token tag">
+              <span class="token punctuation">
+                &lt;
+              </span>
+              {labels.members}
+            </span>
+            <span class="token punctuation">
+                &gt;
+            </span>
+          </span>
+          *
+          <span class="token tag">
+            <span class="token tag">
+              <span class="token punctuation">
+                &lt;/
+              </span>
+              {labels.members}
+            </span>
+            <span class="token punctuation">
+              &gt;
+            </span>
+          </span><br/>
+        </template>
+
+        <template if:false={includeAllSymbol} for:each={selectedMetadataTypes} for:item="record">
+          <span key={record.id} class="token tag padding-left-2">
+            <span class="token tag">
+              <span class="token punctuation">
+                &lt;
+              </span>
+              {labels.members}
+            </span>
+            <span class="token punctuation">
+              &gt;
+            </span>
+          </span>
+          {record.fullName}
+          <span key={record.id} class="token tag">
+            <span class="token tag">
+              <span class="token punctuation">
+                &lt;/
+              </span>
+              {labels.members}
+            </span>
+            <span class="token punctuation">
+              &gt;
+            </span>
+          </span><br key={record.id} />
+        </template>
+
+        <span class="token tag padding-left-2">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;
+            </span>
+            {labels.name}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span>
+        {selectedMetadataType}
+        <span class="token tag">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;/
+            </span>
+            {labels.name}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+        <span class="token tag padding-left-1">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;/
+            </span>
+            {labels.types}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+        <span class="token tag  padding-left-1">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;
+            </span>
+            {labels.version}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span>
+        {labels.apiversion}
+        <span class="token tag">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;/
+            </span>
+            {labels.version}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+        <span class="token tag">
+          <span class="token tag">
+            <span class="token punctuation">
+              &lt;/
+            </span>
+            {labels.package}
+          </span>
+          <span class="token punctuation">
+            &gt;
+          </span>
+        </span><br/>
+      </code>
+    </pre>
+  </div>
+</template>
