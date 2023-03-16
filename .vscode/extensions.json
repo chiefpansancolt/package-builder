@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "salesforce.salesforcedx-vscode-apex",
+    "salesforce.salesforcedx-vscode-apex-debugger",
+    "FinancialForce.lana",
+    "chuckjonas.apex-pmd",
+    "salesforce.salesforcedx-vscode-apex-replay-debugger",
+    "ms-vscode.atom-keybindings",
+    "salesforce.salesforcedx-vscode-lightning",
+    "dbaeumer.vscode-eslint",
+    "salesforce.salesforcedx-vscode-lwc",
+    "esbenp.prettier-vscode",
+    "salesforce.salesforcedx-vscode-core",
+    "salesforce.salesforcedx-vscode",
+    "salesforce.salesforcedx-vscode-expanded",
+    "salesforce.salesforce-vscode-slds",
+    "redhat.vscode-xml",
+    "redhat.vscode-yaml",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

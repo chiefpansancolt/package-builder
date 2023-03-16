@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "baseUrl": ".",
-        "paths": {
-            "c/metadata-selector": [
-                "metadataSelector/metadataSelector.js"
-            ]
-        }
-    },
-    "include": [
-        "**/*",
-        "../../../../.sfdx/typings/lwc/**/*.d.ts",
-        "../../../.sfdx/typings/lwc/**/*.d.ts"
-    ]
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "c/metadata-selector": ["metadataSelector/metadataSelector.js"]
+    }
+  },
+  "include": ["**/*", "../../../../.sfdx/typings/lwc/**/*.d.ts", "../../../.sfdx/typings/lwc/**/*.d.ts"],
+  "paths": {
+    "c/*": ["*"]
+  },
+  "typeAcquisition": {
+    "include": ["jest"]
+  }
 }

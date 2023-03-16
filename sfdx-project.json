@@ -1,9 +1,12 @@
 {
-    "namespace": "",
-    "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "45.0",
-    "packageDirectories": [{
-        "path": "src/PackBuild",
-        "default": true
-    }]
+  "packageDirectories": [
+    {
+      "path": "src/PackBuild",
+      "default": true
+    }
+  ],
+  "name": "package-builder",
+  "namespace": "PackBuild",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "56.0"
 }

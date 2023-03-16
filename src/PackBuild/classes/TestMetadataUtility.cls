@@ -1,47 +1,46 @@
 @isTest
 private with sharing class TestMetadataUtility {
-    
-    @isTest
-    static void testSessionId() {
-        Test.startTest();
-        
-        String sessionId = MetadataUtility.getSessionIdFromVFPage(Page.SessionId);
-        
-        Test.stopTest();
+  @isTest
+  static void testSessionId() {
+    Test.startTest();
 
-        System.assertEquals('1234567890', sessionId, 'Check Session Id equals 1234567890');
-    }
+    String sessionId = MetadataUtility.getSessionIdFromVFPage(Page.SessionId);
 
-    @isTest
-    static void testApiVersion() {
-        Test.startTest();
+    Test.stopTest();
 
-        String apiVersion = MetadataUtility.API_VERSION;
+    System.assertEquals('1234567890', sessionId, 'Check Session Id equals 1234567890');
+  }
 
-        Test.stopTest();
+  @isTest
+  static void testApiVersion() {
+    Test.startTest();
 
-        System.assertEquals('56.0', apiVersion, 'Check api is 56.0');
-    }
+    String apiVersion = MetadataUtility.API_VERSION;
 
-    @isTest
-    static void testPackageTypes() {
-        Test.startTest();
+    Test.stopTest();
 
-        List<String> packageTypes = MetadataUtility.PACKAGE_TYPES;
+    System.assertEquals('56.0', apiVersion, 'Check api is 56.0');
+  }
 
-        Test.stopTest();
+  @isTest
+  static void testPackageTypes() {
+    Test.startTest();
 
-        System.assertEquals(3, packageTypes.size(), 'Check 3 types returned');
-    }
+    List<String> packageTypes = MetadataUtility.PACKAGE_TYPES;
 
-    @isTest
-    static void testMetadataTypes() {
-        Test.startTest();
+    Test.stopTest();
 
-        List<String> metadataTypes = MetadataUtility.METADATA_TYPES;
+    System.assertEquals(3, packageTypes.size(), 'Check 3 types returned');
+  }
 
-        Test.stopTest();
+  @isTest
+  static void testMetadataTypes() {
+    Test.startTest();
 
-        System.assertEquals(197, metadataTypes.size(), 'Check Number of Metadata Type List');
-    }
+    List<String> metadataTypes = MetadataUtility.METADATA_TYPES;
+
+    Test.stopTest();
+
+    System.assertEquals(197, metadataTypes.size(), 'Check Number of Metadata Type List');
+  }
 }
