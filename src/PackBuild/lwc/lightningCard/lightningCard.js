@@ -50,6 +50,8 @@ export default class LightningCard extends LightningElement {
   get bodyClassNames() {
     if (this.hasBodyPadding) {
       return "slds-card__body slds-card__body_inner";
+    } else if (this.variant === "no-padding-bottom") {
+      return "slds-card__body slds-m-bottom_none";
     }
 
     return "slds-card__body";
