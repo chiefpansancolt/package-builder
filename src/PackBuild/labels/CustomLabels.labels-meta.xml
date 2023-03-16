@@ -110,7 +110,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Manageable State Column</shortDescription>
-        <value>Manageable State</value>
+        <value>Managed State</value>
     </labels>
     <labels>
         <fullName>Namespace_Column</fullName>
