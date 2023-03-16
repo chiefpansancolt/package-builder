@@ -24,17 +24,20 @@
       </div>
 			<template if:true={showFolderList}>
 				<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-					<lightning-combobox
+					<lightning-dual-listbox
 						name="folders"
 						label={labels.Folders}
-						value={selectedFolder}
-						placeholder={labels.Folders_Placeholder}
+            source-label="Available Folders"
+            selected-label="Selected Folders"
+						value={selectedFolders}
 						options={availableFolders}
 						onchange={handleFolderListChange}
 						message-when-value-missing={labels.Folders_Missing}
-						required
+            min={min}
+            max={max}
+            required
 					>
-					</lightning-combobox>
+					</lightning-dual-listbox>
 				</div>
 			</template>
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">

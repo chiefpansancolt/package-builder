@@ -45,7 +45,7 @@ export default class MetadataSelector extends LightningElement {
   @track sfdxOutput = CONSTANTS.BLANK;
   @track selectedMetadataType = CONSTANTS.BLANK;
   @track selectedPackageType = CONSTANTS.BLANK;
-  @track selectedFolder = CONSTANTS.BLANK;
+  @track selectedFolders = [];
   @track showMetadataList = false;
   @track showFolderList = false;
   @track showPackageList = false;
@@ -80,7 +80,7 @@ export default class MetadataSelector extends LightningElement {
     isLoading: false,
     isEmpty: false,
     hideFooter: true,
-    emptyText: CONSTANTS.BLANK,
+    emptyText: "No Metadata Found with these search parameters",
     show: false
   };
 
@@ -106,20 +106,25 @@ export default class MetadataSelector extends LightningElement {
 
   handleMetadataTypeChange(event) {
     this.selectedMetadataType = event.target.value;
+    this.selectedFolders = [];
     if (
       event.target.value == "EmailTemplate" ||
       event.target.value == "Document" ||
       event.target.value == "Report" ||
       event.target.value == "Dashboard"
     ) {
+      this.metadataTypeSetting.isLoading = true;
       listFolders({ metadataType: this.selectedMetadataType })
         .then((result) => {
           this.availableFolders = JSON.parse(result);
-          this.availableFolders.push({
-            label: "unfiled$public",
-            value: "unfiled$public"
-          });
+          if (this.selectedMetadataType === "EmailTemplate" || this.selectedMetadataType === "Report") {
+            this.availableFolders.push({
+              label: "unfiled$public",
+              value: "unfiled$public"
+            });
+          }
           this.showFolderList = true;
+          this.metadataTypeSetting.isLoading = false;
         })
         .catch((error) => {
           this.showFolderList = false;
@@ -130,6 +135,7 @@ export default class MetadataSelector extends LightningElement {
           this.message = error.message;
           this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
           this.showNotification();
+      this.metadataTypeSetting.isLoading = false;
         });
     } else {
       this.showFolderList = false;
@@ -139,7 +145,8 @@ export default class MetadataSelector extends LightningElement {
   }
 
   handleFolderListChange(event) {
-    this.selectedFolder = event.target.value;
+    this.selectedFolders = event.target.value;
+    console.log(event.target.value);
   }
 
   handlePackageTypeChange(event) {
@@ -158,11 +165,16 @@ export default class MetadataSelector extends LightningElement {
 
     listMetadata({
       metadataType: this.selectedMetadataType,
-      folderName: this.selectedFolder,
+      folderNames: this.selectedFolders,
       packageType: this.selectedPackageType
     })
       .then((result) => {
-        this.metdataTypes = JSON.parse(result);
+        if(result === "NoData") {
+          this.metadataListSetting.isEmpty = true;
+        } else {
+          this.metadataListSetting.isEmpty = false;
+          this.metdataTypes = JSON.parse(result);
+        }
         this.metadataListSetting.show = true;
         if (this.selectedMetadataType === "CustomLabels") {
           this.includeAllSymbol = true;
@@ -204,6 +216,14 @@ export default class MetadataSelector extends LightningElement {
       this.packageOutputSetting.show = false;
       this.sfdxOutputSetting.show = false;
     }
+  }
+
+  get min() {
+    return 1;
+  }
+
+  get max() {
+    return 3;
   }
 
   get packageTypeOptions() {

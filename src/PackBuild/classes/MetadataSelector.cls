@@ -3,7 +3,7 @@ public with sharing class MetadataSelector {
   }
 
   @AuraEnabled(cacheable=true)
-  public static String listMetadata(String metadataType, String folderName, String packageType) {
+  public static String listMetadata(String metadataType, List<String> folderNames, String packageType) {
     if (!MetadataUtility.METADATA_TYPES.contains(metadataType)) {
       throw new MetadataSelectorException(System.Label.Invalid_Metadata_Types);
     }
@@ -15,28 +15,40 @@ public with sharing class MetadataSelector {
     MetadataService.MetadataPort service = createService();
     List<fileProperty> files = new List<fileProperty>();
     List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
-    MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
-    query.folder = String.isBlank(folderName) ? null : folderName;
-    query.type_x = metadataType;
-    queries.add(query);
+    if(folderNames.size() != 0) {
+      for(String foldername: folderNames) {
+        MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
+        query.folder = folderName;
+        query.type_x = metadataType;
+        queries.add(query);
+      }
+    } else {
+      MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
+      query.type_x = metadataType;
+      queries.add(query);
+    }
 
     MetadataService.FileProperties[] properties = service.listMetadata(queries, API_VERSION);
 
-    for (MetadataService.FileProperties property : properties) {
-      if (packageType == PACKAGETYPE_ALL) {
-        files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
-      } else if (packageType == PACKAGETYPE_UNMANAGED) {
-        if (property.namespacePrefix == null) {
+    if(properties != null) {
+      for (MetadataService.FileProperties property : properties) {
+        if (packageType == PACKAGETYPE_ALL) {
           files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
-        }
-      } else if (packageType == PACKAGETYPE_MANAGED) {
-        if (property.namespacePrefix != null) {
-          files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+        } else if (packageType == PACKAGETYPE_UNMANAGED) {
+          if (property.namespacePrefix == null) {
+            files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+          }
+        } else if (packageType == PACKAGETYPE_MANAGED) {
+          if (property.namespacePrefix != null) {
+            files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+          }
         }
       }
-    }
 
-    return JSON.serialize(files);
+      return JSON.serialize(files);
+    } else {
+      return 'NoData';
+    }
   }
 
   @AuraEnabled(cacheable=true)
@@ -85,7 +97,12 @@ public with sharing class MetadataSelector {
   }
 
   private static List<Folder> getFolders(String metadataType) {
-    return [SELECT Id, Name, DeveloperName FROM Folder WHERE Type = :metadataType AND DeveloperName != ''];
+    Set<String> names = new Set<String>{metadataType};
+    if(metadataType == 'EmailTemplate') {
+      names.add('Email');
+    }
+
+    return [SELECT Id, Name, DeveloperName FROM Folder WHERE Type IN :names AND DeveloperName != ''];
   }
 
   private static final Integer API_VERSION = Integer.ValueOf(MetadataUtility.API_VERSION);
