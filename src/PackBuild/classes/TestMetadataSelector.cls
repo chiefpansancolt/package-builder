@@ -48,7 +48,7 @@ private with sharing class TestMetadataSelector {
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
 
-    System.assertEquals(2, results.size(), 'Check that two are returned');
+    Assert.areEqual(2, results.size(), 'Check that two are returned');
   }
 
   @isTest
@@ -73,9 +73,9 @@ private with sharing class TestMetadataSelector {
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
-    System.assertEquals(1, results.size(), 'Check that one is returned');
-    System.assertEquals(null, results[0].namespacePrefix, 'check only unmanaged is returned');
-    System.assertEquals('unmanaged', results[0].manageableState, 'check only unmanaged is returned');
+    Assert.areEqual(1, results.size(), 'Check that one is returned');
+    Assert.areEqual(null, results[0].namespacePrefix, 'check only unmanaged is returned');
+    Assert.areEqual('unmanaged', results[0].manageableState, 'check only unmanaged is returned');
   }
 
   @isTest
@@ -88,9 +88,9 @@ private with sharing class TestMetadataSelector {
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
-    System.assertEquals(1, results.size(), 'Check that one is returned');
-    System.assertEquals('TEST', results[0].namespacePrefix, 'check only managed is returned');
-    System.assertEquals('managed', results[0].manageableState, 'check only managed is returned');
+    Assert.areEqual(1, results.size(), 'Check that one is returned');
+    Assert.areEqual('TEST', results[0].namespacePrefix, 'check only managed is returned');
+    Assert.areEqual('managed', results[0].manageableState, 'check only managed is returned');
   }
 
   @isTest
@@ -107,8 +107,8 @@ private with sharing class TestMetadataSelector {
     }
     Test.stopTest();
 
-    System.assertEquals(null, data, 'Check that null is returned');
-    System.assertEquals(System.Label.Invalid_Metadata_Types, error, 'Check Metadata Type Error Message');
+    Assert.areEqual(null, data, 'Check that null is returned');
+    Assert.areEqual(System.Label.Invalid_Metadata_Types, error, 'Check Metadata Type Error Message');
   }
 
   @isTest
@@ -125,8 +125,8 @@ private with sharing class TestMetadataSelector {
     }
     Test.stopTest();
 
-    System.assertEquals(null, data, 'Check that null is returned');
-    System.assertEquals(System.Label.Invlid_Package_Types, error, 'Check Package Type Error Message');
+    Assert.areEqual(null, data, 'Check that null is returned');
+    Assert.areEqual(System.Label.Invlid_Package_Types, error, 'Check Package Type Error Message');
   }
 
   @isTest

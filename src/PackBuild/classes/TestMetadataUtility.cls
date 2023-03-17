@@ -8,7 +8,7 @@ private with sharing class TestMetadataUtility {
 
     Test.stopTest();
 
-    System.assertEquals('1234567890', sessionId, 'Check Session Id equals 1234567890');
+    Assert.areEqual('1234567890', sessionId, 'Check Session Id equals 1234567890');
   }
 
   @isTest
@@ -19,7 +19,7 @@ private with sharing class TestMetadataUtility {
 
     Test.stopTest();
 
-    System.assertEquals('56.0', apiVersion, 'Check api is 56.0');
+    Assert.isNotNull(apiVersion, 'Check api is not null');
   }
 
   @isTest
@@ -30,7 +30,7 @@ private with sharing class TestMetadataUtility {
 
     Test.stopTest();
 
-    System.assertEquals(3, packageTypes.size(), 'Check 3 types returned');
+    Assert.areEqual(3, packageTypes.size(), 'Check 3 types returned');
   }
 
   @isTest
@@ -41,6 +41,17 @@ private with sharing class TestMetadataUtility {
 
     Test.stopTest();
 
-    System.assertEquals(168, metadataTypes.size(), 'Check Number of Metadata Type List');
+    Assert.areEqual(168, metadataTypes.size(), 'Check Number of Metadata Type List');
+  }
+
+  @isTest
+  static void testDefaultValue() {
+    Test.startTest();
+
+    String result = MetadataUtility.getSystemProperty('Test', 'Test', 'Good');
+
+    Test.stopTest();
+
+    Assert.areEqual('Good', result, 'Check default value is returned');
   }
 }

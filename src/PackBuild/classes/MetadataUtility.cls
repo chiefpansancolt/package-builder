@@ -1,6 +1,4 @@
 public with sharing class MetadataUtility {
-  public static final String API_VERSION = '56.0';
-
   public static String getSessionIdFromVFPage(PageReference visualforcePage) {
     String content = Test.IsRunningTest() ? 'Start_Of_Session_Id1234567890End_Of_Session_Id' : visualforcePage.getContent().toString();
     Integer s = content.indexOf('Start_Of_Session_Id') + 'Start_Of_Session_Id'.length();
@@ -180,4 +178,20 @@ public with sharing class MetadataUtility {
     'WebLink',
     'Workflow'
   };
+
+  @TestVisible
+  private static String getSystemProperty(String category, String key, String defaultValue) {
+    List<System_Property__mdt> records = [SELECT Id, Value__c FROM System_Property__mdt WHERE Category__c =: category AND Key__c =: key AND Is_Active__c = true LIMIT 1];
+
+    if (records.size() > 0) {
+      return records[0].Value__c;
+    }
+
+    return defaultValue;
+  }
+
+  private static final String SYSPROP_CATEGORY = 'PackBuild';
+  private static final String SYSPROP_API_KEY = 'APIVersion';
+  private static final String DEFAULT_APIVERSION = '56.0';
+  public static final String API_VERSION = getSystemProperty(SYSPROP_CATEGORY, SYSPROP_API_KEY, DEFAULT_APIVERSION);
 }
