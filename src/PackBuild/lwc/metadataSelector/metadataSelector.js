@@ -32,6 +32,10 @@ import Package_Types from "@salesforce/label/c.Package_Types";
 import Metadata_Retrieve_Success_Title from "@salesforce/label/c.Metadata_Retrieve_Success_Title";
 import Invalid_Metadata_Types from "@salesforce/label/c.Invalid_Metadata_Types";
 import Invalid_Package_Types from "@salesforce/label/c.Invlid_Package_Types";
+import Copy_Button_Label from "@salesforce/label/c.Copy_Button_Label";
+import Copy_All_Button_Label from "@salesforce/label/c.Copy_All_Button_Label";
+import Copy_Types_Button_Label from "@salesforce/label/c.Copy_Types_Button_Label";
+import Copied_Button_Label from "@salesforce/label/c.Copied_Button_Label";
 
 export default class MetadataSelector extends LightningElement {
   _title = CONSTANTS.VARIANTOPTIONS[0].label;
@@ -62,7 +66,10 @@ export default class MetadataSelector extends LightningElement {
     Folders_Missing,
     Package_Types_Missing,
     Search_Button,
-    Metadata_Retrieve_Success_Title
+    Metadata_Retrieve_Success_Title,
+    Copy_Button_Label,
+    Copy_All_Button_Label,
+    Copy_Types_Button_Label
   };
 
   @track metadataTypeSetting = {
@@ -104,6 +111,36 @@ export default class MetadataSelector extends LightningElement {
     show: false
   };
 
+  handleSfdxCopyCode(event) {
+    this.template.querySelector("c-sfdx-code-snippet").handleCopy();
+    let button = event.target;
+    button.label = Copied_Button_Label;
+
+    setTimeout(() => {
+      button.label = Copy_Button_Label;
+    }, 1000);
+  }
+
+  handlePackageCopyCodeAll(event) {
+    this.template.querySelector("c-package-code-snippet").handleCopyAll();
+    let button = event.target;
+    button.label = Copied_Button_Label;
+
+    setTimeout(() => {
+      button.label = Copy_All_Button_Label;
+    }, 1000);
+  }
+
+  handlePackageCopyCodeType(event) {
+    this.template.querySelector("c-package-code-snippet").handleCopyTypes();
+    let button = event.target;
+    button.label = Copied_Button_Label;
+
+    setTimeout(() => {
+      button.label = Copy_Types_Button_Label;
+    }, 1000);
+  }
+
   handleMetadataTypeChange(event) {
     this.selectedMetadataType = event.target.value;
     this.selectedFolders = [];
@@ -135,7 +172,7 @@ export default class MetadataSelector extends LightningElement {
           this.message = error.message;
           this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
           this.showNotification();
-      this.metadataTypeSetting.isLoading = false;
+          this.metadataTypeSetting.isLoading = false;
         });
     } else {
       this.showFolderList = false;
@@ -169,7 +206,7 @@ export default class MetadataSelector extends LightningElement {
       packageType: this.selectedPackageType
     })
       .then((result) => {
-        if(result === "NoData") {
+        if (result === "NoData") {
           this.metadataListSetting.isEmpty = true;
         } else {
           this.metadataListSetting.isEmpty = false;
@@ -202,9 +239,10 @@ export default class MetadataSelector extends LightningElement {
 
   getSelectedName(event) {
     this.selectedMetadataTypes = event.detail.selectedRows;
+    this.sfdxOutput = CONSTANTS.BLANK;
 
     this.selectedMetadataTypes.forEach((element) => {
-      this.sfdxOutput += element.fullName + ",";
+      this.sfdxOutput += this.selectedMetadataType + ":" + element.fullName + ",";
     });
 
     this.sfdxOutput = this.sfdxOutput.slice(0, -1);
@@ -236,11 +274,8 @@ export default class MetadataSelector extends LightningElement {
 
   get metadataOptions() {
     return [
-      { label: "Account Settings", value: "AccountSettings" },
       { label: "Action Link Group Template", value: "ActionLinkGroupTemplate" },
       { label: "Action Override", value: "ActionOverride" },
-      { label: "Activities Settings", value: "ActivitiesSettings" },
-      { label: "Address Settings", value: "AddressSettings" },
       { label: "Analytic Snapshot", value: "AnalyticSnapshot" },
       { label: "Apex Class", value: "ApexClass" },
       { label: "Apex Component", value: "ApexComponent" },
@@ -258,18 +293,14 @@ export default class MetadataSelector extends LightningElement {
       { label: "Bot", value: "Bot" },
       { label: "Bot Version", value: "BotVersion" },
       { label: "Branding Set", value: "BrandingSet" },
-      { label: "Business Hours Settings", value: "BusinessHoursSettings" },
       { label: "Business Process", value: "BusinessProcess" },
       { label: "Call Center", value: "CallCenter" },
-      { label: "Case Settings", value: "CaseSettings" },
       { label: "Case Subject Particle", value: "CaseSubjectParticle" },
       { label: "Certificate", value: "Certificate" },
-      { label: "Chatter Answers Settings", value: "ChatterAnswersSettings" },
       { label: "Chatter Extension", value: "ChatterExtension" },
       { label: "Clean Data Service", value: "CleanDataService" },
       { label: "CMS Connect Source", value: "CMSConnectSource" },
       { label: "Compact Layout", value: "CompactLayout" },
-      { label: "Company Settings", value: "CompanySettings" },
       { label: "Community", value: "Community" },
       {
         label: "Community Template Definition",
@@ -281,7 +312,6 @@ export default class MetadataSelector extends LightningElement {
       },
       { label: "Connected App", value: "ConnectedApp" },
       { label: "Content Asset", value: "ContentAsset" },
-      { label: "Contract Settings", value: "ContractSettings" },
       { label: "Cors Whitelist Origin", value: "CorsWhitelistOrigin" },
       {
         label: "Criteria Based Sharing Rule",
@@ -325,7 +355,6 @@ export default class MetadataSelector extends LightningElement {
         value: "EmbeddedServiceLiveAgent"
       },
       { label: "Entitlement Process", value: "EntitlementProcess" },
-      { label: "Entitlement Settings", value: "EntitlementSettings" },
       { label: "Entitlement Template", value: "EntitlementTemplate" },
       { label: "Event Delivery", value: "EventDelivery" },
       { label: "Event Subscription", value: "EventSubscription" },
@@ -338,17 +367,12 @@ export default class MetadataSelector extends LightningElement {
       { label: "Feature Parameter Date", value: "FeatureParameterDate" },
       { label: "Feature Parameter Integer", value: "FeatureParameterInteger" },
       { label: "Field Set", value: "FieldSet" },
-      {
-        label: "File Upload And Download Security Settings",
-        value: "FileUploadAndDownloadSecuritySettings"
-      },
       { label: "Flexi Page", value: "FlexiPage" },
       { label: "Flow", value: "Flow" },
       { label: "Flow Category", value: "FlowCategory" },
       { label: "Flow Definition", value: "FlowDefinition" },
       { label: "Folder", value: "Folder" },
       { label: "Folder Share", value: "FolderShare" },
-      { label: "Forecasting Settings", value: "ForecastingSettings" },
       { label: "Global Value Set", value: "GlobalValueSet" },
       {
         label: "Global Value Set Translation",
@@ -358,12 +382,9 @@ export default class MetadataSelector extends LightningElement {
       { label: "Group", value: "Group" },
       { label: "Home Page Component", value: "HomePageComponent" },
       { label: "Home Page Layout", value: "HomePageLayout" },
-      { label: "Ideas Settings", value: "IdeasSettings" },
       { label: "Index", value: "Index" },
       { label: "Installed Package", value: "InstalledPackage" },
-      { label: "IoT Settings", value: "IoTSettings" },
       { label: "Keyword List", value: "KeywordList" },
-      { label: "Knowledge Settings", value: "KnowledgeSettings" },
       { label: "Layout", value: "Layout" },
       { label: "Letterhead", value: "Letterhead" },
       { label: "Lightning Bolt", value: "LightningBolt" },
@@ -376,7 +397,6 @@ export default class MetadataSelector extends LightningElement {
         value: "LightningExperienceTheme"
       },
       { label: "List View", value: "ListView" },
-      { label: "Live Agent Settings", value: "LiveAgentSettings" },
       { label: "Live Chat Agent Config", value: "LiveChatAgentConfig" },
       { label: "Live Chat Button", value: "LiveChatButton" },
       { label: "Live Chat Deployment", value: "LiveChatDeployment" },
@@ -384,29 +404,20 @@ export default class MetadataSelector extends LightningElement {
         label: "Live Chat Sensitive Data Rule",
         value: "LiveChatSensitiveDataRule"
       },
-      { label: "Live Message Settings", value: "LiveMessageSettings" },
-      { label: "Macro Settings", value: "MacroSettings" },
       { label: "Managed Topics", value: "ManagedTopics" },
       { label: "Matching Rule", value: "MatchingRule" },
       { label: "Metadata", value: "Metadata" },
       { label: "Metadata With Content", value: "MetadataWithContent" },
       { label: "Milestone Type", value: "MilestoneType" },
       { label: "MlDomain", value: "MlDomain" },
-      { label: "Mobile Settings", value: "MobileSettings" },
       { label: "Moderation Rule", value: "ModerationRule" },
       { label: "Named Credential", value: "NamedCredential" },
       { label: "Named Filter", value: "NamedFilter" },
-      { label: "Name Settings", value: "NameSettings" },
       { label: "Network", value: "Network" },
       { label: "Network Branding", value: "NetworkBranding" },
-      { label: "Omni Channel Settings", value: "OmniChannelSettings" },
-      { label: "Opportunity Settings", value: "OpportunitySettings" },
-      { label: "Order Settings", value: "OrderSettings" },
-      { label: "Org Preference Settings", value: "OrgPreferenceSettings" },
       { label: "Owner Sharing Rule", value: "OwnerSharingRule" },
       { label: "Package", value: "Package" },
       { label: "Path Assistant", value: "PathAssistant" },
-      { label: "Path Assistant Settings", value: "PathAssistantSettings" },
       { label: "Permission Set", value: "PermissionSet" },
       { label: "Picklist", value: "Picklist" },
       { label: "Platform Cache Partition", value: "PlatformCachePartition" },
@@ -415,7 +426,6 @@ export default class MetadataSelector extends LightningElement {
       { label: "Post Template", value: "PostTemplate" },
       { label: "Presence Decline Reason", value: "PresenceDeclineReason" },
       { label: "Presence User Config", value: "PresenceUserConfig" },
-      { label: "Product Settings", value: "ProductSettings" },
       { label: "Profile", value: "Profile" },
       { label: "Profile Action Override", value: "ProfileActionOverride" },
       { label: "Profile Password Policy", value: "ProfilePasswordPolicy" },
@@ -423,7 +433,6 @@ export default class MetadataSelector extends LightningElement {
       { label: "Queue", value: "Queue" },
       { label: "Queue Routing Config", value: "QueueRoutingConfig" },
       { label: "Quick Action", value: "QuickAction" },
-      { label: "Quote Settings", value: "QuoteSettings" },
       { label: "Recommendation Strategy", value: "RecommendationStrategy" },
       { label: "Record Action Deployment", value: "RecordActionDeployment" },
       { label: "Record Type", value: "RecordType" },
@@ -434,10 +443,9 @@ export default class MetadataSelector extends LightningElement {
       { label: "Saml SSO Config", value: "SamlSsoConfig" },
       { label: "Scontrol", value: "Scontrol" },
       { label: "Search Layouts", value: "SearchLayouts" },
-      { label: "Search Settings", value: "SearchSettings" },
-      { label: "Security Settings", value: "SecuritySettings" },
       { label: "Service Channel", value: "ServiceChannel" },
       { label: "Service Presence Status", value: "ServicePresenceStatus" },
+      { label: "Settings", value: "Settings" },
       { label: "Sharing Base Rule", value: "SharingBaseRule" },
       { label: "Sharing Reason", value: "SharingReason" },
       { label: "Sharing Recalculation", value: "SharingRecalculation" },
@@ -445,10 +453,6 @@ export default class MetadataSelector extends LightningElement {
       { label: "Sharing Set", value: "SharingSet" },
       { label: "Site Dot Com", value: "SiteDotCom" },
       { label: "Skill", value: "Skill" },
-      {
-        label: "Social Customer Service Settings",
-        value: "SocialCustomerServiceSettings"
-      },
       { label: "Standard Value Set", value: "StandardValueSet" },
       {
         label: "Standard Value Set Translation",
@@ -460,7 +464,6 @@ export default class MetadataSelector extends LightningElement {
       { label: "Territory2", value: "Territory2" },
       { label: "Territory2 Model", value: "Territory2Model" },
       { label: "Territory2 Rule", value: "Territory2Rule" },
-      { label: "Territory2 Settings", value: "Territory2Settings" },
       { label: "Territory2 Type", value: "Territory2Type" },
       { label: "Topics For Objects", value: "TopicsForObjects" },
       {

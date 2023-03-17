@@ -1,5 +1,5 @@
 <template>
-	<c-lightning-card
+  <c-lightning-card
     title={metadataTypeSetting.title}
     icon-name={metadataTypeSetting.iconName}
     variant="base"
@@ -8,7 +8,7 @@
     empty-text={metadataTypeSetting.emptyText}
     hide-footer={metadataTypeSetting.hideFooter}
   >
-		<div class="slds-grid slds-wrap" slot="body">
+    <div class="slds-grid slds-wrap" slot="body">
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
         <lightning-combobox
           name="metadatatypes"
@@ -22,24 +22,24 @@
         >
         </lightning-combobox>
       </div>
-			<template if:true={showFolderList}>
-				<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-					<lightning-dual-listbox
-						name="folders"
-						label={labels.Folders}
+      <template if:true={showFolderList}>
+        <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
+          <lightning-dual-listbox
+            name="folders"
+            label={labels.Folders}
             source-label="Available Folders"
             selected-label="Selected Folders"
-						value={selectedFolders}
-						options={availableFolders}
-						onchange={handleFolderListChange}
-						message-when-value-missing={labels.Folders_Missing}
+            value={selectedFolders}
+            options={availableFolders}
+            onchange={handleFolderListChange}
+            message-when-value-missing={labels.Folders_Missing}
             min={min}
             max={max}
             required
-					>
-					</lightning-dual-listbox>
-				</div>
-			</template>
+          >
+          </lightning-dual-listbox>
+        </div>
+      </template>
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
         <lightning-combobox
           name="packagetypes"
@@ -59,7 +59,7 @@
         <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}> </lightning-button>
       </div>
     </div>
-	</c-lightning-card>
+  </c-lightning-card>
 
   <template if:true={metadataListSetting.show}>
     <div class="slds-p-top_small">
@@ -90,12 +90,26 @@
         empty-text={packageOutputSetting.emptyText}
         hide-footer={packageOutputSetting.hideFooter}
       >
-        <c-package-code-snippet 
-					include-all-symbol={includeAllSymbol}
-					selected-metadata-types={selectedMetadataTypes}
-					selected-metadata-type={selectedMetadataType}
+        <lightning-button-group slot="actions">
+          <lightning-button
+            variant="brand"
+            label={labels.Copy_All_Button_Label}
+            title={labels.Copy_All_Button_Label}
+            onclick={handlePackageCopyCodeAll}
+          ></lightning-button>
+          <lightning-button
+            variant="Neutral"
+            label={labels.Copy_Types_Button_Label}
+            title={labels.Copy_Types_Button_Label}
+            onclick={handlePackageCopyCodeType}
+          ></lightning-button>
+        </lightning-button-group>
+        <c-package-code-snippet
+          include-all-symbol={includeAllSymbol}
+          selected-metadata-types={selectedMetadataTypes}
+          selected-metadata-type={selectedMetadataType}
           slot="body"
-				></c-package-code-snippet>
+        ></c-package-code-snippet>
       </c-lightning-card>
     </div>
   </template>
@@ -111,15 +125,14 @@
         empty-text={sfdxOutputSetting.emptyText}
         hide-footer={sfdxOutputSetting.hideFooter}
       >
-        <div class="site-code_content slds-scrollable_x" slot="body">
-          <pre class="language-markup">
-						<code class="language-markup">
-							<span class="token">
-								$ sfdx force:source:retrieve -m {selectedMetadataType}:{sfdxOutput}
-							</span>
-						</code>
-					</pre>
-        </div>
+        <lightning-button
+          variant="brand"
+          label={labels.Copy_Button_Label}
+          title={labels.Copy_Button_Label}
+          onclick={handleSfdxCopyCode}
+          slot="actions"
+        ></lightning-button>
+        <c-sfdx-code-snippet sfdx-output={sfdxOutput} slot="body"></c-sfdx-code-snippet>
       </c-lightning-card>
     </div>
   </template>

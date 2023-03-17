@@ -208,4 +208,36 @@
         <shortDescription>Folders Missing</shortDescription>
         <value>Please select a Folder</value>
     </labels>
+    <labels>
+        <fullName>Copy_Button_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copy Button Label</shortDescription>
+        <value>Copy</value>
+    </labels>
+    <labels>
+        <fullName>Copy_All_Button_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copy All Button Label</shortDescription>
+        <value>Copy All</value>
+    </labels>
+    <labels>
+        <fullName>Copy_Types_Button_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copy Types Button Label</shortDescription>
+        <value>Copy Types</value>
+    </labels>
+    <labels>
+        <fullName>Copied_Button_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copied! Button Label</shortDescription>
+        <value>Copied!</value>
+    </labels>
 </CustomLabels>
