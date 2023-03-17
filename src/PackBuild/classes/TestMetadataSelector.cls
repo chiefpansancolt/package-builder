@@ -130,7 +130,14 @@ private with sharing class TestMetadataSelector {
   }
 
   @isTest
-  static void testListFolders() {
+  static void testListFolders1() {
+    Test.startTest();
+    String results = MetadataSelector.listFolders('EmailTemplate');
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testListFolders2() {
     Test.startTest();
     String results = MetadataSelector.listFolders('Report');
     Test.stopTest();
