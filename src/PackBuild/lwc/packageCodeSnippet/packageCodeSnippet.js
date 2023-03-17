@@ -1,7 +1,7 @@
 import { LightningElement, api } from "lwc";
 
 /* Import Custom Utilities */
-import { CONSTANTS } from "c/metadataSelectorUtilities";
+import { CONSTANTS, copy } from "c/metadataSelectorUtilities";
 
 export default class PackageCodeSnippet extends LightningElement {
   @api includeAllSymbol = false;
@@ -75,9 +75,3 @@ ${members}    <name>${this.selectedMetadataType}</name>
     package: "Package"
   };
 }
-
-export const copy = async (textToCopy) =>
-  await navigator.clipboard.writeText(textToCopy).catch(
-    (err) => console.error(JSON.stringify(err)),
-    (err) => console.error(JSON.stringify(err))
-  );

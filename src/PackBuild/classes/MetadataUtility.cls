@@ -3,7 +3,8 @@ public with sharing class MetadataUtility {
 
   public static String getSessionIdFromVFPage(PageReference visualforcePage) {
     String content = Test.IsRunningTest() ? 'Start_Of_Session_Id1234567890End_Of_Session_Id' : visualforcePage.getContent().toString();
-    Integer s = content.indexOf('Start_Of_Session_Id') + 'Start_Of_Session_Id'.length(), e = content.indexOf('End_Of_Session_Id');
+    Integer s = content.indexOf('Start_Of_Session_Id') + 'Start_Of_Session_Id'.length();
+    Integer e = content.indexOf('End_Of_Session_Id');
     return content.substring(s, e);
   }
 

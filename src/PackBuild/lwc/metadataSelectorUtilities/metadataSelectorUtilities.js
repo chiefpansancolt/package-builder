@@ -16,4 +16,10 @@ const CONSTANTS = {
   ]
 };
 
-export { CONSTANTS };
+const copy = async (textToCopy) =>
+  navigator.clipboard.writeText(textToCopy).catch(
+    (err) => console.error(JSON.stringify(err)),
+    (err) => console.error(JSON.stringify(err))
+  );
+
+export { CONSTANTS, copy };

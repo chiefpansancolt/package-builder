@@ -1,3 +1,4 @@
+/* eslint-disable @lwc/lwc/no-async-operation */
 import { LightningElement, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
@@ -145,10 +146,10 @@ export default class MetadataSelector extends LightningElement {
     this.selectedMetadataType = event.target.value;
     this.selectedFolders = [];
     if (
-      event.target.value == "EmailTemplate" ||
-      event.target.value == "Document" ||
-      event.target.value == "Report" ||
-      event.target.value == "Dashboard"
+      event.target.value === "EmailTemplate" ||
+      event.target.value === "Document" ||
+      event.target.value === "Report" ||
+      event.target.value === "Dashboard"
     ) {
       this.metadataTypeSetting.isLoading = true;
       listFolders({ metadataType: this.selectedMetadataType })

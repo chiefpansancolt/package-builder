@@ -43,7 +43,7 @@ private with sharing class TestMetadataSelector {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
-    String data = MetadataSelector.listMetadata('ApexClass', '', 'all');
+    String data = MetadataSelector.listMetadata('ApexClass', new List<String>(), 'all');
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -57,7 +57,7 @@ private with sharing class TestMetadataSelector {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
-    String data = MetadataSelector.listMetadata('Report', 'unfiled$public', 'all');
+    String data = MetadataSelector.listMetadata('Report', new List<String>{ 'unfiled$public' }, 'all');
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -69,7 +69,7 @@ private with sharing class TestMetadataSelector {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
-    String data = MetadataSelector.listMetadata('ApexClass', '', 'unmanagedOnly');
+    String data = MetadataSelector.listMetadata('ApexClass', new List<String>(), 'unmanagedOnly');
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -84,7 +84,7 @@ private with sharing class TestMetadataSelector {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
-    String data = MetadataSelector.listMetadata('ApexClass', '', 'managedOnly');
+    String data = MetadataSelector.listMetadata('ApexClass', new List<String>(), 'managedOnly');
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
@@ -101,7 +101,7 @@ private with sharing class TestMetadataSelector {
 
     Test.startTest();
     try {
-      data = MetadataSelector.listMetadata('Test', '', 'managedOnly');
+      data = MetadataSelector.listMetadata('Test', new List<String>(), 'managedOnly');
     } catch (Exception ex) {
       error = ex.getMessage();
     }
@@ -119,7 +119,7 @@ private with sharing class TestMetadataSelector {
 
     Test.startTest();
     try {
-      data = MetadataSelector.listMetadata('ApexClass', '', 'test');
+      data = MetadataSelector.listMetadata('ApexClass', new List<String>(), 'test');
     } catch (Exception ex) {
       error = ex.getMessage();
     }
