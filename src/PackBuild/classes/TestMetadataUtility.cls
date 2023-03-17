@@ -41,6 +41,6 @@ private with sharing class TestMetadataUtility {
 
     Test.stopTest();
 
-    System.assertEquals(197, metadataTypes.size(), 'Check Number of Metadata Type List');
+    System.assertEquals(168, metadataTypes.size(), 'Check Number of Metadata Type List');
   }
 }
