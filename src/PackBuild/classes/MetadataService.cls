@@ -141,12 +141,16 @@ public with sharing class MetadataService {
       MetadataService.listMetadataResponse_element response_x;
       Map<String, MetadataService.listMetadataResponse_element> response_map_x = new Map<String, MetadataService.listMetadataResponse_element>();
       response_map_x.put('response_x', response_x);
-      WebServiceCallout.invoke(
-        this,
-        request_x,
-        response_map_x,
-        new List<String>{ endpoint_x, '', SOAP_URI, 'listMetadata', SOAP_URI, 'listMetadataResponse', 'MetadataService.listMetadataResponse_element' }
-      );
+      try {
+        WebServiceCallout.invoke(
+          this,
+          request_x,
+          response_map_x,
+          new List<String>{ endpoint_x, '', SOAP_URI, 'listMetadata', SOAP_URI, 'listMetadataResponse', 'MetadataService.listMetadataResponse_element' }
+        );
+      } catch (System.CalloutException ex) {
+        throw new AuraHandledException(ex.getMessage());
+      }
       response_x = response_map_x.get('response_x');
       return response_x.result;
     }

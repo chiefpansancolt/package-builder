@@ -39,10 +39,6 @@ import Copy_Types_Button_Label from "@salesforce/label/c.Copy_Types_Button_Label
 import Copied_Button_Label from "@salesforce/label/c.Copied_Button_Label";
 
 export default class MetadataSelector extends LightningElement {
-  _title = CONSTANTS.VARIANTOPTIONS[0].label;
-  message = CONSTANTS.DEFAULT_MESSAGE;
-  variant = CONSTANTS.VARIANTOPTIONS[0].value;
-
   @track metdataTypes = [];
   @track availableFolders = [];
   @track selectedMetadataTypes = [];
@@ -169,10 +165,7 @@ export default class MetadataSelector extends LightningElement {
           this.availableFolders = [];
           this.selectedFolder = "";
 
-          this._title = Metadata_Retrieve_Error_Title;
-          this.message = error.message;
-          this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
-          this.showNotification();
+          this.showNotification(0, error, CONSTANTS.BLANK, Metadata_Retrieve_Error_Title);
           this.metadataTypeSetting.isLoading = false;
         });
     } else {
@@ -220,20 +213,14 @@ export default class MetadataSelector extends LightningElement {
           this.includeAllSymbol = false;
         }
 
-        this._title = Metadata_Retrieve_Success_Title;
-        this.message = Metadata_Retrieve_Success_Message;
-        this.variant = CONSTANTS.VARIANTOPTIONS[2].value;
-        this.showNotification();
+        this.showNotification(2, CONSTANTS.BLANK, Metadata_Retrieve_Success_Message, Metadata_Retrieve_Success_Title);
         this.metadataTypeSetting.isLoading = false;
       })
       .catch((error) => {
         this.data = undefined;
         this.includeAllSymbol = false;
 
-        this._title = Metadata_Retrieve_Error_Title;
-        this.message = error.message;
-        this.variant = CONSTANTS.VARIANTOPTIONS[0].value;
-        this.showNotification();
+        this.showNotification(0, error, CONSTANTS.BLANK, Metadata_Retrieve_Error_Title);
         this.metadataTypeSetting.isLoading = false;
       });
   }
@@ -485,15 +472,6 @@ export default class MetadataSelector extends LightningElement {
     ];
   }
 
-  showNotification() {
-    const evt = new ShowToastEvent({
-      title: this._title,
-      message: this.message,
-      variant: this.variant
-    });
-    this.dispatchEvent(evt);
-  }
-
   search(nameKey, anArray) {
     var status = false;
     // eslint-disable-next-line vars-on-top
@@ -503,5 +481,15 @@ export default class MetadataSelector extends LightningElement {
       }
     }
     return status;
+  }
+
+  showNotification(type, error, msg, title) {
+    const evt = new ShowToastEvent({
+      title: title !== CONSTANTS.BLANK ? title : CONSTANTS.VARIANTOPTIONS[type].label,
+      message: type === 0 ? error.body.message : msg,
+      variant: CONSTANTS.VARIANTOPTIONS[type].value,
+      mode: type === 0 ? "sticky" : "dismissible"
+    });
+    this.dispatchEvent(evt);
   }
 }
