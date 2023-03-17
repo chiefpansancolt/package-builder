@@ -76,4 +76,8 @@ ${members}    <name>${this.selectedMetadataType}</name>
   };
 }
 
-export const copy = async textToCopy => await navigator.clipboard.writeText(textToCopy).catch(err => console.error(JSON.stringify(err)), err => console.error(JSON.stringify(err)));
+export const copy = async (textToCopy) =>
+  await navigator.clipboard.writeText(textToCopy).catch(
+    (err) => console.error(JSON.stringify(err)),
+    (err) => console.error(JSON.stringify(err))
+  );

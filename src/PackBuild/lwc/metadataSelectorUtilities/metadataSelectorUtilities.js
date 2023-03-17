@@ -16,4 +16,4 @@ const CONSTANTS = {
   ]
 };
 
-export { CONSTANTS }
+export { CONSTANTS };

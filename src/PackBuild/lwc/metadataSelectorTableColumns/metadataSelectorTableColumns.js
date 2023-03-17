@@ -11,4 +11,4 @@ const MS_COLUMNS = [
   { label: Namespace_Column, fieldName: "namespacePrefix", type: "text", fixedWidth: 125, hideDefaultActions: true }
 ];
 
-export { MS_COLUMNS }
+export { MS_COLUMNS };

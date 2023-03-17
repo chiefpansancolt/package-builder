@@ -15,8 +15,8 @@ public with sharing class MetadataSelector {
     MetadataService.MetadataPort service = createService();
     List<fileProperty> files = new List<fileProperty>();
     List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
-    if(folderNames.size() != 0) {
-      for(String foldername: folderNames) {
+    if (folderNames.size() != 0) {
+      for (String foldername : folderNames) {
         MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
         query.folder = folderName;
         query.type_x = metadataType;
@@ -30,7 +30,7 @@ public with sharing class MetadataSelector {
 
     MetadataService.FileProperties[] properties = service.listMetadata(queries, API_VERSION);
 
-    if(properties != null) {
+    if (properties != null) {
       for (MetadataService.FileProperties property : properties) {
         if (packageType == PACKAGETYPE_ALL) {
           files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
@@ -97,8 +97,8 @@ public with sharing class MetadataSelector {
   }
 
   private static List<Folder> getFolders(String metadataType) {
-    Set<String> names = new Set<String>{metadataType};
-    if(metadataType == 'EmailTemplate') {
+    Set<String> names = new Set<String>{ metadataType };
+    if (metadataType == 'EmailTemplate') {
       names.add('Email');
     }
 

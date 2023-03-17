@@ -98,7 +98,7 @@ code[class*="language"] {
   overflow: auto;
 }
 
-:not(pre)>code[class*="language-"],
+:not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background-color: #fdfdfd;
   -webkit-box-sizing: border-box;
@@ -107,7 +107,7 @@ pre[class*="language-"] {
   margin-bottom: 1em;
 }
 
-:not(pre)>code[class*="language-"] {
+:not(pre) > code[class*="language-"] {
   position: relative;
   padding: 0.2em;
   border-radius: 0.3em;
@@ -136,7 +136,7 @@ pre[class*="language-"]:before {
   transform: rotate(-2deg);
 }
 
-:not(pre)>code[class*="language-"]:after,
+:not(pre) > code[class*="language-"]:after,
 pre[class*="language-"]:after {
   right: 0.75em;
   left: auto;
@@ -166,13 +166,13 @@ pre[class*="language-"] button:hover {
   background-color: #bcbabb;
 }
 
-.line-numbers-rows>span {
+.line-numbers-rows > span {
   pointer-events: none;
   display: block;
   counter-increment: linenumber;
 }
 
-.line-numbers-rows>span:before {
+.line-numbers-rows > span:before {
   content: counter(linenumber);
   color: #999;
   display: block;
@@ -262,7 +262,6 @@ pre[class*="language-"] button:hover {
 }
 
 @media screen and (max-width: 767px) {
-
   pre[class*="language-"]:after,
   pre[class*="language-"]:before {
     bottom: 14px;
