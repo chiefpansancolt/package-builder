@@ -15,4 +15,4 @@ jobs:
         with:
           sfdx-auth-url: ${{ secrets.SFDX_AUTH_URL }}
       - name: sfdx-test-run
-        run: sfdx force:apex:test:run -s "PackageBuilder" -r human -w 30
+        run: sfdx force:apex:test:run -s "PackageBuilder" -r human -c -w 30
