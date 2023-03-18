@@ -38,6 +38,16 @@ private without sharing class TestMetadataService {
   }
 
   @IsTest
+  private static void describeMetadataTest() {
+    System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+    MetadataService metaDataService = new MetadataService();
+    Test.startTest();
+    MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+    metaDataPort.describeMetadata(null);
+    Test.stopTest();
+  }
+
+  @IsTest
   private static void coverGeneratedCodeTypes() {
     Test.startTest();
     new MetadataService();
@@ -45,6 +55,8 @@ private without sharing class TestMetadataService {
     new MetadataService.listMetadata_element();
     new MetadataService.ListMetadataQuery();
     new MetadataService.listMetadataResponse_element();
+    new MetadataService.describeMetadata_element();
+    new MetadataService.describeMetadataResponse_element();
     new MetadataService.DescribeMetadataObject();
     new MetadataService.DescribeMetadataResult();
     new MetadataService.FileProperties();

@@ -28,18 +28,26 @@ private with sharing class TestMetadataSelector {
       prop2.namespacePrefix = 'TEST';
       prop2.type_x = 'ApexClass';
 
-      MetadataService.listMetadataResponse_element element = new MetadataService.listMetadataResponse_element();
-      element.result = new List<MetadataService.FileProperties>{ prop1, prop2 };
+      MetadataService.FileProperties prop3 = new MetadataService.FileProperties();
+      prop3.id = '1234567894';
+      prop3.fullName = 'TEST__TestClass2';
+      prop3.fileName = 'reports/unfiled$public/report1';
+      prop3.manageableState = 'unmanaged';
+      prop3.namespacePrefix = null;
+      prop3.type_x = 'Report';
 
-      if (request instanceof MetadataService.listMetadata_element)
+      MetadataService.listMetadataResponse_element element = new MetadataService.listMetadataResponse_element();
+      element.result = new List<MetadataService.FileProperties>{ prop1, prop2, prop3 };
+
+      if (request instanceof MetadataService.listMetadata_element) {
         response.put('response_x', element);
+      }
       return;
     }
   }
 
   @isTest
   static void testGetMetadataAll() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
@@ -53,7 +61,6 @@ private with sharing class TestMetadataSelector {
 
   @isTest
   static void testGetMetadataAllWithFolders() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
@@ -61,11 +68,12 @@ private with sharing class TestMetadataSelector {
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
+
+    Assert.areEqual(1, results.size(), 'Check that one is returned');
   }
 
   @isTest
   static void testGetMetadataUnmanaged() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
@@ -80,7 +88,6 @@ private with sharing class TestMetadataSelector {
 
   @isTest
   static void testGetMetadataManaged() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
@@ -95,7 +102,6 @@ private with sharing class TestMetadataSelector {
 
   @isTest
   static void testGetMetadataInvalidMetadata() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
     String data, error;
 
@@ -113,7 +119,6 @@ private with sharing class TestMetadataSelector {
 
   @isTest
   static void testGetMetadataInvalidPackage() {
-    // Null Web Service mock implementation
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
     String data, error;
 
