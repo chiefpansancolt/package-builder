@@ -13,7 +13,7 @@ private with sharing class TestMetadataUtility {
       String responseType
     ) {
       MetadataService.DescribeMetadataObject prop1 = new MetadataService.DescribeMetadataObject();
-      prop1.childXmlNames = new String[]{};
+      prop1.childXmlNames = new List<String>{};
       prop1.directoryName = '';
       prop1.inFolder = false;
       prop1.metaFile = false;
@@ -21,7 +21,7 @@ private with sharing class TestMetadataUtility {
       prop1.xmlName = 'ApexClass';
 
       MetadataService.DescribeMetadataObject prop2 = new MetadataService.DescribeMetadataObject();
-      prop2.childXmlNames = new String[]{};
+      prop2.childXmlNames = new List<String>{};
       prop2.directoryName = '';
       prop2.inFolder = false;
       prop2.metaFile = false;
@@ -29,7 +29,7 @@ private with sharing class TestMetadataUtility {
       prop2.xmlName = 'ApexTrigger';
 
       MetadataService.DescribeMetadataObject prop3 = new MetadataService.DescribeMetadataObject();
-      prop3.childXmlNames = new String[]{ 'Test'};
+      prop3.childXmlNames = new List<String>{ 'Test' };
       prop3.directoryName = '';
       prop3.inFolder = false;
       prop3.metaFile = false;
@@ -37,7 +37,7 @@ private with sharing class TestMetadataUtility {
       prop3.xmlName = 'ApexPage';
 
       MetadataService.DescribeMetadataResult prop4 = new MetadataService.DescribeMetadataResult();
-      prop4.metadataObjects = new MetadataService.DescribeMetadataObject[]{ prop1, prop2, prop3 };
+      prop4.metadataObjects = new List<MetadataService.DescribeMetadataObject>{ prop1, prop2, prop3 };
       prop4.organizationNamespace = null;
       prop4.partialSaveAllowed = false;
       prop4.testRequired = false;
@@ -75,7 +75,10 @@ private with sharing class TestMetadataUtility {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
 
     Test.startTest();
-    List<MetadataSelector.KeyValuePair> results = (List<MetadataSelector.KeyValuePair>)JSON.deserialize(MetadataUtility.getMetadataTypes(), List<MetadataSelector.KeyValuePair>.class);
+    List<MetadataSelector.KeyValuePair> results = (List<MetadataSelector.KeyValuePair>) JSON.deserialize(
+      MetadataUtility.getMetadataTypes(),
+      List<MetadataSelector.KeyValuePair>.class
+    );
     Test.stopTest();
 
     Assert.areEqual(169, results.size(), 'Check Metadata Types returned');

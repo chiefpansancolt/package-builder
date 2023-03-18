@@ -1,5 +1,6 @@
 public with sharing class MetadataSelector {
-  public class MetadataSelectorException extends Exception {}
+  public class MetadataSelectorException extends Exception {
+  }
 
   @AuraEnabled(cacheable=true)
   public static String listMetadata(String metadataType, List<String> folderNames, String packageType) {
@@ -28,14 +29,38 @@ public with sharing class MetadataSelector {
     if (properties != null) {
       for (MetadataService.FileProperties property : properties) {
         if (packageType == PACKAGETYPE_ALL) {
-          files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+          files.add(
+            new fileProperty(
+              property.fileName,
+              property.fullName,
+              property.id,
+              property.manageableState,
+              property.namespacePrefix
+            )
+          );
         } else if (packageType == PACKAGETYPE_UNMANAGED) {
           if (property.namespacePrefix == null) {
-            files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+            files.add(
+              new fileProperty(
+                property.fileName,
+                property.fullName,
+                property.id,
+                property.manageableState,
+                property.namespacePrefix
+              )
+            );
           }
         } else if (packageType == PACKAGETYPE_MANAGED) {
           if (property.namespacePrefix != null) {
-            files.add(new fileProperty(property.fileName, property.fullName, property.id, property.manageableState, property.namespacePrefix));
+            files.add(
+              new fileProperty(
+                property.fileName,
+                property.fullName,
+                property.id,
+                property.manageableState,
+                property.namespacePrefix
+              )
+            );
           }
         }
       }

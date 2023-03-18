@@ -56,7 +56,8 @@
     </div>
     <div class="slds-grid slds-text-align_right" slot="footer">
       <div class="slds-col slds-size_1-of-1">
-        <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}> </lightning-button>
+        <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}>
+        </lightning-button>
       </div>
     </div>
   </c-lightning-card>
@@ -73,7 +74,8 @@
         hide-footer={metadataListSetting.hideFooter}
       >
         <div style={setDatatableHeight} slot="body">
-          <lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}> </lightning-datatable>
+          <lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}>
+          </lightning-datatable>
         </div>
       </c-lightning-card>
     </div>

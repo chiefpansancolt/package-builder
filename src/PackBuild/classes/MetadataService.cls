@@ -26,14 +26,21 @@ public with sharing class MetadataService {
     public Boolean metaFile;
     public String suffix;
     public String xmlName;
-    private String[] childXmlNames_type_info = new String[]{'childXmlNames',SOAP_URI,null,'0','-1','false'};
-    private String[] directoryName_type_info = new String[]{'directoryName',SOAP_URI,null,'1','1','false'};
-    private String[] inFolder_type_info = new String[]{'inFolder',SOAP_URI,null,'1','1','false'};
-    private String[] metaFile_type_info = new String[]{'metaFile',SOAP_URI,null,'1','1','false'};
-    private String[] suffix_type_info = new String[]{'suffix',SOAP_URI,null,'0','1','false'};
-    private String[] xmlName_type_info = new String[]{'xmlName',SOAP_URI,null,'1','1','false'};
-    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
-    private String[] field_order_type_info = new String[]{'childXmlNames','directoryName','inFolder','metaFile','suffix','xmlName'};
+    private String[] childXmlNames_type_info = new List<String>{ 'childXmlNames', SOAP_URI, null, '0', '-1', 'false' };
+    private String[] directoryName_type_info = new List<String>{ 'directoryName', SOAP_URI, null, '1', '1', 'false' };
+    private String[] inFolder_type_info = new List<String>{ 'inFolder', SOAP_URI, null, '1', '1', 'false' };
+    private String[] metaFile_type_info = new List<String>{ 'metaFile', SOAP_URI, null, '1', '1', 'false' };
+    private String[] suffix_type_info = new List<String>{ 'suffix', SOAP_URI, null, '0', '1', 'false' };
+    private String[] xmlName_type_info = new List<String>{ 'xmlName', SOAP_URI, null, '1', '1', 'false' };
+    private String[] apex_schema_type_info = new List<String>{ SOAP_URI, 'true', 'false' };
+    private String[] field_order_type_info = new List<String>{
+      'childXmlNames',
+      'directoryName',
+      'inFolder',
+      'metaFile',
+      'suffix',
+      'xmlName'
+    };
   }
 
   public class DescribeMetadataResult {
@@ -41,12 +48,38 @@ public with sharing class MetadataService {
     public String organizationNamespace;
     public Boolean partialSaveAllowed;
     public Boolean testRequired;
-    private String[] metadataObjects_type_info = new String[]{'metadataObjects',SOAP_URI,null,'0','-1','false'};
-    private String[] organizationNamespace_type_info = new String[]{'organizationNamespace',SOAP_URI,null,'1','1','false'};
-    private String[] partialSaveAllowed_type_info = new String[]{'partialSaveAllowed',SOAP_URI,null,'1','1','false'};
-    private String[] testRequired_type_info = new String[]{'testRequired',SOAP_URI,null,'1','1','false'};
-    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
-    private String[] field_order_type_info = new String[]{'metadataObjects','organizationNamespace','partialSaveAllowed','testRequired'};
+    private String[] metadataObjects_type_info = new List<String>{
+      'metadataObjects',
+      SOAP_URI,
+      null,
+      '0',
+      '-1',
+      'false'
+    };
+    private String[] organizationNamespace_type_info = new List<String>{
+      'organizationNamespace',
+      SOAP_URI,
+      null,
+      '1',
+      '1',
+      'false'
+    };
+    private String[] partialSaveAllowed_type_info = new List<String>{
+      'partialSaveAllowed',
+      SOAP_URI,
+      null,
+      '1',
+      '1',
+      'false'
+    };
+    private String[] testRequired_type_info = new List<String>{ 'testRequired', SOAP_URI, null, '1', '1', 'false' };
+    private String[] apex_schema_type_info = new List<String>{ SOAP_URI, 'true', 'false' };
+    private String[] field_order_type_info = new List<String>{
+      'metadataObjects',
+      'organizationNamespace',
+      'partialSaveAllowed',
+      'testRequired'
+    };
   }
 
   public class listMetadataResponse_element {
@@ -75,11 +108,46 @@ public with sharing class MetadataService {
     private String[] fileName_type_info = new List<String>{ 'fileName', SOAP_URI, null, '1', '1', 'false' };
     private String[] fullName_type_info = new List<String>{ 'fullName', SOAP_URI, null, '1', '1', 'false' };
     private String[] id_type_info = new List<String>{ 'id', SOAP_URI, null, '1', '1', 'false' };
-    private String[] lastModifiedById_type_info = new List<String>{ 'lastModifiedById', SOAP_URI, null, '1', '1', 'false' };
-    private String[] lastModifiedByName_type_info = new List<String>{ 'lastModifiedByName', SOAP_URI, null, '1', '1', 'false' };
-    private String[] lastModifiedDate_type_info = new List<String>{ 'lastModifiedDate', SOAP_URI, null, '1', '1', 'false' };
-    private String[] manageableState_type_info = new List<String>{ 'manageableState', SOAP_URI, null, '0', '1', 'false' };
-    private String[] namespacePrefix_type_info = new List<String>{ 'namespacePrefix', SOAP_URI, null, '0', '1', 'false' };
+    private String[] lastModifiedById_type_info = new List<String>{
+      'lastModifiedById',
+      SOAP_URI,
+      null,
+      '1',
+      '1',
+      'false'
+    };
+    private String[] lastModifiedByName_type_info = new List<String>{
+      'lastModifiedByName',
+      SOAP_URI,
+      null,
+      '1',
+      '1',
+      'false'
+    };
+    private String[] lastModifiedDate_type_info = new List<String>{
+      'lastModifiedDate',
+      SOAP_URI,
+      null,
+      '1',
+      '1',
+      'false'
+    };
+    private String[] manageableState_type_info = new List<String>{
+      'manageableState',
+      SOAP_URI,
+      null,
+      '0',
+      '1',
+      'false'
+    };
+    private String[] namespacePrefix_type_info = new List<String>{
+      'namespacePrefix',
+      SOAP_URI,
+      null,
+      '0',
+      '1',
+      'false'
+    };
     private String[] type_x_type_info = new List<String>{ 'type', SOAP_URI, null, '1', '1', 'false' };
     private String[] apex_schema_type_info = new List<String>{ SOAP_URI, 'true', 'false' };
     private String[] field_order_type_info = new List<String>{
@@ -146,20 +214,23 @@ public with sharing class MetadataService {
 
   public class describeMetadata_element {
     public Double asOfVersion;
-    private String[] asOfVersion_type_info = new String[]{'asOfVersion',SOAP_URI,null,'1','1','false'};
-    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
-    private String[] field_order_type_info = new String[]{'asOfVersion'};
+    private String[] asOfVersion_type_info = new List<String>{ 'asOfVersion', SOAP_URI, null, '1', '1', 'false' };
+    private String[] apex_schema_type_info = new List<String>{ SOAP_URI, 'true', 'false' };
+    private String[] field_order_type_info = new List<String>{ 'asOfVersion' };
   }
 
   public class describeMetadataResponse_element {
     public MetadataService.DescribeMetadataResult result;
-    private String[] result_type_info = new String[]{'result',SOAP_URI,null,'1','1','false'};
-    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
-    private String[] field_order_type_info = new String[]{'result'};
+    private String[] result_type_info = new List<String>{ 'result', SOAP_URI, null, '1', '1', 'false' };
+    private String[] apex_schema_type_info = new List<String>{ SOAP_URI, 'true', 'false' };
+    private String[] field_order_type_info = new List<String>{ 'result' };
   }
 
   public class MetadataPort {
-    public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/' + MetadataUtility.API_VERSION;
+    public String endpoint_x =
+      URL.getSalesforceBaseUrl().toExternalForm() +
+      '/services/Soap/m/' +
+      MetadataUtility.API_VERSION;
     public Map<String, String> inputHttpHeaders_x;
     public Map<String, String> outputHttpHeaders_x;
     public String clientCertName_x;
@@ -178,7 +249,10 @@ public with sharing class MetadataService {
     private String AllOrNoneHeader_hns = 'AllOrNoneHeader=' + SOAP_URI;
     private String[] ns_map_type_info = new List<String>{ SOAP_URI, 'MetadataService' };
 
-    public MetadataService.FileProperties[] listMetadata(MetadataService.ListMetadataQuery[] queries, Double asOfVersion) {
+    public MetadataService.FileProperties[] listMetadata(
+      MetadataService.ListMetadataQuery[] queries,
+      Double asOfVersion
+    ) {
       MetadataService.listMetadata_element request_x = new MetadataService.listMetadata_element();
       request_x.queries = queries;
       request_x.asOfVersion = asOfVersion;
@@ -190,7 +264,15 @@ public with sharing class MetadataService {
           this,
           request_x,
           response_map_x,
-          new List<String>{ endpoint_x, '', SOAP_URI, 'listMetadata', SOAP_URI, 'listMetadataResponse', 'MetadataService.listMetadataResponse_element' }
+          new List<String>{
+            endpoint_x,
+            '',
+            SOAP_URI,
+            'listMetadata',
+            SOAP_URI,
+            'listMetadataResponse',
+            'MetadataService.listMetadataResponse_element'
+          }
         );
       } catch (System.CalloutException ex) {
         throw new AuraHandledException(ex.getMessage());
@@ -209,7 +291,8 @@ public with sharing class MetadataService {
         this,
         request_x,
         response_map_x,
-        new String[]{endpoint_x,
+        new List<String>{
+          endpoint_x,
           '',
           SOAP_URI,
           'describeMetadata',
