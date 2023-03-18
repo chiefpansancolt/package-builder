@@ -40,7 +40,7 @@ import Copy_Types_Button_Label from "@salesforce/label/c.Copy_Types_Button_Label
 import Copied_Button_Label from "@salesforce/label/c.Copied_Button_Label";
 
 export default class MetadataSelector extends LightningElement {
-  @track metdataTypes = [];
+  @track metadataTypes = [];
   @track availableFolders = [];
   @track selectedMetadataTypes = [];
   @track metadataOptions = [];
@@ -111,7 +111,7 @@ export default class MetadataSelector extends LightningElement {
   };
 
   @wire(getMetadataTypes)
-  wiredGetMetadataTypes({ error, data}) {
+  wiredGetMetadataTypes({ error, data }) {
     if (data) {
       this.metadataOptions = JSON.parse(data);
       this.metadataTypeSetting.isLoading = false;
@@ -217,7 +217,7 @@ export default class MetadataSelector extends LightningElement {
           this.metadataListSetting.isEmpty = true;
         } else {
           this.metadataListSetting.isEmpty = false;
-          this.metdataTypes = JSON.parse(result);
+          this.metadataTypes = JSON.parse(result);
         }
         this.metadataListSetting.show = true;
         if (this.selectedMetadataType === "CustomLabels") {
@@ -271,6 +271,13 @@ export default class MetadataSelector extends LightningElement {
       { label: Package_Type_Unmanaged, value: "unmanagedOnly" },
       { label: Package_Type_Managed, value: "managedOnly" }
     ];
+  }
+
+  get setDatatableHeight() {
+    if (this.metadataTypes.length > 15) {
+      return "height:450px;";
+    }
+    return "";
   }
 
   search(nameKey, anArray) {

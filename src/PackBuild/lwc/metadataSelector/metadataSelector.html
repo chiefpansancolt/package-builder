@@ -72,8 +72,8 @@
         empty-text={metadataListSetting.emptyText}
         hide-footer={metadataListSetting.hideFooter}
       >
-        <div style="max-height: 450px" slot="body">
-          <lightning-datatable key-field="id" data={metdataTypes} columns={columns} onrowselection={getSelectedName}> </lightning-datatable>
+        <div style={setDatatableHeight} slot="body">
+          <lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}> </lightning-datatable>
         </div>
       </c-lightning-card>
     </div>
