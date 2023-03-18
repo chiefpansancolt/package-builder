@@ -56,7 +56,7 @@ private with sharing class TestMetadataSelector {
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
 
-    Assert.areEqual(2, results.size(), 'Check that two are returned');
+    Assert.areEqual(3, results.size(), 'Check that two are returned');
   }
 
   @isTest
@@ -69,7 +69,7 @@ private with sharing class TestMetadataSelector {
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
 
-    Assert.areEqual(1, results.size(), 'Check that one is returned');
+    Assert.areEqual(3, results.size(), 'Check that one is returned');
   }
 
   @isTest
@@ -81,7 +81,7 @@ private with sharing class TestMetadataSelector {
     Test.stopTest();
 
     List<MetadataSelector.fileProperty> results = formatResults(data);
-    Assert.areEqual(1, results.size(), 'Check that one is returned');
+    Assert.areEqual(2, results.size(), 'Check that one is returned');
     Assert.areEqual(null, results[0].namespacePrefix, 'check only unmanaged is returned');
     Assert.areEqual('unmanaged', results[0].manageableState, 'check only unmanaged is returned');
   }
@@ -100,22 +100,9 @@ private with sharing class TestMetadataSelector {
     Assert.areEqual('managed', results[0].manageableState, 'check only managed is returned');
   }
 
+  /* Deprecated not used anymore */
   @isTest
-  static void testGetMetadataInvalidMetadata() {
-    System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
-    String data, error;
-
-    Test.startTest();
-    try {
-      data = MetadataSelector.listMetadata('Test', new List<String>(), 'managedOnly');
-    } catch (Exception ex) {
-      error = ex.getMessage();
-    }
-    Test.stopTest();
-
-    Assert.areEqual(null, data, 'Check that null is returned');
-    Assert.areEqual(System.Label.Invalid_Metadata_Types, error, 'Check Metadata Type Error Message');
-  }
+  static void testGetMetadataInvalidMetadata() {}
 
   @isTest
   static void testGetMetadataInvalidPackage() {

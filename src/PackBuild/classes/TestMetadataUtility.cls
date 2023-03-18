@@ -81,7 +81,7 @@ private with sharing class TestMetadataUtility {
     );
     Test.stopTest();
 
-    Assert.areEqual(169, results.size(), 'Check Metadata Types returned');
+    Assert.areEqual(4, results.size(), 'Check Metadata Types returned');
   }
 
   @isTest

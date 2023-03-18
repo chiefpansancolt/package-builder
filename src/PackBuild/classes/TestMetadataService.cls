@@ -12,8 +12,13 @@ private without sharing class TestMetadataService {
       String responseName,
       String responseType
     ) {
-      if (request instanceof MetadataService.listMetadata_element)
+      if (request instanceof MetadataService.listMetadata_element) {
         response.put('response_x', new MetadataService.listMetadataResponse_element());
+      }
+
+      if (request instanceof MetadataService.describeMetadata_element) {
+        response.put('response_x', new MetadataService.describeMetadataResponse_element());
+      }
       return;
     }
   }
