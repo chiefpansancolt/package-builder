@@ -19,6 +19,36 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'folder', 'type_x' };
   }
 
+  public class DescribeMetadataObject {
+    public String[] childXmlNames;
+    public String directoryName;
+    public Boolean inFolder;
+    public Boolean metaFile;
+    public String suffix;
+    public String xmlName;
+    private String[] childXmlNames_type_info = new String[]{'childXmlNames',SOAP_URI,null,'0','-1','false'};
+    private String[] directoryName_type_info = new String[]{'directoryName',SOAP_URI,null,'1','1','false'};
+    private String[] inFolder_type_info = new String[]{'inFolder',SOAP_URI,null,'1','1','false'};
+    private String[] metaFile_type_info = new String[]{'metaFile',SOAP_URI,null,'1','1','false'};
+    private String[] suffix_type_info = new String[]{'suffix',SOAP_URI,null,'0','1','false'};
+    private String[] xmlName_type_info = new String[]{'xmlName',SOAP_URI,null,'1','1','false'};
+    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
+    private String[] field_order_type_info = new String[]{'childXmlNames','directoryName','inFolder','metaFile','suffix','xmlName'};
+  }
+
+  public class DescribeMetadataResult {
+    public MetadataService.DescribeMetadataObject[] metadataObjects;
+    public String organizationNamespace;
+    public Boolean partialSaveAllowed;
+    public Boolean testRequired;
+    private String[] metadataObjects_type_info = new String[]{'metadataObjects',SOAP_URI,null,'0','-1','false'};
+    private String[] organizationNamespace_type_info = new String[]{'organizationNamespace',SOAP_URI,null,'1','1','false'};
+    private String[] partialSaveAllowed_type_info = new String[]{'partialSaveAllowed',SOAP_URI,null,'1','1','false'};
+    private String[] testRequired_type_info = new String[]{'testRequired',SOAP_URI,null,'1','1','false'};
+    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
+    private String[] field_order_type_info = new String[]{'metadataObjects','organizationNamespace','partialSaveAllowed','testRequired'};
+  }
+
   public class listMetadataResponse_element {
     public MetadataService.FileProperties[] result;
     private String[] result_type_info = new List<String>{ 'result', SOAP_URI, null, '0', '-1', 'false' };
@@ -114,6 +144,20 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'allOrNone' };
   }
 
+  public class describeMetadata_element {
+    public Double asOfVersion;
+    private String[] asOfVersion_type_info = new String[]{'asOfVersion',SOAP_URI,null,'1','1','false'};
+    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
+    private String[] field_order_type_info = new String[]{'asOfVersion'};
+  }
+
+  public class describeMetadataResponse_element {
+    public MetadataService.DescribeMetadataResult result;
+    private String[] result_type_info = new String[]{'result',SOAP_URI,null,'1','1','false'};
+    private String[] apex_schema_type_info = new String[]{SOAP_URI,'true','false'};
+    private String[] field_order_type_info = new String[]{'result'};
+  }
+
   public class MetadataPort {
     public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/' + MetadataUtility.API_VERSION;
     public Map<String, String> inputHttpHeaders_x;
@@ -151,6 +195,29 @@ public with sharing class MetadataService {
       } catch (System.CalloutException ex) {
         throw new AuraHandledException(ex.getMessage());
       }
+      response_x = response_map_x.get('response_x');
+      return response_x.result;
+    }
+
+    public MetadataService.DescribeMetadataResult describeMetadata(Double asOfVersion) {
+      MetadataService.describeMetadata_element request_x = new MetadataService.describeMetadata_element();
+      request_x.asOfVersion = asOfVersion;
+      MetadataService.describeMetadataResponse_element response_x;
+      Map<String, MetadataService.describeMetadataResponse_element> response_map_x = new Map<String, MetadataService.describeMetadataResponse_element>();
+      response_map_x.put('response_x', response_x);
+      WebServiceCallout.invoke(
+        this,
+        request_x,
+        response_map_x,
+        new String[]{endpoint_x,
+          '',
+          SOAP_URI,
+          'describeMetadata',
+          SOAP_URI,
+          'describeMetadataResponse',
+          'MetadataService.describeMetadataResponse_element'
+        }
+      );
       response_x = response_map_x.get('response_x');
       return response_x.result;
     }

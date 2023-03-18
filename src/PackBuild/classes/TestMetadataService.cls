@@ -45,6 +45,8 @@ private without sharing class TestMetadataService {
     new MetadataService.listMetadata_element();
     new MetadataService.ListMetadataQuery();
     new MetadataService.listMetadataResponse_element();
+    new MetadataService.DescribeMetadataObject();
+    new MetadataService.DescribeMetadataResult();
     new MetadataService.FileProperties();
     new MetadataService.LogInfo();
     new MetadataService.SessionHeader_element();

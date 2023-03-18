@@ -8,176 +8,32 @@ public with sharing class MetadataUtility {
 
   public static final List<String> PACKAGE_TYPES = new List<String>{ 'all', 'unmanagedOnly', 'managedOnly' };
 
-  public static final List<String> METADATA_TYPES = new List<String>{
-    'ActionLinkGroupTemplate',
-    'ActionOverride',
-    'AnalyticSnapshot',
-    'ApexClass',
-    'ApexComponent',
-    'ApexPage',
-    'ApexTrigger',
-    'AppMenu',
-    'ApprovalProcess',
-    'ArticleType',
-    'AssignmentRules',
-    'Audience',
-    'AuthProvider',
-    'AuraDefinitionBundle',
-    'AutoResponseRules',
-    'BaseSharingRule',
-    'Bot',
-    'BotVersion',
-    'BrandingSet',
-    'BusinessProcess',
-    'CallCenter',
-    'CaseSubjectParticle',
-    'Certificate',
-    'ChatterExtension',
-    'CleanDataService',
-    'CMSConnectSource',
-    'CompactLayout',
-    'Community',
-    'CommunityTemplateDefinition',
-    'CommunityThemeDefinition',
-    'ConnectedApp',
-    'ContentAsset',
-    'CorsWhitelistOrigin',
-    'CriteriaBasedSharingRule',
-    'CspTrustedSite',
-    'CustomApplication',
-    'CustomApplicationComponent',
-    'CustomFeedFilter',
-    'CustomField',
-    'CustomHelpMenuSection',
-    'CustomLabels',
-    'CustomLabel',
-    'CustomMetadataTypes',
-    'CustomMetadata',
-    'CustomObject',
-    'CustomObjectTranslation',
-    'CustomPageWebLink',
-    'CustomPermission',
-    'CustomSite',
-    'CustomTab',
-    'Dashboard',
-    'DataCategoryGroup',
-    'DelegateGroup',
-    'Document',
-    'DuplicateRule',
-    'EclairGeoData',
-    'EmailServicesFunction',
-    'EmailTemplate',
-    'EmbeddedServiceBranding',
-    'EmbeddedServiceConfig',
-    'EmbeddedServiceFlowConfig',
-    'EmbeddedServiceLiveAgent',
-    'EntitlementProcess',
-    'EntitlementTemplate',
-    'EventDelivery',
-    'EventSubscription',
-    'ExternalServiceRegistration',
-    'ExternalDataSource',
-    'FeatureParameterBoolean',
-    'FeatureParameterDate',
-    'FeatureParameterInteger',
-    'FieldSet',
-    'FlexiPage',
-    'Flow',
-    'FlowCategory',
-    'FlowDefinition',
-    'Folder',
-    'FolderShare',
-    'GlobalValueSet',
-    'GlobalValueSetTranslation',
-    'GlobalPicklistValue',
-    'Group',
-    'HomePageComponent',
-    'HomePageLayout',
-    'Index',
-    'InstalledPackage',
-    'KeywordList',
-    'Layout',
-    'Letterhead',
-    'LightningBolt',
-    'LightningComponentBundle',
-    'LightningExperienceTheme',
-    'ListView',
-    'LiveChatAgentConfig',
-    'LiveChatButton',
-    'LiveChatDeployment',
-    'LiveChatSensitiveDataRule',
-    'ManagedTopics',
-    'MatchingRule',
-    'Metadata',
-    'MetadataWithContent',
-    'MilestoneType',
-    'MlDomain',
-    'ModerationRule',
-    'NamedCredential',
-    'NamedFilter',
-    'Network',
-    'NetworkBranding',
-    'OwnerSharingRule',
-    'Package',
-    'PathAssistant',
-    'PermissionSet',
-    'Picklist',
-    'PlatformCachePartition',
-    'PlatformEventChannel',
-    'Portal',
-    'PostTemplate',
-    'PresenceDeclineReason',
-    'PresenceUserConfig',
-    'Profile',
-    'ProfileActionOverride',
-    'ProfilePasswordPolicy',
-    'ProfileSessionSetting',
-    'Queue',
-    'QueueRoutingConfig',
-    'QuickAction',
-    'RecommendationStrategy',
-    'RecordActionDeployment',
-    'RecordType',
-    'RemoteSiteSetting',
-    'Report',
-    'ReportType',
-    'Role',
-    'SamlSsoConfig',
-    'Scontrol',
-    'SearchLayouts',
-    'ServiceChannel',
-    'ServicePresenceStatus',
-    'Settings',
-    'SharingBaseRule',
-    'SharingReason',
-    'SharingRecalculation',
-    'SharingRules',
-    'SharingSet',
-    'SiteDotCom',
-    'Skill',
-    'StandardValueSet',
-    'StandardValueSetTranslation',
-    'StaticResource',
-    'SynonymDictionary',
-    'Territory',
-    'Territory2',
-    'Territory2Model',
-    'Territory2Rule',
-    'Territory2Type',
-    'TopicsForObjects',
-    'TransactionSecurityPolicy',
-    'Translations',
-    'ValidationRule',
-    'WaveApplication',
-    'WaveDashboard',
-    'WaveDataflow',
-    'WaveDataset',
-    'WaveLens',
-    'WaveTemplateBundle',
-    'WaveXmd',
-    'WebLink',
-    'Workflow'
-  };
+  @AuraEnabled(cacheable=true)
+  public static String getMetadataTypes() {
+    MetadataService.MetadataPort service = createService();					
+		MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(Integer.valueOf(API_VERSION));
+		List<String> metadataTypeNames = new List<String>();
+		for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects) {
+			metadataTypeNames.add(metadataObject.xmlName);
+			if(metadataObject.childXmlNames!=null) {
+				for(String childXmlName : metadataObject.childXmlNames) {
+					if(childXmlName!=null) {
+						metadataTypeNames.add(childXmlName);
+          }
+        }
+      }
+		}	
+
+		metadataTypeNames.sort();
+		List<MetadataSelector.KeyValuePair> toReturn = new List<MetadataSelector.KeyValuePair>();				
+		for(String metadataTypeName : metadataTypeNames) {
+			toReturn.add(new MetadataSelector.KeyValuePair(metadataTypeName, metadataTypeName));
+    }
+
+    return JSON.serialize(toReturn);
+  }
+
+  public static final List<String> METADATA_TYPES = new List<String>{};
 
   @TestVisible
   private static String getSystemProperty(String category, String key, String defaultValue) {
@@ -188,6 +44,13 @@ public with sharing class MetadataUtility {
     }
 
     return defaultValue;
+  }
+
+  private static MetadataService.MetadataPort createService() {
+    MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+    service.SessionHeader = new MetadataService.SessionHeader_element();
+    service.SessionHeader.sessionId = MetadataUtility.getSessionIdFromVFPage(Page.SessionId);
+    return service;
   }
 
   private static final String SYSPROP_CATEGORY = 'PackBuild';

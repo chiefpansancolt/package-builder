@@ -1,13 +1,8 @@
 public with sharing class MetadataSelector {
-  public class MetadataSelectorException extends Exception {
-  }
+  public class MetadataSelectorException extends Exception {}
 
   @AuraEnabled(cacheable=true)
   public static String listMetadata(String metadataType, List<String> folderNames, String packageType) {
-    if (!MetadataUtility.METADATA_TYPES.contains(metadataType)) {
-      throw new MetadataSelectorException(System.Label.Invalid_Metadata_Types);
-    }
-
     if (!MetadataUtility.PACKAGE_TYPES.contains(packageType)) {
       throw new MetadataSelectorException(System.Label.Invlid_Package_Types);
     }
@@ -53,11 +48,11 @@ public with sharing class MetadataSelector {
 
   @AuraEnabled(cacheable=true)
   public static string listFolders(String metadataType) {
-    List<aFolder> toReturn = new List<aFolder>();
+    List<KeyValuePair> toReturn = new List<KeyValuePair>();
     List<Folder> folders = getFolders(metadataType);
 
     for (Folder f : folders) {
-      toReturn.add(new aFolder(f.Name, f.DeveloperName));
+      toReturn.add(new KeyValuePair(f.Name, f.DeveloperName));
     }
 
     return JSON.serialize(toReturn);
@@ -79,11 +74,11 @@ public with sharing class MetadataSelector {
     }
   }
 
-  public class aFolder {
+  public class KeyValuePair {
     public String label;
     public String value;
 
-    public aFolder(String label, String value) {
+    public KeyValuePair(String label, String value) {
       this.label = label;
       this.value = value;
     }
