@@ -7,20 +7,20 @@
 private with sharing class TestMetadataSelector {
   /**
    * Mock Webservice for MetadataService
-   */  
+   */
   private class WebServiceMockImpl implements WebServiceMock {
     /**
      * Do Invoke method for webservice
-     * @param stub 
-     * @param request 
-     * @param response 
-     * @param endpoint 
-     * @param soapAction 
-     * @param requestName 
-     * @param responseNS 
-     * @param responseName 
-     * @param responseType 
-     */    
+     * @param stub
+     * @param request
+     * @param response
+     * @param endpoint
+     * @param soapAction
+     * @param requestName
+     * @param responseNS
+     * @param responseName
+     * @param responseType
+     */
     @SuppressWarnings('PMD.ExcessiveParameterList, PMD.AvoidNonExistentAnnotations')
     public void doInvoke(
       Object stub,
@@ -69,7 +69,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Test Get Metadata with Package type all
-   */  
+   */
   @isTest
   static void testGetMetadataAll() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -85,7 +85,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Get Metadata with a folder with package type all
-   */  
+   */
   @isTest
   static void testGetMetadataAllWithFolders() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -101,7 +101,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Get Metadata with Package Type unmanaged only
-   */  
+   */
   @isTest
   static void testGetMetadataUnmanaged() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -118,7 +118,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Get Metadata with package type managed only
-   */  
+   */
   @isTest
   static void testGetMetadataManaged() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -136,11 +136,12 @@ private with sharing class TestMetadataSelector {
   /* Deprecated not used anymore */
   @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts, PMD.EmptyStatementBlock')
   @isTest
-  static void testGetMetadataInvalidMetadata() {}
+  static void testGetMetadataInvalidMetadata() {
+  }
 
   /**
    * Get Metadata with an invalid package type
-   */  
+   */
   @isTest
   static void testGetMetadataInvalidPackage() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -161,7 +162,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Get list folders for Email Template Metadata type
-   */  
+   */
   @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testListFolders1() {
@@ -172,7 +173,7 @@ private with sharing class TestMetadataSelector {
 
   /**
    * Get List folders for Report metadata type
-   */  
+   */
   @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testListFolders2() {
@@ -185,7 +186,7 @@ private with sharing class TestMetadataSelector {
    * Format Results for assertion usage
    * @param data data returned from method
    * @return  `List<MetadataSelector.fileProperty>`
-   */  
+   */
   private static List<MetadataSelector.fileProperty> formatResults(String data) {
     List<MetadataSelector.fileProperty> props = (List<MetadataSelector.fileProperty>) JSON.deserialize(
       data,

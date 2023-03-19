@@ -8,20 +8,20 @@
 private without sharing class TestMetadataService {
   /**
    * Mock Webservice for MetadataService
-   */  
+   */
   private class WebServiceMockImpl implements WebServiceMock {
     /**
      * Do Invoke method for webservice
-     * @param stub 
-     * @param request 
-     * @param response 
-     * @param endpoint 
-     * @param soapAction 
-     * @param requestName 
-     * @param responseNS 
-     * @param responseName 
-     * @param responseType 
-     */    
+     * @param stub
+     * @param request
+     * @param response
+     * @param endpoint
+     * @param soapAction
+     * @param requestName
+     * @param responseNS
+     * @param responseName
+     * @param responseType
+     */
     @SuppressWarnings('PMD.ExcessiveParameterList')
     public void doInvoke(
       Object stub,
@@ -47,7 +47,7 @@ private without sharing class TestMetadataService {
 
   /**
    * Test Initiating Metadata Port
-   */  
+   */
   @IsTest
   private static void initiateMetdataPort() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -59,7 +59,7 @@ private without sharing class TestMetadataService {
 
   /**
    * Test List Metadata
-   */  
+   */
   @IsTest
   private static void listMetadataTest() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -72,7 +72,7 @@ private without sharing class TestMetadataService {
 
   /**
    * Test Describe Metadata
-   */  
+   */
   @IsTest
   private static void describeMetadataTest() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -85,7 +85,7 @@ private without sharing class TestMetadataService {
 
   /**
    * Code Coverage for all other methods
-   */  
+   */
   @IsTest
   private static void coverGeneratedCodeTypes() {
     Test.startTest();

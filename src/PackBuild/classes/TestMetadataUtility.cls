@@ -5,22 +5,22 @@
  */
 @isTest
 private with sharing class TestMetadataUtility {
-    /**
+  /**
    * Mock Webservice for MetadataService
-   */  
+   */
   private class WebServiceMockImpl implements WebServiceMock {
     /**
      * Do Invoke method for webservice
-     * @param stub 
-     * @param request 
-     * @param response 
-     * @param endpoint 
-     * @param soapAction 
-     * @param requestName 
-     * @param responseNS 
-     * @param responseName 
-     * @param responseType 
-     */    
+     * @param stub
+     * @param request
+     * @param response
+     * @param endpoint
+     * @param soapAction
+     * @param requestName
+     * @param responseNS
+     * @param responseName
+     * @param responseType
+     */
     @SuppressWarnings('PMD.ExcessiveParameterList')
     public void doInvoke(
       Object stub,
@@ -75,7 +75,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Test Get Session Id
-   */  
+   */
   @isTest
   static void testSessionId() {
     Test.startTest();
@@ -87,7 +87,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Test API Version retrieve
-   */  
+   */
   @isTest
   static void testApiVersion() {
     Test.startTest();
@@ -99,7 +99,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Get List of Metadata Types
-   */  
+   */
   @isTest
   static void testGetMetadataTypes() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -116,7 +116,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Get List of Package Types
-   */  
+   */
   @isTest
   static void testPackageTypes() {
     Test.startTest();
@@ -128,7 +128,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Get Old Metadata Types Not used anymore
-   */  
+   */
   @isTest
   static void testMetadataTypes() {
     Test.startTest();
@@ -140,7 +140,7 @@ private with sharing class TestMetadataUtility {
 
   /**
    * Get a System Property of the Default value if not found
-   */  
+   */
   @isTest
   static void testDefaultValue() {
     Test.startTest();

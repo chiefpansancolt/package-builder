@@ -7,8 +7,9 @@
 public with sharing class MetadataSelector {
   /**
    * Custom Exception class
-   */  
-  public class MetadataSelectorException extends Exception {}
+   */
+  public class MetadataSelectorException extends Exception {
+  }
 
   /**
    * Get List of Metadata for specific Metadata Type defined.
@@ -17,7 +18,7 @@ public with sharing class MetadataSelector {
    * @param packageType package type (all, unamanaged, managed)
    * @return  `String`
    * @exception Invalid_Package_Types
-   */  
+   */
   @SuppressWarnings('PMD.CognitiveComplexity, PMD.CyclomaticComplexity')
   @AuraEnabled(cacheable=true)
   public static String listMetadata(String metadataType, List<String> folderNames, String packageType) {
@@ -92,7 +93,7 @@ public with sharing class MetadataSelector {
    * Get list of Folders for specific metadata type
    * @param metadataType API name of metadata type
    * @return  `string`
-   */  
+   */
   @AuraEnabled(cacheable=true)
   public static string listFolders(String metadataType) {
     List<KeyValuePair> toReturn = new List<KeyValuePair>();
@@ -107,7 +108,7 @@ public with sharing class MetadataSelector {
 
   /**
    * File Property class used for showing data in LWC easily
-   */  
+   */
   public class FileProperty {
     public String fileName;
     public String fullName;
@@ -122,7 +123,7 @@ public with sharing class MetadataSelector {
      * @param id id of file
      * @param manageableState state of file managed or unmanaged
      * @param namespacePrefix namespace prefix
-     */    
+     */
     @SuppressWarnings('PMD.ExcessiveParameterList')
     public FileProperty(String fileName, String fullName, String id, string manageableState, String namespacePrefix) {
       this.fileName = fileName;
@@ -135,7 +136,7 @@ public with sharing class MetadataSelector {
 
   /**
    * KeyValuePair to mimic SelectOption for usage in LWC
-   */  
+   */
   public class KeyValuePair {
     public String label;
     public String value;
@@ -173,7 +174,12 @@ public with sharing class MetadataSelector {
       names.add('Email');
     }
 
-    return [SELECT Id, Name, DeveloperName FROM Folder WHERE Type IN :names AND DeveloperName != '' WITH SECURITY_ENFORCED];
+    return [
+      SELECT Id, Name, DeveloperName
+      FROM Folder
+      WHERE Type IN :names AND DeveloperName != ''
+      WITH SECURITY_ENFORCED
+    ];
   }
 
   private static final Integer API_VERSION = Integer.ValueOf(MetadataUtility.API_VERSION);
