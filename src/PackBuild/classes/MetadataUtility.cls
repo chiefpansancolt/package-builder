@@ -5,6 +5,26 @@
  */
 public with sharing class MetadataUtility {
   /**
+   * Get API Version Defined in System Properties
+   * @return  `String`
+   */  
+  @AuraEnabled(cacheable=true)
+  @SuppressWarnings('PMD.MethodNamingConventions')
+  public static String APIVERSION() {
+    return API_VERSION;
+  }
+  
+  /**
+   * Get CLI Command to generate for based on System Properties (sfdx or sf) supported
+   * @return  `String`
+   */  
+  @AuraEnabled(cacheable=true)
+  @SuppressWarnings('PMD.MethodNamingConventions')
+  public static String CLICOMMAND() {
+    return CLI_COMMAND;
+  }
+
+  /**
    * Get Session Id from ApexPage
    * @param visualforcePage VF Page for Session Id
    * @return  `String`
@@ -87,6 +107,9 @@ public with sharing class MetadataUtility {
 
   private static final String SYSPROP_CATEGORY = 'PackBuild';
   private static final String SYSPROP_API_KEY = 'APIVersion';
+  private static final String SYSPROP_CLI = 'CLICommand';
   private static final String DEFAULT_APIVERSION = '56.0';
+  private static final String DEFAULT_CLI = 'sfdx';
   public static final String API_VERSION = getSystemProperty(SYSPROP_CATEGORY, SYSPROP_API_KEY, DEFAULT_APIVERSION);
+  public static final String CLI_COMMAND = getSystemProperty(SYSPROP_CATEGORY, SYSPROP_CLI, DEFAULT_CLI);
 }

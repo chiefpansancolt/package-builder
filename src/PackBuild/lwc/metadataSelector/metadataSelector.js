@@ -7,6 +7,8 @@ import { MS_COLUMNS } from "c/metadataSelectorTableColumns";
 import { CONSTANTS } from "c/metadataSelectorUtilities";
 
 /* Import Class Methods */
+import APIVERSION from "@salesforce/apex/MetadataUtility.APIVERSION";
+import CLICOMMAND from "@salesforce/apex/MetadataUtility.CLICOMMAND";
 import listMetadata from "@salesforce/apex/MetadataSelector.listMetadata";
 import listFolders from "@salesforce/apex/MetadataSelector.listFolders";
 import getMetadataTypes from "@salesforce/apex/MetadataUtility.getMetadataTypes";
@@ -109,6 +111,20 @@ export default class MetadataSelector extends LightningElement {
     emptyText: CONSTANTS.BLANK,
     show: false
   };
+
+  @wire(APIVERSION)
+  wiredApiVersion({ data }) {
+    if (data) {
+      this.API_VERSION = data;
+    }
+  }
+
+  @wire(CLICOMMAND)
+  wiredCliCommand({ data }) {
+    if (data) {
+      this.CLI_COMMAND = data;
+    }
+  }
 
   @wire(getMetadataTypes)
   wiredGetMetadataTypes({ error, data }) {

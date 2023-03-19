@@ -8,6 +8,7 @@
     empty-text={metadataTypeSetting.emptyText}
     hide-footer={metadataTypeSetting.hideFooter}
   >
+    <div slot="actions">API: {API_VERSION}</div>
     <div class="slds-grid slds-wrap" slot="body">
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
         <lightning-combobox
@@ -134,7 +135,7 @@
           onclick={handleSfdxCopyCode}
           slot="actions"
         ></lightning-button>
-        <c-sfdx-code-snippet sfdx-output={sfdxOutput} slot="body"></c-sfdx-code-snippet>
+        <c-sfdx-code-snippet sfdx-output={sfdxOutput} cli={CLI_COMMAND} slot="body"></c-sfdx-code-snippet>
       </c-lightning-card>
     </div>
   </template>

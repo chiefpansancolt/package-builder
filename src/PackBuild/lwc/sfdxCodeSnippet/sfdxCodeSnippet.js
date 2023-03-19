@@ -5,6 +5,7 @@ import { copy } from "c/metadataSelectorUtilities";
 
 export default class SfdxCodeSnippet extends LightningElement {
   @api sfdxOutput;
+  @api cli;
 
   @api
   async handleCopy() {
@@ -21,5 +22,13 @@ export default class SfdxCodeSnippet extends LightningElement {
       document.execCommand("copy");
     }
     document.body.removeChild(input);
+  }
+
+  get cliCommand() {
+    if (this.cli === "sf") {
+      return "sf metadata retrieve -m ";
+    }
+
+    return "sfdx force:source:retrieve -m ";
   }
 }

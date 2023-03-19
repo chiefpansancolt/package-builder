@@ -88,13 +88,51 @@ private with sharing class TestMetadataUtility {
   /**
    * Test API Version retrieve
    */
+  @SuppressWarnings('PMD.MethodNamingConventions')
   @isTest
-  static void testApiVersion() {
+  static void testApi_Version() {
     Test.startTest();
     String apiVersion = MetadataUtility.API_VERSION;
     Test.stopTest();
 
     Assert.isNotNull(apiVersion, 'Check api is not null');
+  }
+  
+  /**
+   * Test API Version retrieve function
+   */
+  @isTest
+  static void testApiVersion() {
+    Test.startTest();
+    String apiVersion = MetadataUtility.APIVERSION();
+    Test.stopTest();
+
+    Assert.isNotNull(apiVersion, 'Check api is not null');
+  }
+
+  /**
+   * Test CLI Command retrieve
+   */
+  @SuppressWarnings('PMD.MethodNamingConventions')
+  @isTest
+  static void testCli_Command() {
+    Test.startTest();
+    String cliCommand = MetadataUtility.CLI_COMMAND;
+    Test.stopTest();
+
+    Assert.isNotNull(cliCommand, 'Check cli is not null');
+  }
+
+  /**
+   * Test CLI Command retrieve function
+   */
+  @isTest
+  static void testCliCommand() {
+    Test.startTest();
+    String cliCommand = MetadataUtility.CLICOMMAND();
+    Test.stopTest();
+
+    Assert.isNotNull(cliCommand, 'Check cli is not null');
   }
 
   /**
