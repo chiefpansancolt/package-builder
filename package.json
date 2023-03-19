@@ -1,7 +1,7 @@
 {
   "name": "package-builder",
   "private": true,
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Package Builder, ability to build package.xml and sfdx cmd of specific file names. All from within the org.",
   "scripts": {
     "lint": "npm run lint:lwc && npm run lint:aura",
