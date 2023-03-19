@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{ secrets.SFDX_AUTH_URL }}
+      - name: sfdx-test-run
+        run: sfdx force:apex:test:run -s "PackageBuilder" -r human -c -w 30

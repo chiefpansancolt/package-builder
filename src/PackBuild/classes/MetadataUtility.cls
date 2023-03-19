@@ -1,211 +1,115 @@
+/**
+ * MetadataUtility of common methods used in Package Builder
+ * @author Christopher Pezza
+ * @since 2023
+ */
 public with sharing class MetadataUtility {
-  public static final String API_VERSION = '56.0';
+  /**
+   * Get API Version Defined in System Properties
+   * @return  `String`
+   */  
+  @AuraEnabled(cacheable=true)
+  @SuppressWarnings('PMD.MethodNamingConventions')
+  public static String APIVERSION() {
+    return API_VERSION;
+  }
+  
+  /**
+   * Get CLI Command to generate for based on System Properties (sfdx or sf) supported
+   * @return  `String`
+   */  
+  @AuraEnabled(cacheable=true)
+  @SuppressWarnings('PMD.MethodNamingConventions')
+  public static String CLICOMMAND() {
+    return CLI_COMMAND;
+  }
 
+  /**
+   * Get Session Id from ApexPage
+   * @param visualforcePage VF Page for Session Id
+   * @return  `String`
+   */
   public static String getSessionIdFromVFPage(PageReference visualforcePage) {
-    String content = Test.IsRunningTest() ? 'Start_Of_Session_Id1234567890End_Of_Session_Id' : visualforcePage.getContent().toString();
-    Integer s = content.indexOf('Start_Of_Session_Id') + 'Start_Of_Session_Id'.length(), e = content.indexOf('End_Of_Session_Id');
+    String content = Test.IsRunningTest()
+      ? 'Start_Of_Session_Id1234567890End_Of_Session_Id'
+      : visualforcePage.getContent().toString();
+    Integer s = content.indexOf('Start_Of_Session_Id') + 'Start_Of_Session_Id'.length();
+    Integer e = content.indexOf('End_Of_Session_Id');
     return content.substring(s, e);
   }
 
   public static final List<String> PACKAGE_TYPES = new List<String>{ 'all', 'unmanagedOnly', 'managedOnly' };
 
-  public static final List<String> METADATA_TYPES = new List<String>{
-    'AccountSettings',
-    'ActionLinkGroupTemplate',
-    'ActionOverride',
-    'ActivitiesSettings',
-    'AddressSettings',
-    'AnalyticSnapshot',
-    'ApexClass',
-    'ApexComponent',
-    'ApexPage',
-    'ApexTrigger',
-    'AppMenu',
-    'ApprovalProcess',
-    'ArticleType',
-    'AssignmentRules',
-    'Audience',
-    'AuthProvider',
-    'AuraDefinitionBundle',
-    'AutoResponseRules',
-    'BaseSharingRule',
-    'Bot',
-    'BotVersion',
-    'BrandingSet',
-    'BusinessHoursSettings',
-    'BusinessProcess',
-    'CallCenter',
-    'CaseSettings',
-    'CaseSubjectParticle',
-    'Certificate',
-    'ChatterAnswersSettings',
-    'ChatterExtension',
-    'CleanDataService',
-    'CMSConnectSource',
-    'CompactLayout',
-    'CompanySettings',
-    'Community',
-    'CommunityTemplateDefinition',
-    'CommunityThemeDefinition',
-    'ConnectedApp',
-    'ContentAsset',
-    'ContractSettings',
-    'CorsWhitelistOrigin',
-    'CriteriaBasedSharingRule',
-    'CspTrustedSite',
-    'CustomApplication',
-    'CustomApplicationComponent',
-    'CustomFeedFilter',
-    'CustomField',
-    'CustomHelpMenuSection',
-    'CustomLabels',
-    'CustomLabel',
-    'CustomMetadataTypes',
-    'CustomMetadata',
-    'CustomObject',
-    'CustomObjectTranslation',
-    'CustomPageWebLink',
-    'CustomPermission',
-    'CustomSite',
-    'CustomTab',
-    'Dashboard',
-    'DataCategoryGroup',
-    'DelegateGroup',
-    'Document',
-    'DuplicateRule',
-    'EclairGeoData',
-    'EmailServicesFunction',
-    'EmailTemplate',
-    'EmbeddedServiceBranding',
-    'EmbeddedServiceConfig',
-    'EmbeddedServiceFlowConfig',
-    'EmbeddedServiceLiveAgent',
-    'EntitlementProcess',
-    'EntitlementSettings',
-    'EntitlementTemplate',
-    'EventDelivery',
-    'EventSubscription',
-    'ExternalServiceRegistration',
-    'ExternalDataSource',
-    'FeatureParameterBoolean',
-    'FeatureParameterDate',
-    'FeatureParameterInteger',
-    'FieldSet',
-    'FileUploadAndDownloadSecuritySettings',
-    'FlexiPage',
-    'Flow',
-    'FlowCategory',
-    'FlowDefinition',
-    'Folder',
-    'FolderShare',
-    'ForecastingSettings',
-    'GlobalValueSet',
-    'GlobalValueSetTranslation',
-    'GlobalPicklistValue',
-    'Group',
-    'HomePageComponent',
-    'HomePageLayout',
-    'IdeasSettings',
-    'Index',
-    'InstalledPackage',
-    'IoTSettings',
-    'KeywordList',
-    'KnowledgeSettings',
-    'Layout',
-    'Letterhead',
-    'LightningBolt',
-    'LightningComponentBundle',
-    'LightningExperienceTheme',
-    'ListView',
-    'LiveAgentSettings',
-    'LiveChatAgentConfig',
-    'LiveChatButton',
-    'LiveChatDeployment',
-    'LiveChatSensitiveDataRule',
-    'LiveMessageSettings',
-    'MacroSettings',
-    'ManagedTopics',
-    'MatchingRule',
-    'Metadata',
-    'MetadataWithContent',
-    'MilestoneType',
-    'MlDomain',
-    'MobileSettings',
-    'ModerationRule',
-    'NamedCredential',
-    'NamedFilter',
-    'NameSettings',
-    'Network',
-    'NetworkBranding',
-    'OmniChannelSettings',
-    'OpportunitySettings',
-    'OrderSettings',
-    'OrgPreferenceSettings',
-    'OwnerSharingRule',
-    'Package',
-    'PathAssistant',
-    'PathAssistantSettings',
-    'PermissionSet',
-    'Picklist',
-    'PlatformCachePartition',
-    'PlatformEventChannel',
-    'Portal',
-    'PostTemplate',
-    'PresenceDeclineReason',
-    'PresenceUserConfig',
-    'ProductSettings',
-    'Profile',
-    'ProfileActionOverride',
-    'ProfilePasswordPolicy',
-    'ProfileSessionSetting',
-    'Queue',
-    'QueueRoutingConfig',
-    'QuickAction',
-    'QuoteSettings',
-    'RecommendationStrategy',
-    'RecordActionDeployment',
-    'RecordType',
-    'RemoteSiteSetting',
-    'Report',
-    'ReportType',
-    'Role',
-    'SamlSsoConfig',
-    'Scontrol',
-    'SearchLayouts',
-    'SearchSettings',
-    'SecuritySettings',
-    'ServiceChannel',
-    'ServicePresenceStatus',
-    'SharingBaseRule',
-    'SharingReason',
-    'SharingRecalculation',
-    'SharingRules',
-    'SharingSet',
-    'SiteDotCom',
-    'Skill',
-    'SocialCustomerServiceSettings',
-    'StandardValueSet',
-    'StandardValueSetTranslation',
-    'StaticResource',
-    'SynonymDictionary',
-    'Territory',
-    'Territory2',
-    'Territory2Model',
-    'Territory2Rule',
-    'Territory2Settings',
-    'Territory2Type',
-    'TopicsForObjects',
-    'TransactionSecurityPolicy',
-    'Translations',
-    'ValidationRule',
-    'WaveApplication',
-    'WaveDashboard',
-    'WaveDataflow',
-    'WaveDataset',
-    'WaveLens',
-    'WaveTemplateBundle',
-    'WaveXmd',
-    'WebLink',
-    'Workflow'
-  };
+  /**
+   * Get Metadata Types for the org in a SelectOption List
+   * @return  `String`
+   */
+  @AuraEnabled(cacheable=true)
+  public static String getMetadataTypes() {
+    MetadataService.MetadataPort service = createService();
+    MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(Integer.valueOf(API_VERSION));
+    List<String> metadataTypeNames = new List<String>();
+    for (MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects) {
+      metadataTypeNames.add(metadataObject.xmlName);
+      if (metadataObject.childXmlNames != null) {
+        for (String childXmlName : metadataObject.childXmlNames) {
+          if (childXmlName != null) {
+            metadataTypeNames.add(childXmlName);
+          }
+        }
+      }
+    }
+
+    metadataTypeNames.sort();
+    List<MetadataSelector.KeyValuePair> toReturn = new List<MetadataSelector.KeyValuePair>();
+    for (String metadataTypeName : metadataTypeNames) {
+      toReturn.add(new MetadataSelector.KeyValuePair(metadataTypeName, metadataTypeName));
+    }
+
+    return JSON.serialize(toReturn);
+  }
+
+  public static final List<String> METADATA_TYPES = new List<String>{};
+
+  /**
+   * get System Property based on Category and Key with a default value if not found
+   * @param category Category of System Property
+   * @param key Unique Key of System Property
+   * @param defaultValue Value to use if not found
+   * @return  `String`
+   */
+  public static String getSystemProperty(String category, String key, String defaultValue) {
+    List<System_Property__mdt> records = [
+      SELECT Id, Value__c
+      FROM System_Property__mdt
+      WHERE Category__c = :category AND Key__c = :key AND Is_Active__c = TRUE
+      WITH SECURITY_ENFORCED
+      LIMIT 1
+    ];
+
+    if (records.size() > 0) {
+      return records[0].Value__c;
+    }
+
+    return defaultValue;
+  }
+
+  /**
+   * Create Service of Metadata API for initialization
+   * @return  `MetadataService.MetadataPort`
+   */
+  private static MetadataService.MetadataPort createService() {
+    MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+    service.SessionHeader = new MetadataService.SessionHeader_element();
+    service.SessionHeader.sessionId = MetadataUtility.getSessionIdFromVFPage(Page.SessionId);
+    return service;
+  }
+
+  private static final String SYSPROP_CATEGORY = 'PackBuild';
+  private static final String SYSPROP_API_KEY = 'APIVersion';
+  private static final String SYSPROP_CLI = 'CLICommand';
+  private static final String DEFAULT_APIVERSION = '56.0';
+  private static final String DEFAULT_CLI = 'sfdx';
+  public static final String API_VERSION = getSystemProperty(SYSPROP_CATEGORY, SYSPROP_API_KEY, DEFAULT_APIVERSION);
+  public static final String CLI_COMMAND = getSystemProperty(SYSPROP_CATEGORY, SYSPROP_CLI, DEFAULT_CLI);
 }

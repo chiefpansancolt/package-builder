@@ -1,7 +1,7 @@
 .site-code_content {
   position: relative;
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   padding: 1rem;
   max-width: none;
   background-color: rgba(224, 229, 238, 0.1);
@@ -145,6 +145,25 @@ pre[class*="language-"]:after {
   -ms-transform: rotate(2deg);
   -o-transform: rotate(2deg);
   transform: rotate(2deg);
+}
+
+pre[class*="language-"] button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  font-size: 0.9rem;
+  padding: 0.15rem;
+  background-color: #828282;
+
+  border: ridge 1px #7b7b7c;
+  border-radius: 5px;
+  text-shadow: #c4c4c4 0 0 2px;
+}
+
+pre[class*="language-"] button:hover {
+  cursor: pointer;
+  background-color: #bcbabb;
 }
 
 .line-numbers-rows > span {

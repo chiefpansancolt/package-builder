@@ -1,6 +1,15 @@
 <template>
-  <lightning-card title={labels.Metadata_Type_Selector} icon-name="custom:custom63">
-    <div class="slds-grid">
+  <c-lightning-card
+    title={metadataTypeSetting.title}
+    icon-name={metadataTypeSetting.iconName}
+    variant="base"
+    is-loading={metadataTypeSetting.isLoading}
+    is-empty={metadataTypeSetting.isEmpty}
+    empty-text={metadataTypeSetting.emptyText}
+    hide-footer={metadataTypeSetting.hideFooter}
+  >
+    <div slot="actions">API: {API_VERSION}</div>
+    <div class="slds-grid slds-wrap" slot="body">
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
         <lightning-combobox
           name="metadatatypes"
@@ -14,25 +23,24 @@
         >
         </lightning-combobox>
       </div>
-    </div>
-    <template if:true={showFolderList}>
-      <div class="slds-grid">
+      <template if:true={showFolderList}>
         <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-          <lightning-combobox
+          <lightning-dual-listbox
             name="folders"
             label={labels.Folders}
-            value={selectedFolder}
-            placeholder={labels.Folders_Placeholder}
+            source-label={labels.Available_Folders_Label}
+            selected-label={labels.Selected_Folders_Label}
+            value={selectedFolders}
             options={availableFolders}
             onchange={handleFolderListChange}
             message-when-value-missing={labels.Folders_Missing}
+            min={min}
+            max={max}
             required
           >
-          </lightning-combobox>
+          </lightning-dual-listbox>
         </div>
-      </div>
-    </template>
-    <div class="slds-grid">
+      </template>
       <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
         <lightning-combobox
           name="packagetypes"
@@ -47,248 +55,88 @@
         </lightning-combobox>
       </div>
     </div>
-    <div class="slds-grid slds-text-align_right">
-      <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium slds-p-top_small">
-        <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}> </lightning-button>
+    <div class="slds-grid slds-text-align_right" slot="footer">
+      <div class="slds-col slds-size_1-of-1">
+        <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}>
+        </lightning-button>
       </div>
     </div>
-  </lightning-card>
+  </c-lightning-card>
 
-  <template if:true={showMetadataList}>
+  <template if:true={metadataListSetting.show}>
     <div class="slds-p-top_small">
-      <lightning-card title={labels.Results_Title} icon-name="standard:related_list">
-        <div class="slds-p-around_medium" style="height: 300px">
-          <lightning-datatable key-field="id" data={metdataTypes} columns={columns} onrowselection={getSelectedName}> </lightning-datatable>
+      <c-lightning-card
+        title={metadataListSetting.title}
+        icon-name={metadataListSetting.iconName}
+        variant="no-padding-bottom"
+        is-loading={metadataListSetting.isLoading}
+        is-empty={metadataListSetting.isEmpty}
+        empty-text={metadataListSetting.emptyText}
+        hide-footer={metadataListSetting.hideFooter}
+      >
+        <div style={setDatatableHeight} slot="body">
+          <lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}>
+          </lightning-datatable>
         </div>
-      </lightning-card>
+      </c-lightning-card>
     </div>
   </template>
 
-  <template if:true={showPackageList}>
+  <template if:true={packageOutputSetting.show}>
     <div class="slds-p-top_small">
-      <lightning-card title={labels.Package_Title} icon-name="standard:file">
-        <div class="site-code_content slds-scrollable_x">
-          <pre class="language-markup">
-                        <code class="language-markup">
-                            <span class="token tag">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;?
-                                    </span>
-                                    xml
-                                </span>
-                                <span class="token attr-name">
-                                    &nbsp;version
-                                </span>
-                                <span class="token attr-value">
-                                    <span class="token punctuation">
-                                        =
-                                    </span>
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                    1.0
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                </span>
-                                <span class="token attr-name">
-                                    &nbsp;encoding
-                                </span>
-                                <span class="token attr-value">
-                                    <span class="token punctuation">
-                                        =
-                                    </span>
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                    UTF-8
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                </span>
-                                <span class="token punctuation">
-                                    ?&gt;
-                                </span>
-                            </span><br/>
-                            <span class="token tag">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;
-                                    </span>
-                                    Package
-                                </span>
-                                <span class="token attr-name">
-                                    &nbsp;xmlns
-                                </span>
-                                <span class="token attr-value">
-                                    <span class="token punctuation">
-                                        =
-                                    </span>
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                    http://soap.sforce.com/2006/04/metadata
-                                    <span class="token punctuation">
-                                        "
-                                    </span>
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-                            <span class="token tag padding-left-1">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;
-                                    </span>
-                                    types
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-
-                            <template if:true={includeAllSymbol}>
-                                <span class="token tag padding-left-2">
-                                    <span class="token tag">
-                                        <span class="token punctuation">
-                                            &lt;
-                                        </span>
-                                        members
-                                    </span>
-                                    <span class="token punctuation">
-                                        &gt;
-                                    </span>
-                                </span>
-                                *
-                                <span class="token tag">
-                                    <span class="token tag">
-                                        <span class="token punctuation">
-                                            &lt;/
-                                        </span>
-                                        members
-                                    </span>
-                                    <span class="token punctuation">
-                                        &gt;
-                                    </span>
-                                </span><br/>
-                            </template>
-
-                            <template if:false={includeAllSymbol} for:each={selectedMetdataTypes} for:item="record">
-                                <span key={record.id} class="token tag padding-left-2">
-                                    <span class="token tag">
-                                        <span class="token punctuation">
-                                            &lt;
-                                        </span>
-                                        members
-                                    </span>
-                                    <span class="token punctuation">
-                                        &gt;
-                                    </span>
-                                </span>
-                                {record.fullName}
-                                <span key={record.id} class="token tag">
-                                    <span class="token tag">
-                                        <span class="token punctuation">
-                                            &lt;/
-                                        </span>
-                                        members
-                                    </span>
-                                    <span class="token punctuation">
-                                        &gt;
-                                    </span>
-                                </span><br key={record.id} />
-                            </template>
-
-                            <span class="token tag padding-left-2">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;
-                                    </span>
-                                    name
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span>
-                            {selectedMetadataType}
-                            <span class="token tag">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;/
-                                    </span>
-                                    name
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-                            <span class="token tag padding-left-1">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;/
-                                    </span>
-                                    types
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-                            <span class="token tag  padding-left-1">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;
-                                    </span>
-                                    version
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span>
-                            45.0
-                            <span class="token tag">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;/
-                                    </span>
-                                    version
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-                            <span class="token tag">
-                                <span class="token tag">
-                                    <span class="token punctuation">
-                                        &lt;/
-                                    </span>
-                                    Package
-                                </span>
-                                <span class="token punctuation">
-                                    &gt;
-                                </span>
-                            </span><br/>
-                        </code>
-                    </pre>
-        </div>
-      </lightning-card>
+      <c-lightning-card
+        title={packageOutputSetting.title}
+        icon-name={packageOutputSetting.iconName}
+        variant="no-padding-bottom"
+        is-loading={packageOutputSetting.isLoading}
+        is-empty={packageOutputSetting.isEmpty}
+        empty-text={packageOutputSetting.emptyText}
+        hide-footer={packageOutputSetting.hideFooter}
+      >
+        <lightning-button-group slot="actions">
+          <lightning-button
+            variant="brand"
+            label={labels.Copy_All_Button_Label}
+            title={labels.Copy_All_Button_Label}
+            onclick={handlePackageCopyCodeAll}
+          ></lightning-button>
+          <lightning-button
+            variant="Neutral"
+            label={labels.Copy_Types_Button_Label}
+            title={labels.Copy_Types_Button_Label}
+            onclick={handlePackageCopyCodeType}
+          ></lightning-button>
+        </lightning-button-group>
+        <c-package-code-snippet
+          include-all-symbol={includeAllSymbol}
+          selected-metadata-types={selectedMetadataTypes}
+          selected-metadata-type={selectedMetadataType}
+          slot="body"
+        ></c-package-code-snippet>
+      </c-lightning-card>
     </div>
   </template>
 
-  <template if:true={showPackageList}>
+  <template if:true={sfdxOutputSetting.show}>
     <div class="slds-p-top_small">
-      <lightning-card title={labels.SFDX_Retrieve_Title} icon-name="standard:file">
-        <div class="site-code_content slds-scrollable_x">
-          <pre class="language-markup">
-                        <code class="language-markup">
-                            <span class="token">
-                                $ sfdx force:source:retrieve -m {selectedMetadataType}:{sfdxOutput}
-                            </span>
-                        </code>
-                    </pre>
-        </div>
-      </lightning-card>
+      <c-lightning-card
+        title={sfdxOutputSetting.title}
+        icon-name={sfdxOutputSetting.iconName}
+        variant="no-padding-bottom"
+        is-loading={sfdxOutputSetting.isLoading}
+        is-empty={sfdxOutputSetting.isEmpty}
+        empty-text={sfdxOutputSetting.emptyText}
+        hide-footer={sfdxOutputSetting.hideFooter}
+      >
+        <lightning-button
+          variant="brand"
+          label={labels.Copy_Button_Label}
+          title={labels.Copy_Button_Label}
+          onclick={handleSfdxCopyCode}
+          slot="actions"
+        ></lightning-button>
+        <c-sfdx-code-snippet sfdx-output={sfdxOutput} cli={CLI_COMMAND} slot="body"></c-sfdx-code-snippet>
+      </c-lightning-card>
     </div>
   </template>
 </template>
