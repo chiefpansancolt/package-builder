@@ -1,6 +1,27 @@
+/**
+ * Test Class for Metadata Selector Class
+ * @author Christopher Pezza
+ * @since 2023
+ */
 @isTest
 private with sharing class TestMetadataSelector {
+  /**
+   * Mock Webservice for MetadataService
+   */  
   private class WebServiceMockImpl implements WebServiceMock {
+    /**
+     * Do Invoke method for webservice
+     * @param stub 
+     * @param request 
+     * @param response 
+     * @param endpoint 
+     * @param soapAction 
+     * @param requestName 
+     * @param responseNS 
+     * @param responseName 
+     * @param responseType 
+     */    
+    @SuppressWarnings('PMD.ExcessiveParameterList, PMD.AvoidNonExistentAnnotations')
     public void doInvoke(
       Object stub,
       Object request,
@@ -46,6 +67,9 @@ private with sharing class TestMetadataSelector {
     }
   }
 
+  /**
+   * Test Get Metadata with Package type all
+   */  
   @isTest
   static void testGetMetadataAll() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -59,6 +83,9 @@ private with sharing class TestMetadataSelector {
     Assert.areEqual(3, results.size(), 'Check that two are returned');
   }
 
+  /**
+   * Get Metadata with a folder with package type all
+   */  
   @isTest
   static void testGetMetadataAllWithFolders() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -72,6 +99,9 @@ private with sharing class TestMetadataSelector {
     Assert.areEqual(3, results.size(), 'Check that one is returned');
   }
 
+  /**
+   * Get Metadata with Package Type unmanaged only
+   */  
   @isTest
   static void testGetMetadataUnmanaged() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -86,6 +116,9 @@ private with sharing class TestMetadataSelector {
     Assert.areEqual('unmanaged', results[0].manageableState, 'check only unmanaged is returned');
   }
 
+  /**
+   * Get Metadata with package type managed only
+   */  
   @isTest
   static void testGetMetadataManaged() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -101,13 +134,18 @@ private with sharing class TestMetadataSelector {
   }
 
   /* Deprecated not used anymore */
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts, PMD.EmptyStatementBlock')
   @isTest
   static void testGetMetadataInvalidMetadata() {}
 
+  /**
+   * Get Metadata with an invalid package type
+   */  
   @isTest
   static void testGetMetadataInvalidPackage() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
-    String data, error;
+    String data;
+    String error;
 
     Test.startTest();
     try {
@@ -121,20 +159,33 @@ private with sharing class TestMetadataSelector {
     Assert.areEqual(System.Label.Invlid_Package_Types, error, 'Check Package Type Error Message');
   }
 
+  /**
+   * Get list folders for Email Template Metadata type
+   */  
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testListFolders1() {
     Test.startTest();
-    String results = MetadataSelector.listFolders('EmailTemplate');
+    MetadataSelector.listFolders('EmailTemplate');
     Test.stopTest();
   }
 
+  /**
+   * Get List folders for Report metadata type
+   */  
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testListFolders2() {
     Test.startTest();
-    String results = MetadataSelector.listFolders('Report');
+    MetadataSelector.listFolders('Report');
     Test.stopTest();
   }
 
+  /**
+   * Format Results for assertion usage
+   * @param data data returned from method
+   * @return  `List<MetadataSelector.fileProperty>`
+   */  
   private static List<MetadataSelector.fileProperty> formatResults(String data) {
     List<MetadataSelector.fileProperty> props = (List<MetadataSelector.fileProperty>) JSON.deserialize(
       data,

@@ -7,6 +7,8 @@
     "lint": "npm run lint:lwc && npm run lint:aura",
     "lint:aura": "eslint **/aura/**",
     "lint:lwc": "eslint **/lwc/**",
+    "pmd:mac": "$HOME/.pmd-bin-6.55.0/bin/run.sh pmd -d ./src/PackBuild/classes -R ./.pmdrc.xml -f textcolor --force-language apex",
+    "apexTest": "sf apex run test -s \"PackageBuilder\" -r human -c -w 30 -d .sfdx/tools/testresults/apex",
     "test": "npm run test:unit",
     "test:unit": "sfdx-lwc-jest",
     "test:unit:watch": "sfdx-lwc-jest --watch",

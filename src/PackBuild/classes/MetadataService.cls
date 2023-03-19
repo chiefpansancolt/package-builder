@@ -1,6 +1,16 @@
+/**
+ * Metadata Service class to make calls to MetadataAPI
+ * @author Christopher Pezza
+ * @since 2023
+ */
+@SuppressWarnings('PMD.FieldNamingConventions, PMD.ExcessivePublicCount')
 public with sharing class MetadataService {
   public static String SOAP_URI = 'http://soap.sforce.com/2006/04/metadata';
 
+  /**
+   * List Metadata Element Class
+   */  
+  @SuppressWarnings('PMD.ClassNamingConventions')
   public class listMetadata_element {
     public MetadataService.ListMetadataQuery[] queries;
     public Double asOfVersion;
@@ -10,6 +20,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'queries', 'asOfVersion' };
   }
 
+  /**
+   * List Metadata Query Class
+   */  
   public class ListMetadataQuery {
     public String folder;
     public String type_x;
@@ -19,6 +32,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'folder', 'type_x' };
   }
 
+  /**
+   * Describe Metadata Object
+   */  
   public class DescribeMetadataObject {
     public String[] childXmlNames;
     public String directoryName;
@@ -43,6 +59,9 @@ public with sharing class MetadataService {
     };
   }
 
+  /**
+   * Describe Metadata Result Class
+   */  
   public class DescribeMetadataResult {
     public MetadataService.DescribeMetadataObject[] metadataObjects;
     public String organizationNamespace;
@@ -82,6 +101,10 @@ public with sharing class MetadataService {
     };
   }
 
+  /**
+   * List Metadata Response Element Class
+   */  
+  @SuppressWarnings('PMD.ClassNamingConventions')
   public class listMetadataResponse_element {
     public MetadataService.FileProperties[] result;
     private String[] result_type_info = new List<String>{ 'result', SOAP_URI, null, '0', '-1', 'false' };
@@ -89,6 +112,10 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'result' };
   }
 
+  /**
+   * File Properties Class
+   */  
+  @SuppressWarnings('PMD.TooManyFields')
   public class FileProperties {
     public String createdById;
     public String createdByName;
@@ -166,6 +193,9 @@ public with sharing class MetadataService {
     };
   }
 
+  /**
+   * Log Info Class
+   */  
   public class LogInfo {
     public String category;
     public String level;
@@ -175,6 +205,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'category', 'level' };
   }
 
+  /**
+   * Session Header Element Class
+   */  
   public class SessionHeader_element {
     public String sessionId;
     private String[] sessionId_type_info = new List<String>{ 'sessionId', SOAP_URI, null, '1', '1', 'false' };
@@ -182,6 +215,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'sessionId' };
   }
 
+  /**
+   * Debugging Info Element Class
+   */  
   public class DebuggingInfo_element {
     public String debugLog;
     private String[] debugLog_type_info = new List<String>{ 'debugLog', SOAP_URI, null, '1', '1', 'false' };
@@ -189,6 +225,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'debugLog' };
   }
 
+  /**
+   * Debugger Header Element Class
+   */  
   public class DebuggingHeader_element {
     public MetadataService.LogInfo[] categories;
     public String debugLevel;
@@ -198,6 +237,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'categories', 'debugLevel' };
   }
 
+  /**
+   * Call Options Element Class
+   */  
   public class CallOptions_element {
     public String client;
     private String[] client_type_info = new List<String>{ 'client', SOAP_URI, null, '1', '1', 'false' };
@@ -205,6 +247,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'client' };
   }
 
+  /**
+   * All Or None Header Element Class
+   */  
   public class AllOrNoneHeader_element {
     public Boolean allOrNone;
     private String[] allOrNone_type_info = new List<String>{ 'allOrNone', SOAP_URI, null, '1', '1', 'false' };
@@ -212,6 +257,10 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'allOrNone' };
   }
 
+  /**
+   * Describe Metadata Element Class
+   */  
+  @SuppressWarnings('PMD.ClassNamingConventions')
   public class describeMetadata_element {
     public Double asOfVersion;
     private String[] asOfVersion_type_info = new List<String>{ 'asOfVersion', SOAP_URI, null, '1', '1', 'false' };
@@ -219,6 +268,10 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'asOfVersion' };
   }
 
+  /**
+   * Describer Metadata Response Element Class
+   */  
+  @SuppressWarnings('PMD.ClassNamingConventions')
   public class describeMetadataResponse_element {
     public MetadataService.DescribeMetadataResult result;
     private String[] result_type_info = new List<String>{ 'result', SOAP_URI, null, '1', '1', 'false' };
@@ -226,6 +279,9 @@ public with sharing class MetadataService {
     private String[] field_order_type_info = new List<String>{ 'result' };
   }
 
+  /**
+   * Metadata Port Class
+   */  
   public class MetadataPort {
     public String endpoint_x =
       URL.getSalesforceBaseUrl().toExternalForm() +
@@ -249,6 +305,14 @@ public with sharing class MetadataService {
     private String AllOrNoneHeader_hns = 'AllOrNoneHeader=' + SOAP_URI;
     private String[] ns_map_type_info = new List<String>{ SOAP_URI, 'MetadataService' };
 
+    /**
+     * List Metadata based on types and api version
+     * @param queries Query of Metadata Types
+     * @param asOfVersion API Version
+     * @return  `MetadataService.FileProperties[]`
+     * @exception CalloutException
+     */    
+    @SuppressWarnings('PMD.LocalVariableNamingConventions')
     public MetadataService.FileProperties[] listMetadata(
       MetadataService.ListMetadataQuery[] queries,
       Double asOfVersion
@@ -281,6 +345,12 @@ public with sharing class MetadataService {
       return response_x.result;
     }
 
+    /**
+     * Describe Metadata for list of all Metadata based on api version
+     * @param asOfVersion API Version
+     * @return  `MetadataService.DescribeMetadataResult`
+     */    
+    @SuppressWarnings('PMD.LocalVariableNamingConventions')
     public MetadataService.DescribeMetadataResult describeMetadata(Double asOfVersion) {
       MetadataService.describeMetadata_element request_x = new MetadataService.describeMetadata_element();
       request_x.asOfVersion = asOfVersion;

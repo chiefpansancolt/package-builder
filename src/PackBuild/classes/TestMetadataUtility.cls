@@ -1,6 +1,27 @@
+/**
+ * Test Class for MetadataUtility Class
+ * @author Christopher Pezza
+ * @since 2023
+ */
 @isTest
 private with sharing class TestMetadataUtility {
+    /**
+   * Mock Webservice for MetadataService
+   */  
   private class WebServiceMockImpl implements WebServiceMock {
+    /**
+     * Do Invoke method for webservice
+     * @param stub 
+     * @param request 
+     * @param response 
+     * @param endpoint 
+     * @param soapAction 
+     * @param requestName 
+     * @param responseNS 
+     * @param responseName 
+     * @param responseType 
+     */    
+    @SuppressWarnings('PMD.ExcessiveParameterList')
     public void doInvoke(
       Object stub,
       Object request,
@@ -52,6 +73,9 @@ private with sharing class TestMetadataUtility {
     }
   }
 
+  /**
+   * Test Get Session Id
+   */  
   @isTest
   static void testSessionId() {
     Test.startTest();
@@ -61,6 +85,9 @@ private with sharing class TestMetadataUtility {
     Assert.areEqual('1234567890', sessionId, 'Check Session Id equals 1234567890');
   }
 
+  /**
+   * Test API Version retrieve
+   */  
   @isTest
   static void testApiVersion() {
     Test.startTest();
@@ -70,6 +97,9 @@ private with sharing class TestMetadataUtility {
     Assert.isNotNull(apiVersion, 'Check api is not null');
   }
 
+  /**
+   * Get List of Metadata Types
+   */  
   @isTest
   static void testGetMetadataTypes() {
     System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
@@ -84,6 +114,9 @@ private with sharing class TestMetadataUtility {
     Assert.areEqual(4, results.size(), 'Check Metadata Types returned');
   }
 
+  /**
+   * Get List of Package Types
+   */  
   @isTest
   static void testPackageTypes() {
     Test.startTest();
@@ -93,6 +126,9 @@ private with sharing class TestMetadataUtility {
     Assert.areEqual(3, packageTypes.size(), 'Check 3 types returned');
   }
 
+  /**
+   * Get Old Metadata Types Not used anymore
+   */  
   @isTest
   static void testMetadataTypes() {
     Test.startTest();
@@ -102,6 +138,9 @@ private with sharing class TestMetadataUtility {
     Assert.areEqual(0, metadataTypes.size(), 'Check Number of Metadata Type List');
   }
 
+  /**
+   * Get a System Property of the Default value if not found
+   */  
   @isTest
   static void testDefaultValue() {
     Test.startTest();

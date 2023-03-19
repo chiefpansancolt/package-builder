@@ -1,4 +1,14 @@
+/**
+ * MetadataUtility of common methods used in Package Builder
+ * @author Christopher Pezza
+ * @since 2023
+ */
 public with sharing class MetadataUtility {
+  /**
+   * Get Session Id from ApexPage
+   * @param visualforcePage VF Page for Session Id
+   * @return  `String`
+   */  
   public static String getSessionIdFromVFPage(PageReference visualforcePage) {
     String content = Test.IsRunningTest()
       ? 'Start_Of_Session_Id1234567890End_Of_Session_Id'
@@ -10,6 +20,10 @@ public with sharing class MetadataUtility {
 
   public static final List<String> PACKAGE_TYPES = new List<String>{ 'all', 'unmanagedOnly', 'managedOnly' };
 
+  /**
+   * Get Metadata Types for the org in a SelectOption List
+   * @return  `String`
+   */  
   @AuraEnabled(cacheable=true)
   public static String getMetadataTypes() {
     MetadataService.MetadataPort service = createService();
@@ -37,12 +51,19 @@ public with sharing class MetadataUtility {
 
   public static final List<String> METADATA_TYPES = new List<String>{};
 
-  @TestVisible
-  private static String getSystemProperty(String category, String key, String defaultValue) {
+  /**
+   * get System Property based on Category and Key with a default value if not found
+   * @param category Category of System Property
+   * @param key Unique Key of System Property
+   * @param defaultValue Value to use if not found
+   * @return  `String`
+   */  
+  public static String getSystemProperty(String category, String key, String defaultValue) {
     List<System_Property__mdt> records = [
       SELECT Id, Value__c
       FROM System_Property__mdt
       WHERE Category__c = :category AND Key__c = :key AND Is_Active__c = TRUE
+      WITH SECURITY_ENFORCED
       LIMIT 1
     ];
 
@@ -53,6 +74,10 @@ public with sharing class MetadataUtility {
     return defaultValue;
   }
 
+  /**
+   * Create Service of Metadata API for initialization
+   * @return  `MetadataService.MetadataPort`
+   */  
   private static MetadataService.MetadataPort createService() {
     MetadataService.MetadataPort service = new MetadataService.MetadataPort();
     service.SessionHeader = new MetadataService.SessionHeader_element();
