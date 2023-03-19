@@ -29,7 +29,7 @@ Using the urls below install the version you desire preferred usage is latest ve
 
 | Version | Package Id      | Password         | URL                                                |
 | ------- | --------------- | ---------------- | -------------------------------------------------- |
-| 2.0     | TBD             | TBD              | /packaging/installPackage.apexp?p0=                |
+| 2.0     | 04t1U000007vQ5C | QuXshu9Q8xbNeK4b | /packaging/installPackage.apexp?p0=04t1U000007vQ5C |
 | 1.1     | 04t1U000006I6Zc | dVRu4KuQa2LKUuaN | /packaging/installPackage.apexp?p0=04t1U000006I6Zc |
 | 1.0     | 04t1U000006I6N9 | 3BpmOLZnwPQO     | /packaging/installPackage.apexp?p0=04t1U000006I6N9 |
 
