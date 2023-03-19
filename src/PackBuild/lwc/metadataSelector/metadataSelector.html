@@ -28,8 +28,8 @@
           <lightning-dual-listbox
             name="folders"
             label={labels.Folders}
-            source-label="Available Folders"
-            selected-label="Selected Folders"
+            source-label={labels.Available_Folders_Label}
+            selected-label={labels.Selected_Folders_Label}
             value={selectedFolders}
             options={availableFolders}
             onchange={handleFolderListChange}

@@ -40,6 +40,8 @@ import Copy_Button_Label from "@salesforce/label/c.Copy_Button_Label";
 import Copy_All_Button_Label from "@salesforce/label/c.Copy_All_Button_Label";
 import Copy_Types_Button_Label from "@salesforce/label/c.Copy_Types_Button_Label";
 import Copied_Button_Label from "@salesforce/label/c.Copied_Button_Label";
+import Available_Folders_Label from "@salesforce/label/c.Available_Folders_Label";
+import Selected_Folders_Label from "@salesforce/label/c.Selected_Folders_Label";
 
 export default class MetadataSelector extends LightningElement {
   @track metadataTypes = [];
@@ -70,7 +72,9 @@ export default class MetadataSelector extends LightningElement {
     Metadata_Retrieve_Success_Title,
     Copy_Button_Label,
     Copy_All_Button_Label,
-    Copy_Types_Button_Label
+    Copy_Types_Button_Label,
+    Available_Folders_Label,
+    Selected_Folders_Label
   };
 
   @track metadataTypeSetting = {

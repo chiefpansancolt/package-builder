@@ -86,7 +86,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>SFDX Retrieve Title</shortDescription>
-        <value>SFDX Retrieve Command</value>
+        <value>CLI Retrieve Command</value>
     </labels>
     <labels>
         <fullName>Name_Column</fullName>
@@ -239,5 +239,21 @@
         <protected>true</protected>
         <shortDescription>Copied! Button Label</shortDescription>
         <value>Copied!</value>
+    </labels>
+    <labels>
+        <fullName>Available_Folders_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Available Folders Label</shortDescription>
+        <value>Available Folders</value>
+    </labels>
+    <labels>
+        <fullName>Selected_Folders_Label</fullName>
+        <categories>packageBuilder</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Selected Folders Label</shortDescription>
+        <value>Selected Folders</value>
     </labels>
 </CustomLabels>
