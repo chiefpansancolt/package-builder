@@ -36,15 +36,15 @@ Using the urls below install the version you desire preferred usage is latest ve
 ## Usage
 
 1. Select Package Builder Tab Name to start
-![Tab Selection](/.github/images/Package%20Builder%20Tab.png)
+   ![Tab Selection](/.github/images/Package%20Builder%20Tab.png)
 2. You will be presented with this page after navigating to the tab
-![Pre Selection](/.github/images/Pre%20Selection.png)
+   ![Pre Selection](/.github/images/Pre%20Selection.png)
 3. If you select a Metadata Type of (EmailTemplate, Report, Dashboard, or Document) you will be presented with a folder selection where you can select from 1-3 folders at a time.
-![Folder Selection](/.github/images/Pre%20Selection%20with%20Folders.png)
+   ![Folder Selection](/.github/images/Pre%20Selection%20with%20Folders.png)
 4. If you select another without a folder usage then this is your final selection set screen. Package Types allow three options (All, Managed, Unmanaged).
-![Selection](/.github/images/Selection.png)
+   ![Selection](/.github/images/Selection.png)
 5. Finally you will be presented with results after clicking "Search". Selecting a metadata value will make "Package XML" and "CLI Reference Command" panels become visible. You have the ability to copy using buttons. Package.xml offers the ability to copy full file or just the types group if you are looking to add to an existing package.xml file locally.
-![Results](/.github/images/Results.png)
+   ![Results](/.github/images/Results.png)
 
 ## Change Log
 

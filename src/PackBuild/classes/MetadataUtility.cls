@@ -7,17 +7,17 @@ public with sharing class MetadataUtility {
   /**
    * Get API Version Defined in System Properties
    * @return  `String`
-   */  
+   */
   @AuraEnabled(cacheable=true)
   @SuppressWarnings('PMD.MethodNamingConventions')
   public static String APIVERSION() {
     return API_VERSION;
   }
-  
+
   /**
    * Get CLI Command to generate for based on System Properties (sfdx or sf) supported
    * @return  `String`
-   */  
+   */
   @AuraEnabled(cacheable=true)
   @SuppressWarnings('PMD.MethodNamingConventions')
   public static String CLICOMMAND() {

@@ -97,7 +97,7 @@ private with sharing class TestMetadataUtility {
 
     Assert.isNotNull(apiVersion, 'Check api is not null');
   }
-  
+
   /**
    * Test API Version retrieve function
    */
