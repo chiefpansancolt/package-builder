@@ -16,7 +16,7 @@
 - Clean up UX to be more fluid and updated to latest formats (#5)
 - Clean up repo with more documentation and automation (#4)
 
-## Fixes
+### Fixes
 
 - Fixed Metadata Types not being supported. Now generates available Types based on API Version (#11)
 - Fixed SFDX command reference generation when multiple files are selected. (#9)
