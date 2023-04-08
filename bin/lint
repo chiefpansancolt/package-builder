@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+echo "== Starting Linting =="
+
+echo ""
+echo "== Linting LWC =="
+yarn lint:lwc
+
+echo ""
+echo "== Linting Aura =="
+yarn lint:aura
+
+echo ""
+echo "== Linting Markdown =="
+yarn lint:markdown
+
+echo ""
+echo "== Analyzing Apex with PMD =="
+yarn pmd:mac
+
+echo ""
+echo "== Formatting with Prettier =="
+if ! yarn format; then
+  echo ""
+  echo "== Files found needing formatting =="
+  echo "== Initialting Fixes =="
+  yarn format:fix
+fi
+
+echo ""
+echo "== Linting Complete for Package Builder =="
+
+echo ""
+echo "== Starting Lint for Documentation =="
+
+echo ""
+cd documentation
+yarn lint
