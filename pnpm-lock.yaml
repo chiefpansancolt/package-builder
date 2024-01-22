@@ -10,7 +10,7 @@ devDependencies:
     version: 1.7.0(@babel/eslint-parser@7.23.3)(eslint@8.54.0)
   '@prettier/plugin-xml':
     specifier: ^3.2.2
-    version: 3.2.2(prettier@3.1.0)
+    version: 3.2.2(prettier@3.2.4)
   '@salesforce/eslint-config-lwc':
     specifier: ^3.5.2
     version: 3.5.2(@lwc/eslint-plugin-lwc@1.7.0)(@salesforce/eslint-plugin-lightning@1.0.0)(eslint-plugin-import@2.29.0)(eslint-plugin-jest@27.6.0)(eslint@8.54.0)
@@ -39,11 +39,11 @@ devDependencies:
     specifier: ^0.32.1
     version: 0.32.1
   prettier:
-    specifier: ^3.1.0
-    version: 3.1.0
+    specifier: ^3.2.4
+    version: 3.2.4
   prettier-plugin-apex:
     specifier: ^2.0.1
-    version: 2.0.1(prettier@3.1.0)
+    version: 2.0.1(prettier@3.2.4)
 
 packages:
 
@@ -1206,13 +1206,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@prettier/plugin-xml@3.2.2(prettier@3.1.0):
+  /@prettier/plugin-xml@3.2.2(prettier@3.2.4):
     resolution: {integrity: sha512-SoE70SQF1AKIvK7LVK80JcdAe6wrDcbodFFjcoqb1FkOqV0G0oSlgAFDwoRXPqkUE5p/YF2nGsnUbnfm6471sw==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.1.0
+      prettier: 3.2.4
     dev: true
 
   /@salesforce/eslint-config-lwc@3.5.2(@lwc/eslint-plugin-lwc@1.7.0)(@salesforce/eslint-plugin-lightning@1.0.0)(eslint-plugin-import@2.29.0)(eslint-plugin-jest@27.6.0)(eslint@8.54.0):
@@ -4209,7 +4209,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-apex@2.0.1(prettier@3.1.0):
+  /prettier-plugin-apex@2.0.1(prettier@3.2.4):
     resolution: {integrity: sha512-S64zate3iXPKiBKHf27YRapIAPPd1wQ/u5IOcWwSHNgoJv15I14HhoUB/WOKXtxFb0ZH5MO1nF8gRGWXLajwlA==}
     engines: {node: '>= 18.11.0'}
     hasBin: true
@@ -4217,14 +4217,14 @@ packages:
       prettier: ^3.0.0
     dependencies:
       jest-docblock: 29.7.0
-      prettier: 3.1.0
+      prettier: 3.2.4
       wait-on: 7.2.0
     transitivePeerDependencies:
       - debug
     dev: true
 
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+  /prettier@3.2.4:
+    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
