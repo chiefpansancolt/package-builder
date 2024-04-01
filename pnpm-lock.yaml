@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^1.7.2
     version: 1.7.2(@babel/eslint-parser@7.23.3)(eslint@8.57.0)
   '@prettier/plugin-xml':
-    specifier: ^3.3.1
-    version: 3.3.1(prettier@3.2.5)
+    specifier: ^3.4.1
+    version: 3.4.1(prettier@3.2.5)
   '@salesforce/eslint-config-lwc':
     specifier: ^3.5.3
     version: 3.5.3(@lwc/eslint-plugin-lwc@1.7.2)(@salesforce/eslint-plugin-lightning@1.0.0)(eslint-plugin-import@2.29.1)(eslint-plugin-jest@27.9.0)(eslint@8.57.0)
@@ -1415,8 +1415,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@prettier/plugin-xml@3.3.1(prettier@3.2.5):
-    resolution: {integrity: sha512-kllNJk6n2pXJjGWdj+HAr1GhOoOTrlmeWkDYCGBzkyZS2l0K6h2gsUQcVif2cNqAE1MNC+nUrzN6QwEsCukPnQ==}
+  /@prettier/plugin-xml@3.4.1(prettier@3.2.5):
+    resolution: {integrity: sha512-Uf/6/+9ez6z/IvZErgobZ2G9n1ybxF5BhCd7eMcKqfoWuOzzNUxBipNo3QAP8kRC1VD18TIo84no7LhqtyDcTg==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
