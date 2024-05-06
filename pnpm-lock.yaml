@@ -42,8 +42,8 @@ devDependencies:
     specifier: ^3.2.5
     version: 3.2.5
   prettier-plugin-apex:
-    specifier: ^2.1.0
-    version: 2.1.0(prettier@3.2.5)
+    specifier: ^2.1.4
+    version: 2.1.4(prettier@3.2.5)
 
 packages:
 
@@ -4446,8 +4446,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-apex@2.1.0(prettier@3.2.5):
-    resolution: {integrity: sha512-km/Aqy/ZtkSkBxe8APN+ue87OA7ApL9q0mmI6ryQrVpGpcj+0ZLTiOFyR5K9t8NpTkTEvXdFuHlYmNzw9IirTw==}
+  /prettier-plugin-apex@2.1.4(prettier@3.2.5):
+    resolution: {integrity: sha512-kGImHH2s+RsPtAXwbh5VmqqSTYhts626Zle2ryeUKJ4VY+vDyOQ53ppWOzFPA1XGdRpthh++WliD0ZVP1kdReA==}
     hasBin: true
     peerDependencies:
       prettier: ^3.0.0
