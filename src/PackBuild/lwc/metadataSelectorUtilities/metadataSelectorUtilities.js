@@ -1,5 +1,5 @@
 const CONSTANTS = {
-  APIVERSION: "56.0",
+  APIVERSION: "62.0",
   ICONS: {
     METADATATYPE: "custom:custom63",
     METADATALIST: "standard:related_list",
