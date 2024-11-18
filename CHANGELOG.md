@@ -1,5 +1,23 @@
 # Changelog
 
+## Version [2.1](https://github.com/chiefpansancolt/package-builder/releases/tag/2.1)
+
+### Features
+
+- Update to API Version 62
+- Set Default CLI Command to `sf`
+- Implement a labelService
+
+### Fixes
+
+- Update `URL.getSalesforceBaseUrl` to `getOrgDomainURL` due to API deprecation
+- Update syntax for SF CLI for proper format usage
+
+### Repo Changes
+
+- Bump Dependencies
+- Clean up Scripts
+
 ## Version [2.0](https://github.com/chiefpansancolt/package-builder/releases/tag/2.0)
 
 ### Features
