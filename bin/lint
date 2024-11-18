@@ -4,27 +4,27 @@ echo "== Starting Linting =="
 
 echo ""
 echo "== Linting LWC =="
-yarn lint:lwc
+pnpm run lint:lwc
 
 echo ""
 echo "== Linting Aura =="
-yarn lint:aura
+pnpm run lint:aura
 
 echo ""
 echo "== Linting Markdown =="
-yarn lint:markdown
+pnpm run lint:markdown
 
 echo ""
 echo "== Analyzing Apex with PMD =="
-yarn pmd:mac
+pnpm run pmd:mac
 
 echo ""
 echo "== Formatting with Prettier =="
-if ! yarn format; then
+if ! pnpm run format; then
   echo ""
   echo "== Files found needing formatting =="
   echo "== Initialting Fixes =="
-  yarn format:fix
+  pnpm run format:fix
 fi
 
 echo ""
@@ -35,4 +35,4 @@ echo "== Starting Lint for Documentation =="
 
 echo ""
 cd documentation
-yarn lint
+pnpm run lint
