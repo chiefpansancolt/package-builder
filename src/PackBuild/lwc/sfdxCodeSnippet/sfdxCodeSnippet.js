@@ -26,7 +26,7 @@ export default class SfdxCodeSnippet extends LightningElement {
 
   get cliCommand() {
     if (this.cli === "sf") {
-      return "sf metadata retrieve -m ";
+      return "sf project retrieve start";
     }
 
     return "sfdx force:source:retrieve -m ";
