@@ -284,7 +284,7 @@ public with sharing class MetadataService {
    */
   public class MetadataPort {
     public String endpoint_x =
-      URL.getSalesforceBaseUrl().toExternalForm() +
+      URL.getOrgDomainURL().toExternalForm() +
       '/services/Soap/m/' +
       MetadataUtility.API_VERSION;
     public Map<String, String> inputHttpHeaders_x;
