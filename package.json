@@ -8,7 +8,7 @@
     "lint:aura": "eslint **/aura/**",
     "lint:lwc": "eslint **/lwc/**",
     "lint:markdown": "markdownlint .github/**/*.md README.md CHANGELOG.md -c .markdownlint.yml",
-    "pmd:mac": "$HOME/.pmd-bin-6.55.0/bin/run.sh pmd -d ./src/PackBuild/classes -R ./.pmdrc.xml -f textcolor --force-language apex",
+    "pmd:mac": "pmd check -d ./src/PackBuild/classes -R ./.pmdrc.xml -f textcolor --force-language apex",
     "apexTest": "sf apex run test -s \"PackageBuilder\" -r human -c -w 30 -d .sfdx/tools/testresults/apex",
     "test": "pnpm test:unit",
     "test:unit": "sfdx-lwc-jest",
@@ -16,21 +16,22 @@
     "test:unit:debug": "sfdx-lwc-jest --debug",
     "test:unit:coverage": "sfdx-lwc-jest --coverage",
     "format": "prettier -l \"./**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
-    "format:fix": "prettier -w \"./**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\""
+    "format:fix": "prettier -w \"./**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
+    "update-dependencies": "ncu -u && pnpm install"
   },
   "devDependencies": {
-    "@lwc/eslint-plugin-lwc": "^1.7.2",
-    "@prettier/plugin-xml": "^3.3.1",
-    "@salesforce/eslint-config-lwc": "^3.5.3",
+    "@lwc/eslint-plugin-lwc": "^1.8.2",
+    "@prettier/plugin-xml": "^3.4.1",
+    "@salesforce/eslint-config-lwc": "^3.6.0",
     "@salesforce/eslint-plugin-aura": "^2.1.0",
     "@salesforce/eslint-plugin-lightning": "^1.0.0",
-    "@salesforce/sfdx-lwc-jest": "^4.0.1",
-    "eslint": "^8.57.0",
+    "@salesforce/sfdx-lwc-jest": "^7.0.1",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^27.9.0",
-    "markdownlint": "^0.34.0",
-    "prettier": "^3.2.5",
-    "prettier-plugin-apex": "^2.1.0"
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.9.0",
+    "markdownlint": "^0.36.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-apex": "^2.2.2"
   }
 }
