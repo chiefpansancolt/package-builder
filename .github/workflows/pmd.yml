@@ -4,33 +4,38 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: '26 14 * * 5'
 
 permissions:
   contents: read
+  security-events: write
+  actions: read
 
 jobs:
   pmd-code-scan:
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 11
+      - name: 📚 Checkout Main Code 📚
+        uses: actions/checkout@v4
+
+      - name: 🐢 Setup JDK 11 🐢
         uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Run PMD
+
+      - name: 🚀 Run PMD 🚀
         id: pmd
-        uses: pmd/pmd-github-action@v1
+        uses: pmd/pmd-github-action@v2
         with:
-          version: 6.55.0
+          version: 7.7.0
           rulesets: '.pmdrc.xml'
-          sourcePath: 'src/PackBuild/classes'
+          sourcePath: 'src/classes'
           analyzeModifiedFilesOnly: false
-      - name: Upload SARIF file
+          createGitHubAnnotations: true
+
+      - name: 📤 Upload SARIF file 📤
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pmd-report.sarif
