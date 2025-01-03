@@ -10,8 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: sfdx-actions/setup-sfdx@v1
+      - name: 📚 Checkout Main Code 📚
+        uses: actions/checkout@v4
+
+      - name: 🐢 Install pnpm 🐢
+        uses: pnpm/action-setup@v3
         with:
-          sfdx-auth-url: ${{ secrets.SFDX_AUTH_URL }}
-      - name: sfdx-test-run
-        run: sfdx force:apex:test:run -s "PackageBuilder" -r human -c -w 30
+          version: 9
+          run_install: false
+
+      - name: 🐢 Setup Node 🐢
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: 🐢 Install Node Package Dependencies 🐢
+        shell: bash
+        run: pnpm install
+
+      - name: 🐢 Install SF CLI 🐢
+        uses: svierk/sfdx-cli-setup@main

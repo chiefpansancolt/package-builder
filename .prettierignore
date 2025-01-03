@@ -4,3 +4,4 @@
 .vscode
 coverage/
 pnpm-lock.yaml
+/documentation/**

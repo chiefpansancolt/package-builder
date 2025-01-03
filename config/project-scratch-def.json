@@ -1,14 +1,14 @@
 {
-  "orgName": "Metadata PackageBuilder",
-  "country": "US",
-  "edition": "Developer",
-  "description": "Metadata PackageBuilder",
-  "settings": {
-    "orgPreferenceSettings": {
-      "s1DesktopEnabled": true,
-      "chatterEnabled": true,
-      "translation": true
-    }
-  },
-  "features": ["DebugApex", "MultiCurrency", "CascadeDelete"]
+	"orgName": "Metadata PackageBuilder",
+	"country": "US",
+	"edition": "Developer",
+	"description": "Metadata PackageBuilder",
+	"settings": {
+		"orgPreferenceSettings": {
+			"s1DesktopEnabled": true,
+			"chatterEnabled": true,
+			"translation": true
+		}
+	},
+	"features": ["DebugApex", "MultiCurrency", "CascadeDelete"]
 }
