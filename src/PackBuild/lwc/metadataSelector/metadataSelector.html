@@ -1,142 +1,141 @@
 <template>
-  <c-lightning-card
-    title={metadataTypeSetting.title}
-    icon-name={metadataTypeSetting.iconName}
-    variant="base"
-    is-loading={metadataTypeSetting.isLoading}
-    is-empty={metadataTypeSetting.isEmpty}
-    empty-text={metadataTypeSetting.emptyText}
-    hide-footer={metadataTypeSetting.hideFooter}
-  >
-    <div slot="actions">API: {API_VERSION}</div>
-    <div class="slds-grid slds-wrap" slot="body">
-      <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-        <lightning-combobox
-          name="metadatatypes"
-          label={labels.Metadata_Types}
-          value={selectedMetadataType}
-          placeholder={labels.Metadata_Types_Placeholder}
-          options={metadataOptions}
-          onchange={handleMetadataTypeChange}
-          message-when-value-missing={labels.Metadata_Types_Missing}
-          required
-        >
-        </lightning-combobox>
-      </div>
-      <template if:true={showFolderList}>
-        <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-          <lightning-dual-listbox
-            name="folders"
-            label={labels.Folders}
-            source-label={labels.Available_Folders_Label}
-            selected-label={labels.Selected_Folders_Label}
-            value={selectedFolders}
-            options={availableFolders}
-            onchange={handleFolderListChange}
-            message-when-value-missing={labels.Folders_Missing}
-            min={min}
-            max={max}
-            required
-          >
-          </lightning-dual-listbox>
-        </div>
-      </template>
-      <div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
-        <lightning-combobox
-          name="packagetypes"
-          label={labels.Package_Types}
-          value={selectedPackageType}
-          placeholder={labels.Package_Types_Placeholder}
-          options={packageTypeOptions}
-          onchange={handlePackageTypeChange}
-          message-when-value-missing={labels.Package_Types_Missing}
-          required
-        >
-        </lightning-combobox>
-      </div>
-    </div>
-    <div class="slds-grid slds-text-align_right" slot="footer">
-      <div class="slds-col slds-size_1-of-1">
-        <lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}>
-        </lightning-button>
-      </div>
-    </div>
-  </c-lightning-card>
+	<c-lightning-card
+		title={metadataTypeSetting.title}
+		icon-name={metadataTypeSetting.iconName}
+		variant="base"
+		is-loading={metadataTypeSetting.isLoading}
+		is-empty={metadataTypeSetting.isEmpty}
+		empty-text={metadataTypeSetting.emptyText}
+		hide-footer={metadataTypeSetting.hideFooter}
+	>
+		<div slot="actions">API: {API_VERSION}</div>
+		<div class="slds-grid slds-wrap" slot="body">
+			<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
+				<lightning-combobox
+					name="metadatatypes"
+					label={labels.Metadata_Types}
+					value={selectedMetadataType}
+					placeholder={labels.Metadata_Types_Placeholder}
+					options={metadataOptions}
+					onchange={handleMetadataTypeChange}
+					message-when-value-missing={labels.Metadata_Types_Missing}
+					required
+				>
+				</lightning-combobox>
+			</div>
+			<template lwc:if={showFolderList}>
+				<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
+					<lightning-dual-listbox
+						name="folders"
+						label={labels.Folders}
+						source-label={labels.Available_Folders_Label}
+						selected-label={labels.Selected_Folders_Label}
+						value={selectedFolders}
+						options={availableFolders}
+						onchange={handleFolderListChange}
+						message-when-value-missing={labels.Folders_Missing}
+						min={min}
+						max={max}
+						required
+					>
+					</lightning-dual-listbox>
+				</div>
+			</template>
+			<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
+				<lightning-combobox
+					name="packagetypes"
+					label={labels.Package_Types}
+					value={selectedPackageType}
+					placeholder={labels.Package_Types_Placeholder}
+					options={packageTypeOptions}
+					onchange={handlePackageTypeChange}
+					message-when-value-missing={labels.Package_Types_Missing}
+					required
+				>
+				</lightning-combobox>
+			</div>
+		</div>
+		<div class="slds-grid slds-text-align_right" slot="footer">
+			<div class="slds-col slds-size_1-of-1">
+				<lightning-button variant="brand" label={labels.Search_Button} onclick={handleMetadataSearch}> </lightning-button>
+			</div>
+		</div>
+	</c-lightning-card>
 
-  <template if:true={metadataListSetting.show}>
-    <div class="slds-p-top_small">
-      <c-lightning-card
-        title={metadataListSetting.title}
-        icon-name={metadataListSetting.iconName}
-        variant="no-padding-bottom"
-        is-loading={metadataListSetting.isLoading}
-        is-empty={metadataListSetting.isEmpty}
-        empty-text={metadataListSetting.emptyText}
-        hide-footer={metadataListSetting.hideFooter}
-      >
-        <div style={setDatatableHeight} slot="body">
-          <lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}>
-          </lightning-datatable>
-        </div>
-      </c-lightning-card>
-    </div>
-  </template>
+	<template lwc:if={metadataListSetting.show}>
+		<div class="slds-p-top_small">
+			<c-lightning-card
+				title={metadataListSetting.title}
+				icon-name={metadataListSetting.iconName}
+				variant="no-padding-bottom"
+				is-loading={metadataListSetting.isLoading}
+				is-empty={metadataListSetting.isEmpty}
+				empty-text={metadataListSetting.emptyText}
+				hide-footer={metadataListSetting.hideFooter}
+			>
+				<div style={setDatatableHeight} slot="body">
+					<lightning-datatable key-field="id" data={metadataTypes} columns={columns} onrowselection={getSelectedName}> </lightning-datatable>
+				</div>
+			</c-lightning-card>
+		</div>
+	</template>
 
-  <template if:true={packageOutputSetting.show}>
-    <div class="slds-p-top_small">
-      <c-lightning-card
-        title={packageOutputSetting.title}
-        icon-name={packageOutputSetting.iconName}
-        variant="no-padding-bottom"
-        is-loading={packageOutputSetting.isLoading}
-        is-empty={packageOutputSetting.isEmpty}
-        empty-text={packageOutputSetting.emptyText}
-        hide-footer={packageOutputSetting.hideFooter}
-      >
-        <lightning-button-group slot="actions">
-          <lightning-button
-            variant="brand"
-            label={labels.Copy_All_Button_Label}
-            title={labels.Copy_All_Button_Label}
-            onclick={handlePackageCopyCodeAll}
-          ></lightning-button>
-          <lightning-button
-            variant="Neutral"
-            label={labels.Copy_Types_Button_Label}
-            title={labels.Copy_Types_Button_Label}
-            onclick={handlePackageCopyCodeType}
-          ></lightning-button>
-        </lightning-button-group>
-        <c-package-code-snippet
-          include-all-symbol={includeAllSymbol}
-          selected-metadata-types={selectedMetadataTypes}
-          selected-metadata-type={selectedMetadataType}
-          slot="body"
-        ></c-package-code-snippet>
-      </c-lightning-card>
-    </div>
-  </template>
+	<template lwc:if={packageOutputSetting.show}>
+		<div class="slds-p-top_small">
+			<c-lightning-card
+				title={packageOutputSetting.title}
+				icon-name={packageOutputSetting.iconName}
+				variant="no-padding-bottom"
+				is-loading={packageOutputSetting.isLoading}
+				is-empty={packageOutputSetting.isEmpty}
+				empty-text={packageOutputSetting.emptyText}
+				hide-footer={packageOutputSetting.hideFooter}
+			>
+				<lightning-button-group slot="actions">
+					<lightning-button
+						variant="brand"
+						label={labels.Copy_All_Button_Label}
+						title={labels.Copy_All_Button_Label}
+						onclick={handlePackageCopyCodeAll}
+					></lightning-button>
+					<lightning-button
+						variant="Neutral"
+						label={labels.Copy_Types_Button_Label}
+						title={labels.Copy_Types_Button_Label}
+						onclick={handlePackageCopyCodeType}
+					></lightning-button>
+				</lightning-button-group>
+				<c-package-code-snippet
+					include-all-symbol={includeAllSymbol}
+					selected-metadata-types={selectedMetadataTypes}
+					selected-metadata-type={selectedMetadataType}
+					slot="body"
+				></c-package-code-snippet>
+			</c-lightning-card>
+		</div>
+	</template>
 
-  <template if:true={sfdxOutputSetting.show}>
-    <div class="slds-p-top_small">
-      <c-lightning-card
-        title={sfdxOutputSetting.title}
-        icon-name={sfdxOutputSetting.iconName}
-        variant="no-padding-bottom"
-        is-loading={sfdxOutputSetting.isLoading}
-        is-empty={sfdxOutputSetting.isEmpty}
-        empty-text={sfdxOutputSetting.emptyText}
-        hide-footer={sfdxOutputSetting.hideFooter}
-      >
-        <lightning-button
-          variant="brand"
-          label={labels.Copy_Button_Label}
-          title={labels.Copy_Button_Label}
-          onclick={handleSfdxCopyCode}
-          slot="actions"
-        ></lightning-button>
-        <c-sfdx-code-snippet sfdx-output={sfdxOutput} cli={CLI_COMMAND} slot="body"></c-sfdx-code-snippet>
-      </c-lightning-card>
-    </div>
-  </template>
+	<template lwc:if={sfdxOutputSetting.show}>
+		<div class="slds-p-top_small">
+			<c-lightning-card
+				title={sfdxOutputSetting.title}
+				icon-name={sfdxOutputSetting.iconName}
+				variant="no-padding-bottom"
+				is-loading={sfdxOutputSetting.isLoading}
+				is-empty={sfdxOutputSetting.isEmpty}
+				empty-text={sfdxOutputSetting.emptyText}
+				hide-footer={sfdxOutputSetting.hideFooter}
+			>
+				<lightning-button
+					variant="brand"
+					label={labels.Copy_Button_Label}
+					title={labels.Copy_Button_Label}
+					data-testid="sfdx-copy-button"
+					onclick={handleSfdxCopyCode}
+					slot="actions"
+				></lightning-button>
+				<c-sfdx-code-snippet sfdx-output={sfdxOutput} cli={CLI_COMMAND} slot="body"></c-sfdx-code-snippet>
+			</c-lightning-card>
+		</div>
+	</template>
 </template>
