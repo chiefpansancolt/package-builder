@@ -10,7 +10,7 @@ export default class SfdxCodeSnippet extends LightningElement {
 	@api
 	async handleCopy() {
 		let input = document.createElement('textarea');
-		input.value = this.template.querySelector('code').innerText.substring(2);
+		input.value = this.template.querySelector('code').innerText?.substring(2);
 
 		document.body.appendChild(input);
 		input.select();

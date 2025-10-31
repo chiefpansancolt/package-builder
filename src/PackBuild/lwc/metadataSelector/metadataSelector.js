@@ -89,13 +89,13 @@ export default class MetadataSelector extends LightningElement {
 			this.metadataOptions = JSON.parse(data);
 			this.metadataTypeSetting.isLoading = false;
 		} else if (error) {
-			this.showNotification(0, error, CONSTANTS.BLANK, CONSTANTS.BLANK);
+			this.showNotification(error, null, CONSTANTS.VARIANTOPTIONS[0].value, 'sticky');
 			this.metadataTypeSetting.isLoading = false;
 		}
 	}
 
 	handleSfdxCopyCode(event) {
-		this.template.querySelector('c-sfdx-code-snippet').handleCopy();
+		this.template.querySelector('c-sfdx-code-snippet')?.handleCopy();
 		let button = event.target;
 		button.label = labels.Copied_Button_Label;
 
@@ -105,7 +105,7 @@ export default class MetadataSelector extends LightningElement {
 	}
 
 	handlePackageCopyCodeAll(event) {
-		this.template.querySelector('c-package-code-snippet').handleCopyAll();
+		this.template.querySelector('c-package-code-snippet')?.handleCopyAll();
 		let button = event.target;
 		button.label = labels.Copied_Button_Label;
 
@@ -115,7 +115,7 @@ export default class MetadataSelector extends LightningElement {
 	}
 
 	handlePackageCopyCodeType(event) {
-		this.template.querySelector('c-package-code-snippet').handleCopyTypes();
+		this.template.querySelector('c-package-code-snippet')?.handleCopyTypes();
 		let button = event.target;
 		button.label = labels.Copied_Button_Label;
 
@@ -151,7 +151,7 @@ export default class MetadataSelector extends LightningElement {
 					this.availableFolders = [];
 					this.selectedFolder = '';
 
-					this.showNotification(0, error, CONSTANTS.BLANK, labels.Metadata_Retrieve_Error_Title);
+					this.showNotification(error, labels.Metadata_Retrieve_Error_Title, CONSTANTS.VARIANTOPTIONS[0].value, 'sticky');
 					this.metadataTypeSetting.isLoading = false;
 				});
 		} else {
@@ -163,7 +163,6 @@ export default class MetadataSelector extends LightningElement {
 
 	handleFolderListChange(event) {
 		this.selectedFolders = event.target.value;
-		console.log(event.target.value);
 	}
 
 	handlePackageTypeChange(event) {
@@ -199,14 +198,19 @@ export default class MetadataSelector extends LightningElement {
 					this.includeAllSymbol = false;
 				}
 
-				this.showNotification(2, CONSTANTS.BLANK, labels.Metadata_Retrieve_Success_Message, labels.Metadata_Retrieve_Success_Title);
+				this.showNotification(
+					labels.Metadata_Retrieve_Success_Message,
+					labels.Metadata_Retrieve_Success_Title,
+					CONSTANTS.VARIANTOPTIONS[2].value,
+					'dismissable'
+				);
 				this.metadataTypeSetting.isLoading = false;
 			})
 			.catch((error) => {
 				this.data = undefined;
 				this.includeAllSymbol = false;
 
-				this.showNotification(0, error, CONSTANTS.BLANK, labels.Metadata_Retrieve_Error_Title);
+				this.showNotification(error, labels.Metadata_Retrieve_Error_Title, CONSTANTS.VARIANTOPTIONS[0].value, 'sticky');
 				this.metadataTypeSetting.isLoading = false;
 			});
 	}
@@ -268,13 +272,26 @@ export default class MetadataSelector extends LightningElement {
 		return status;
 	}
 
-	showNotification(type, error, msg, title) {
-		const evt = new ShowToastEvent({
-			title: labels.title !== CONSTANTS.BLANK ? title : CONSTANTS.VARIANTOPTIONS[type].label,
-			message: type === 0 ? error.body.message : msg,
-			variant: CONSTANTS.VARIANTOPTIONS[type].value,
-			mode: type === 0 ? 'sticky' : 'dismissible'
-		});
-		this.dispatchEvent(evt);
+	showNotification(error, title, variant, mode) {
+		const message = this.errorParser(error);
+
+		this.dispatchEvent(
+			new ShowToastEvent({
+				title,
+				message,
+				variant,
+				mode
+			})
+		);
+	}
+
+	errorParser(error) {
+		if (!error) {
+			return '';
+		} else if (error.body) {
+			return Array.isArray(error.body) ? error.body.map((e) => e.message).join(', ') : error.body.message;
+		}
+
+		return error;
 	}
 }

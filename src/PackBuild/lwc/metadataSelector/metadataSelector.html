@@ -23,7 +23,7 @@
 				>
 				</lightning-combobox>
 			</div>
-			<template if:true={showFolderList}>
+			<template lwc:if={showFolderList}>
 				<div class="slds-col slds-size_1-of-1 slds-p-horizontal_medium">
 					<lightning-dual-listbox
 						name="folders"
@@ -62,7 +62,7 @@
 		</div>
 	</c-lightning-card>
 
-	<template if:true={metadataListSetting.show}>
+	<template lwc:if={metadataListSetting.show}>
 		<div class="slds-p-top_small">
 			<c-lightning-card
 				title={metadataListSetting.title}
@@ -80,7 +80,7 @@
 		</div>
 	</template>
 
-	<template if:true={packageOutputSetting.show}>
+	<template lwc:if={packageOutputSetting.show}>
 		<div class="slds-p-top_small">
 			<c-lightning-card
 				title={packageOutputSetting.title}
@@ -115,7 +115,7 @@
 		</div>
 	</template>
 
-	<template if:true={sfdxOutputSetting.show}>
+	<template lwc:if={sfdxOutputSetting.show}>
 		<div class="slds-p-top_small">
 			<c-lightning-card
 				title={sfdxOutputSetting.title}
@@ -130,6 +130,7 @@
 					variant="brand"
 					label={labels.Copy_Button_Label}
 					title={labels.Copy_Button_Label}
+					data-testid="sfdx-copy-button"
 					onclick={handleSfdxCopyCode}
 					slot="actions"
 				></lightning-button>
